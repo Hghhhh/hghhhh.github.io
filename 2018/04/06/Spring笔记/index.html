@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#��һ�� Spring��� 1.Spring�����죻2.���ʹ���м�������ʵ�ã��������еĿ�ܼ���3.Spring�ŵ㣺 ��������� ioc����--���Ʒ�ת Aop���������� �������֧�� �Կ�ܵ�֧�� .... 4.��Ҫ���ݣ� #�ڶ�����Spring ioc 1.ioc—inversion of control">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2018/04/06/Spring笔记/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#��һ�� Spring��� 1.Spring�����죻2.���ʹ���м�������ʵ�ã��������еĿ�ܼ���3.Spring�ŵ㣺 ��������� ioc����--���Ʒ�ת Aop���������� �������֧�� �Կ�ܵ�֧�� .... 4.��Ҫ���ݣ� #�ڶ�����Spring ioc 1.ioc—inversion of control">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-04-06T02:50:46.494Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="#��һ�� Spring��� 1.Spring�����죻2.���ʹ���м�������ʵ�ã��������еĿ�ܼ���3.Spring�ŵ㣺 ��������� ioc����--���Ʒ�ת Aop���������� �������֧�� �Կ�ܵ�֧�� .... 4.��Ҫ���ݣ� #�ڶ�����Spring ioc 1.ioc—inversion of control">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-Spring笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/06/Spring笔记/" class="article-date">
+  <time datetime="2018-04-06T02:46:23.825Z" itemprop="datePublished">2018-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#��һ�� Spring���</p>
+<p>1.Spring�����죻<br>2.���ʹ���м�������ʵ�ã��������еĿ�ܼ���<br>3.Spring�ŵ㣺</p>
+<pre><code>���������
+ioc����--���Ʒ�ת
+Aop����������
+�������֧��
+�Կ�ܵ�֧��
+....
+</code></pre><p>4.��Ҫ���ݣ�</p>
+<p>#�ڶ�����Spring ioc</p>
+<p>1.ioc—inversion of control ���Ʒ�ת</p>
+<pre><code>ͨ������һ��F:\spring\spring\spring\demo\01spring4_ioc1����
+        ������ԭ��������������Ϊ�˳�����ն���
+        ����Ա��Ҫ����������ҵ��ʵ��
+        ʵ����service��dao�Ľ������Service���dao��ʵ���˷��롣û��ֱ��������ϵ��2.hello Spring
+���裺������ص�jar��
+           ��дspring�����ļ�    
+</code></pre><p>�������Դ�룺F:\spring\spring\spring\demo\02spring4_hello</p>
+<p>ioc��һ�ֱ��˼�룬��������̱�Ϊ��������<br>ioc��ʵ����ͨ��ioc������ʵ�ֵģ�ioc����–BeanFactory<br>3.ʹ��ioc�����������3�ַ�ʽ<br>ͨ���޲ι��췽��<br>ͨ���вι��췽��</p>
+<p>ͨ��������������������<br>    ��̬����</p>
+<p>��̬����</p>
+<p>#������ �����ļ����</p>
+<p>1.alias��Ϊbean���ñ������������ö������<br>2.bean������</p>
+<p>3.�Ŷ�Э��ͨ��importʵ��:<br><code>&lt;import resource=&quot;entity.xml&quot;/&gt;</code></p>
+<p>#���Ľ� ����ע�� DI</p>
+<p>1.����ע��–dependency injection</p>
+<pre><code>������ָbean����������������bean�����������Դ
+ע��:ָbean������������Դ�����������ú�װ��
+</code></pre><p>2.springע��–������ע��<br>    ��ϸ��ioc��������<br>3.springע��–setterע��<br>Ҫ��ע������Ա�����set������set�����ķ�������set+��������ĸ��д�����������boolean����is������</p>
+<p>#���彲��Bean��������</p>
+<p>1.bean����������scope�����ã�</p>
+<p>ע�⣺������Struts2��springʱ����Ҫ��action��Ϊscope=��prototype��<br> 2.bean��autowire���Զ�װ�䣩��<br>������beanʱ��������bean��autowire���ԣ�����ָ��װ������</p>
+<p>��������ȫ�ֵ��Զ�װ�����ͣ���ͷ��default-autowire</p>
+<p>�Ƽ���ʹ���Զ�װ�䣬��ʹ��annotation��ע�⣩</p>
+<h1 id="������-��̬����"><a href="#������-��̬����" class="headerlink" title="������ ��̬����"></a>������ ��̬����</h1><p>1.��̬����Ľ�ɫ����<br>   �����ɫ—һ��ʹ�ýӿڻ��������ʵ��</p>
+<pre><code>��ʵ��ɫ---������Ľ�ɫ
+�����ɫ---������ʵ��ɫ--������ʵ��ɫ��һ�����һЩ�������
+�ͻ�      ----ʹ�ô����ɫ������һЩ����
+</code></pre><p>2.����ʵ��<br>F:\spring\spring\spring\demo\07spring4_staticproxy<br>3.ʹ�þ�̬����ĺô���<br>    ʹ����ʵ��ɫ�����ҵ����Ӵ��⣬���ٹ�עһЩ����������<br>    ������ҵ���ɴ��������—-ʵ��ҵ��ķֹ�<br>    ����ҵ������չʱ��ø��Ӽ��кͷ���<br>ȱ�㣺<br>    �����–���˴����࣬��������󣬿���Ч�ʱ����</p>
+<p>#���߽� ��̬����</p>
+<p>1.��̬����;�̬����Ľ�ɫ��һ����<br>2.��̬����Ĵ������Ƕ�̬���ɵ�<br>3.��Ϊ����һ����ڽӿڵĶ�̬����ͻ�����Ķ�̬����<br>1�����ڽӿڵĶ�̬����—jdk��̬����<br>2��������Ķ�̬����—cglib<br>����javasist�����ɶ�̬����<br>4.jdk��̬����–Proxy���invocationHandler��<br>һ����̬����һ�����ĳһ��ҵ��<br>�ڰ˽� ����������—aop<br>1.aop��aspect oriented programming<br>2.aop��spring�е�����</p>
+<pre><code>�ṩ����ʽ����
+�����û�ʵ���Զ�������
+</code></pre><p>3.aop:�ڲ��ı�ԭ�д��������£������µĹ���</p>
+<p>Aop�ı��ģʽ������ı��</p>
+<p>4.���ʽ��ͣ�<br>��ע�㣺���ӵ�ĳ��ҵ������־����ȫ�����棬����ȡ�<br>���棨Aspect����һ����ע���ģ�黯<br>֪ͨ���������ĳ�����ӵ���ִ�еĶ���<br>֯�루Weaving�������������ӵ�������Ӧ�ó������ͻ��߶����ϣ�������һ����֪ͨ�Ķ���<br>5.ʹ��springʵ��aop<br>��һ��ʵ�ַ�ʽ–ͨ��springAPI��ʵ��<br>Դ�룺F:\spring\spring\spring\demo\09spring4_aop1<br>Aop����Ҫ�ԣ�����Ҫ<br>    Spring��������ҵ������־����ȫ�ȣ�����ҵ������������ִ������ҵ��ʱ�����       ����ҵ��ӽ�����ʵ�ֹ���ҵ����ظ����á�����ҵ������⣬����Աרע������ҵ       ���䱾�ʻ��Ƕ�̬����<br>�ڶ���ʵ�ַ�ʽ—�Զ�������ʵ��<br>Դ�룺F:\spring\spring\spring\demo\10spring4_aop2<br>������ʵ�ַ�ʽ—ͨ��ע��ķ�ʽ��ʵ��<br>Դ�룺F:\spring\spring\spring\demo\11spring4_aop3<br>�ھŽ� ����mybatis<br>1.���裺<br>   a) �������jar��<br>    b)��д�����ļ�<br>    c)ʵ��<br><figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- ����sqlSessionFactory --&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=<span class="string">"sqlSessionFactory"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;property name=<span class="string">"dataSource"</span> ref=<span class="string">"dataSource"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;property name=<span class="string">"configLocation"</span> value=<span class="string">"classpath:mybatis.cfg.xml"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=<span class="string">"sqlSessionTemplate"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.mybatis.spring.SqlSessionTemplate"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;constructor-arg index=<span class="string">"0"</span> ref=<span class="string">"sqlSessionFactory"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure></p>
+<p>2.����ʽ�������</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- ��������Դ --&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=<span class="string">"dataSource"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.jdbc.datasource.DriverManagerDataSource"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;property name=<span class="string">"driverClassName"</span> value=<span class="string">"com.mysql.jdbc.Driver"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;property name=<span class="string">"url"</span> value=<span class="string">"jdbc:mysql://localhost:3306/test"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;property name=<span class="string">"username"</span> value=<span class="string">"root"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;property name=<span class="string">"password"</span> value=<span class="string">"root"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- ����ʽ�������� ��ʼ --&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- ������������� --&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=<span class="string">"txManager"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.springframework.jdbc.datasource.DataSourceTransactionManager"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;property name=<span class="string">"dataSource"</span> ref=<span class="string">"dataSource"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;!-- ��������֪ͨ --&gt;</span><br><span class="line"></span><br><span class="line">&lt;tx:advice id=<span class="string">"txAdvice"</span> transaction-manager=<span class="string">"txManager"</span>&gt;</span><br><span class="line"></span><br><span class="line">tx:attributes</span><br><span class="line"></span><br><span class="line">&lt;!-- ������Щ����ʹ��ʲô��������,��������Ĵ������� --&gt;</span><br><span class="line"></span><br><span class="line">&lt;tx:method name=<span class="string">"add"</span> propagation=<span class="string">"REQUIRED"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;tx:method name=<span class="string">"insert"</span> propagation=<span class="string">"REQUIRED"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;tx:method name=<span class="string">"update"</span> propagation=<span class="string">"REQUIRED"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;tx:method name=<span class="string">"delete"</span> propagation=<span class="string">"REQUIRED"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;tx:method name=<span class="string">"remove*"</span> propagation=<span class="string">"REQUIRED"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;tx:method name=<span class="string">"get"</span> read-only=<span class="string">"true"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;tx:method name=<span class="string">"*"</span> propagation=<span class="string">"REQUIRED"</span>/&gt;</span><br><span class="line"></span><br><span class="line">/tx:attributes</span><br><span class="line"></span><br><span class="line">/tx:advice</span><br><span class="line"></span><br><span class="line">aop:config</span><br><span class="line"></span><br><span class="line">&lt;aop:pointcut expression=<span class="string">"execution(* cn.sxt.dao.impl.*.*(..))"</span> id=<span class="string">"pointcut"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;aop:advisor advice-ref=<span class="string">"txAdvice"</span> pointcut-ref=<span class="string">"pointcut"</span>/&gt;</span><br><span class="line"></span><br><span class="line">/aop:config</span><br><span class="line"></span><br><span class="line">&lt;!-- ����ʽ�������� ���� --&gt;</span><br></pre></td></tr></table></figure>
+<p> 3.����mybatis����2��<br>dao��̳�SqlSessionDaoSupport,ͨ��getSqlSession�����������SqlSession</p>
+<p>beans.xml�в�����дSqlSessionTemplate������<br>���Ƽ�ʹ�����ַ�����</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- ����sqlSessionFactory --&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=<span class="string">"sqlSessionFactory"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;property name=<span class="string">"dataSource"</span> ref=<span class="string">"dataSource"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;property name=<span class="string">"configLocation"</span> value=<span class="string">"classpath:mybatis.cfg.xml"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=<span class="string">"userDao"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"cn.sxt.dao.impl.UserDaoImpl"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;property name=<span class="string">"sqlSessionFactory"</span> ref=<span class="string">"sqlSessionFactory"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+<p>4.����mybatis����3��<br>ʹ��ע�⣬mapper<br>bean.xml</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">&lt;!-- ����sqlSessionFactory --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"sqlSessionFactory"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"dataSource"</span> <span class="attr">ref</span>=<span class="string">"dataSource"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"configLocation"</span> <span class="attr">value</span>=<span class="string">"classpath:mybatis.cfg.xml"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userMapper"</span> <span class="attr">class</span>=<span class="string">"org.mybatis.spring.mapper.MapperFactoryBean"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"mapperInterface"</span> <span class="attr">value</span>=<span class="string">"cn.sxt.dao.UserMapper"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"sqlSessionFactory"</span> <span class="attr">ref</span>=<span class="string">"sqlSessionFactory"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">bean</span> <span class="attr">id</span>=<span class="string">"userService"</span> <span class="attr">class</span>=<span class="string">"cn.sxt.service.impl.UserServiceImpl"</span>&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;<span class="name">property</span> <span class="attr">name</span>=<span class="string">"userMapper"</span> <span class="attr">ref</span>=<span class="string">"userMapper"</span>/&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="tag">&lt;/<span class="name">bean</span>&gt;</span></span><br><span class="line"></span><br><span class="line">userMapper.java</span><br><span class="line"></span><br><span class="line">package cn.sxt.dao;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">import org.apache.ibatis.annotations.Select;</span><br><span class="line"></span><br><span class="line">import cn.sxt.vo.User;</span><br><span class="line"></span><br><span class="line">public interface UserMapper &#123;</span><br><span class="line"></span><br><span class="line">	@Select("select * from user")</span><br><span class="line"></span><br><span class="line">	public List<span class="tag">&lt;<span class="name">User</span>&gt;</span> selectUser(); </span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">userServiceImpl.java</span><br><span class="line"></span><br><span class="line">package cn.sxt.service.impl;</span><br><span class="line"></span><br><span class="line">import java.util.List;</span><br><span class="line"></span><br><span class="line">import cn.sxt.dao.UserMapper;</span><br><span class="line"></span><br><span class="line">import cn.sxt.service.UserService;</span><br><span class="line"></span><br><span class="line">import cn.sxt.vo.User;</span><br><span class="line"></span><br><span class="line">public class UserServiceImpl implements UserService&#123;</span><br><span class="line"></span><br><span class="line">private UserMapper userMapper = null;</span><br><span class="line"></span><br><span class="line">public void setUserMapper(UserMapper userMapper) &#123;</span><br><span class="line"></span><br><span class="line">this.userMapper = userMapper;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@Override</span><br><span class="line"></span><br><span class="line">public List<span class="tag">&lt;<span class="name">User</span>&gt;</span> selectUser() &#123;</span><br><span class="line"></span><br><span class="line">return userMapper.selectUser();</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>4.����mybatis����4��<br>����mybatis�����ļ�<br>������������Ϣ�ŵ�spring�������ļ��У�sqlSessionFactory�����ø�һ��</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- ����sqlSessionFactory --&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=<span class="string">"sqlSessionFactory"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;property name=<span class="string">"dataSource"</span> ref=<span class="string">"dataSource"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;property name="mapperLocations" value="classpath:cn/sxt/vo/*.mapper.xml"&gt;&lt;/property&gt;</span><br><span class="line"></span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/06/Spring笔记/" data-id="cjfncvuhw0002bgw90g7qehwo" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2018/04/06/SpringBoot笔记/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          (no title)
+        
+      </div>
+    </a>
+  
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/04/06/SpringMVC笔记/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/06/SpringBoot笔记/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/06/Spring笔记/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>

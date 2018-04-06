@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+
+  
+  <title>Hexo</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="#ǰ�� ##HTTP����  һ��http�������3����������1.����-URL-Э��/�汾2.����ͷ��Ϣ3.�������ģ�����ͷ��Ϣ����������֮���ÿո���ʾ����  GET/sample.jsp HTTP/1.1 Accept:image/gif.image/jpeg.*/* Accept-Language:zh-cn Connecti">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Hexo">
+<meta property="og:url" content="http://yoursite.com/2018/04/06/SpringMVC笔记/index.html">
+<meta property="og:site_name" content="Hexo">
+<meta property="og:description" content="#ǰ�� ##HTTP����  һ��http�������3����������1.����-URL-Э��/�汾2.����ͷ��Ϣ3.�������ģ�����ͷ��Ϣ����������֮���ÿո���ʾ����  GET/sample.jsp HTTP/1.1 Accept:image/gif.image/jpeg.*/* Accept-Language:zh-cn Connecti">
+<meta property="og:locale" content="default">
+<meta property="og:updated_time" content="2018-04-06T02:52:08.484Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Hexo">
+<meta name="twitter:description" content="#ǰ�� ##HTTP����  һ��http�������3����������1.����-URL-Э��/�汾2.����ͷ��Ϣ3.�������ģ�����ͷ��Ϣ����������֮���ÿո���ʾ����  GET/sample.jsp HTTP/1.1 Accept:image/gif.image/jpeg.*/* Accept-Language:zh-cn Connecti">
+  
+    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Hexo</a>
+      </h1>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-SpringMVC笔记" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2018/04/06/SpringMVC笔记/" class="article-date">
+  <time datetime="2018-04-06T02:51:59.609Z" itemprop="datePublished">2018-04-06</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>#ǰ��</p>
+<p>##HTTP����</p>
+<blockquote>
+<p>һ��http�������3����������<br>1.����-URL-Э��/�汾<br>2.����ͷ��Ϣ<br>3.�������ģ�����ͷ��Ϣ����������֮���ÿո���<br>ʾ����</p>
+</blockquote>
+<pre><code>GET/sample.jsp HTTP/1.1
+Accept:image/gif.image/jpeg.*/*
+Accept-Language:zh-cn
+Connection:Keep-Alive
+Host:localhost
+User-Agent:Mozila/4.0(compatible:MSIE5.01:Windows NT5.0)
+Accept-Encoding:gzip,deflate
+
+username=jinqiao&amp;password=1234
+</code></pre><p>##HTTP��Ӧ</p>
+<blockquote>
+<p>ͬhttp����һ�ۣ�http��ӦҲ������������<br>1.Э��-״̬��-����<br>2.��Ӧͷ��Ϣ<br>3.��Ӧ����(������HTML�ĵ�)<br>ʾ����</p>
+</blockquote>
+<pre><code>HTTP/1.1 200 OK
+Date: Sat, 31 Dec 2005 23:59:59 GMT
+Content-Type: text/html;charset=ISO-8859-1
+Content-Length: 122`
+
+��html��
+��head��
+��title��Wrox Homepage��/title��
+��/head��
+��body��
+��!-- body goes here --��
+��/body��
+��/html��
+</code></pre><p>#Ӧ�û���ע���ȿ�����    </p>
+<p>##������ע�⣺</p>
+<blockquote>
+<p>ע�������ǰ��@Controller������ǰ��@RequestMapping(value=”…”(,method={RequestMethod.POST,RequestMethod.GET}))</p>
+</blockquote>
+<p>##�ض����Flash����</p>
+<blockquote>
+<p>###�ض����ʹ�������<br>1.��Ҫ����һ���ⲿ��վʱ<br>2.�����û����¼���ҳ��ʱ�ٴε���ͬ���Ķ�����Ϊ�˱���������������ύ�������û��ض���һ����ͬ��ҳ�档���ҳ�漴ʱ�������¼��ض�û�и����á�</p>
+<p>###springMVC�ṩ���ض���ֵ������ʹ��Flash����<br>���裺<br>1.������springMVC�����ļ��м���<annotation-driven>Ԫ��<br>2.�ڷ��������һ���µĲ�������RedirectAttributes<br>3.ͨ��redirectAttributes��addFlashAttribute(String agr0,Object arg1)�������������</annotation-driven></p>
+</blockquote>
+<p>##ʹ��·��������<br>    @RequestMapping(value=”product_save”, method=RequestMethod.POST)<br>    public String save(ProductForm productForm, RedirectAttributes redirectAttributes) throws Exception{<br>        logger.info(“SaveProductController called”);<br>        Product product  = new Product();<br>        product.setDescription(productForm.getDescription());<br>        product.setName(productForm.getName());<br>        try {<br>            product.setPrice(Integer.parseInt(productForm.getPrice()));<br>        } catch(NumberFormatException e) {<br>            e.printStackTrace();<br>        }<br>        Product newProduct = productService.add(product);<br>        redirectAttributes.addAttribute(“message”, “Add product success!”);<br>        return “redirect:/product_view/“+ newProduct.getId();<br>    }</p>
+<pre><code>@RequestMapping(value=&quot;/product_view/{id}&quot;)
+public String viewProduct(@PathVariable long id, Model model) {
+    Product product = productService.get(id);
+    model.addAttribute(&quot;product&quot;, product);
+    return &quot;ProductDetails&quot;;
+}
+</code></pre><p>�����idΪ·���������ڷ�������ǰ��һ��@PathVariable����ʹ��</p>
+<p>##��ȡ���������<br>�磺<br><a href="http://localhost:8080/app04b/product_input?productId=3" target="_blank" rel="noopener">http://localhost:8080/app04b/product_input?productId=3</a><br>ֻ��Ҫʹ���ڷ����Ĳ���ǰ��@RequestParamע��<br>�磺<br>public void sendProduct(@RequestParam int productId)<br>@RequestParamע��Ĳ������Ͳ�һ�����ַ���</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2018/04/06/SpringMVC笔记/" data-id="cjfncvuer0000bgw9g1xo6ruj" class="article-share-link">Share</a>
+      
+      
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2018/04/06/SpringBoot笔记/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title"></div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+
+  
+    
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2018/04/06/SpringMVC笔记/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/06/SpringBoot笔记/">(no title)</a>
+          </li>
+        
+          <li>
+            <a href="/2018/04/06/Spring笔记/">(no title)</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2018 John Doe<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+
+
+  </div>
+</body>
+</html>
