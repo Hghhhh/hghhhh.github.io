@@ -1,100 +1,335 @@
 <!DOCTYPE html>
-<html>
-<head>
-  <meta charset="utf-8">
-  
+
+
 
   
-  <title>SpringBoot笔记 | Hexo</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="SpringBoot官网：https://projects.spring.io/spring-boot SpringBootAPI文档：https://docs.spring.io/spring-boot/docs/current/api/ SpringBoot文档：https://docs.spring.io/spring-boot/docs/current/reference/htmlsing">
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="SpringBoot," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="SpringBoot官网：https://projects.spring.io/spring-boot SpringBootAPI文档：https://docs.spring.io/spring-boot/docs/current/api/ SpringBoot文档：https://docs.spring.io/spring-boot/docs/current/reference/htmlsing">
+<meta name="keywords" content="SpringBoot">
 <meta property="og:type" content="article">
 <meta property="og:title" content="SpringBoot笔记">
 <meta property="og:url" content="http://yoursite.com/2018/04/06/SpringBoot笔记/index.html">
-<meta property="og:site_name" content="Hexo">
+<meta property="og:site_name" content="黄国航的博客">
 <meta property="og:description" content="SpringBoot官网：https://projects.spring.io/spring-boot SpringBootAPI文档：https://docs.spring.io/spring-boot/docs/current/api/ SpringBoot文档：https://docs.spring.io/spring-boot/docs/current/reference/htmlsing">
-<meta property="og:locale" content="default">
-<meta property="og:image" content="c:/Users/Administrator/Pictures/截图/Springboot/捕获.PNG">
-<meta property="og:image" content="c:/Users/Administrator/Pictures/截图/Springboot/readingList.PNG">
-<meta property="og:updated_time" content="2018-04-06T03:33:21.753Z">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/%E6%8D%95%E8%8E%B7.PNG">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/readingList.PNG">
+<meta property="og:updated_time" content="2018-04-07T11:57:20.384Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="SpringBoot笔记">
 <meta name="twitter:description" content="SpringBoot官网：https://projects.spring.io/spring-boot SpringBootAPI文档：https://docs.spring.io/spring-boot/docs/current/api/ SpringBoot文档：https://docs.spring.io/spring-boot/docs/current/reference/htmlsing">
-<meta name="twitter:image" content="c:/Users/Administrator/Pictures/截图/Springboot/捕获.PNG">
+<meta name="twitter:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/%E6%8D%95%E8%8E%B7.PNG">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/04/06/SpringBoot笔记/"/>
+
+
+
+
+
+  <title>SpringBoot笔记 | 黄国航的博客</title>
   
-    <link rel="alternate" href="/atom.xml" title="Hexo" type="application/atom+xml">
-  
-  
-    <link rel="icon" href="/favicon.png">
-  
-  
-    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
-  
-  <link rel="stylesheet" href="/css/style.css">
+
+
+
+
+
+
+
+
 </head>
 
-<body>
-  <div id="container">
-    <div id="wrap">
-      <header id="header">
-  <div id="banner"></div>
-  <div id="header-outer" class="outer">
-    <div id="header-title" class="inner">
-      <h1 id="logo-wrap">
-        <a href="/" id="logo">Hexo</a>
-      </h1>
-      
-    </div>
-    <div id="header-inner" class="inner">
-      <nav id="main-nav">
-        <a id="main-nav-toggle" class="nav-icon"></a>
-        
-          <a class="main-nav-link" href="/">Home</a>
-        
-          <a class="main-nav-link" href="/archives">Archives</a>
-        
-      </nav>
-      <nav id="sub-nav">
-        
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
-        
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
-      </nav>
-      <div id="search-form-wrap">
-        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="http://yoursite.com"></form>
-      </div>
-    </div>
-  </div>
-</header>
-      <div class="outer">
-        <section id="main"><article id="post-SpringBoot笔记" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2018/04/06/SpringBoot笔记/" class="article-date">
-  <time datetime="2018-04-06T03:29:14.000Z" itemprop="datePublished">2018-04-06</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
   
-    <h1 class="article-title" itemprop="name">
-      SpringBoot笔记
-    </h1>
+  
+    
   
 
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">黄国航的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/06/SpringBoot笔记/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄国航">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄国航的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">SpringBoot笔记</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-06T11:29:14+08:00">
+                2018-04-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
       </header>
     
-    <div class="article-entry" itemprop="articleBody">
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
       
         <p><strong>SpringBoot官网：<a href="https://projects.spring.io/spring-boot" target="_blank" rel="noopener">https://projects.spring.io/spring-boot</a></strong></p>
 <p><strong>SpringBootAPI文档：<a href="https://docs.spring.io/spring-boot/docs/current/api/" target="_blank" rel="noopener">https://docs.spring.io/spring-boot/docs/current/api/</a></strong></p>
 <p><strong>SpringBoot文档：<a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/" target="_blank" rel="noopener">https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/</a></strong></p>
 <p><strong>开始学习前先了解一下SpringBoot注解大全：<a href="https://www.cnblogs.com/tanwei81/p/6814022.html" target="_blank" rel="noopener">https://www.cnblogs.com/tanwei81/p/6814022.html</a></strong></p>
 <h1 id="第二章-开发第一个应用程序"><a href="#第二章-开发第一个应用程序" class="headerlink" title="第二章 开发第一个应用程序"></a>第二章 开发第一个应用程序</h1><h2 id="2-1运用SpringBoot"><a href="#2-1运用SpringBoot" class="headerlink" title="2.1运用SpringBoot"></a>2.1运用SpringBoot</h2><p>使用IntelliJ IDEA创建快速创建一个SpringBoot项目，项目结构如下：</p>
-<p><img src="C:\Users\Administrator\Pictures\截图\Springboot\捕获.PNG" alt="项目结构"></p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/%E6%8D%95%E8%8E%B7.PNG" alt="项目结构"></p>
+<a id="more"></a>
 <h3 id="2-1-1查看初始化的SpringBoot新项目"><a href="#2-1-1查看初始化的SpringBoot新项目" class="headerlink" title="2.1.1查看初始化的SpringBoot新项目"></a>2.1.1查看初始化的SpringBoot新项目</h3><h4 id="1-启动引导Spring"><a href="#1-启动引导Spring" class="headerlink" title="1.启动引导Spring"></a>1.启动引导Spring</h4><p><code>DemoApplication</code>在SpringBoot应用程序里有两个作用：配置和启动引导。虽然SpringBoot的自动配置免除了许多的Spring配置，但你还需要进行少量配置来启用自动配置。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> com.example.demo;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.SpringApplication;</span><br><span class="line"><span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;</span><br><span class="line"></span><br><span class="line"><span class="meta">@SpringBootApplication</span><span class="comment">//开启组件扫描和自动配置</span></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">DemoApplication</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		SpringApplication.run(DemoApplication.class, args);<span class="comment">//负责启动引导应用程序</span></span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><code>@SpringBootApplication</code>开启了Spring的组件扫描和SpringBoot的自动配置功能，将三个有用的注解组合在一起。</p>
@@ -122,7 +357,7 @@
 <figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="selector-tag">body</span> &#123;</span><br><span class="line">	<span class="attribute">background-color</span>: <span class="number">#cccccc</span>;</span><br><span class="line">	<span class="attribute">font-family</span>: arial,helvetica,sans-serif;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.bookHeadline</span> &#123;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">12pt</span>;</span><br><span class="line">	<span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-class">.bookDescription</span> &#123;</span><br><span class="line">	<span class="attribute">font-size</span>: <span class="number">10pt</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="selector-tag">label</span> &#123;</span><br><span class="line">	<span class="attribute">font-weight</span>: bold;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p><em>具体代码：C:\Users\Administrator\IdeaProjects\readinglist</em></p>
 <h3 id="2-3-2运行应用程序"><a href="#2-3-2运行应用程序" class="headerlink" title="2.3.2运行应用程序"></a>2.3.2运行应用程序</h3><p>run ReadinglistApplication</p>
-<p><img src="C:\Users\Administrator\Pictures\截图\Springboot\readingList.PNG" alt="readingList"></p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/readingList.PNG" alt="readingList"></p>
 <h3 id="2-3-3刚刚发生了什么"><a href="#2-3-3刚刚发生了什么" class="headerlink" title="2.3.3刚刚发生了什么"></a>2.3.3刚刚发生了什么</h3><p>在向应用程序加入Spring boot时，有个名为spring-boot-autoconfigure的JAR文件，其中包含很多配置类。每个配置类都在应用程序的Classpath里，都有机会为应用程序的配置添砖加瓦。</p>
 <p>所有这些配置如此与众不同，原因在于他们利用了Spring的条件化配置，这是Spring4.0引入的新特性。条件化配置允许配置存在于应用程序中，但在满足某些特定条件之前都忽略这个配置。</p>
 <p>在spring里可以很方便地编写你自己的条件，你所要做的就是实现Condition接口，覆盖它的matches()方法。举例来说，下面这个简单的条件类只有在Classpath里存在JdbcTemplate时才会生效：</p>
@@ -425,109 +660,388 @@
 
       
     </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2018/04/06/SpringBoot笔记/" data-id="cjfneb7dy00015kw91rqspfwa" class="article-share-link">Share</a>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/SpringBoot/" rel="tag"># SpringBoot</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/04/06/SpringMVC笔记/" rel="prev" title="SpringMVC笔记">
+                SpringMVC笔记 <i class="fa fa-chevron-right"></i>
+              </a>
+            
+          </div>
+        </div>
+      
+
       
       
     </footer>
   </div>
   
-    
-<nav id="article-nav">
   
-    <a href="/2018/04/06/SpringMVC笔记/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+
+
+
+        </div>
         
-          SpringMVC笔记
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.png"
+                alt="黄国航" />
+            
+              <p class="site-author-name" itemprop="name">黄国航</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">3</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Hghhhh" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:huangguohang123@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第二章-开发第一个应用程序"><span class="nav-text">第二章 开发第一个应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1运用SpringBoot"><span class="nav-text">2.1运用SpringBoot</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1查看初始化的SpringBoot新项目"><span class="nav-text">2.1.1查看初始化的SpringBoot新项目</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-启动引导Spring"><span class="nav-text">1.启动引导Spring</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-测试SpringBoot应用程序"><span class="nav-text">2.测试SpringBoot应用程序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-配置应用程序属性"><span class="nav-text">3.配置应用程序属性</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2SpringBoot项目构建过程解析"><span class="nav-text">2.1.2SpringBoot项目构建过程解析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3使用自动配置"><span class="nav-text">2.3使用自动配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1专注于应用程序功能"><span class="nav-text">2.3.1专注于应用程序功能</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#1-定义领域模型"><span class="nav-text">1.定义领域模型</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#2-定义仓库接口"><span class="nav-text">2.定义仓库接口</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#3-创建Web界面"><span class="nav-text">3.创建Web界面</span></a></li></ol></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2运行应用程序"><span class="nav-text">2.3.2运行应用程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3刚刚发生了什么"><span class="nav-text">2.3.3刚刚发生了什么</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三章-自定义配置"><span class="nav-text">第三章 自定义配置</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#3-1覆盖SpringBoot自动配置"><span class="nav-text">3.1覆盖SpringBoot自动配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-1保护应用程序"><span class="nav-text">3.1.1保护应用程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-2创建自定义的安全配置"><span class="nav-text">3.1.2创建自定义的安全配置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-1-3掀开自动配置的神秘面纱"><span class="nav-text">3.1.3掀开自动配置的神秘面纱</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-2通过属性文件外置配置"><span class="nav-text">3.2通过属性文件外置配置</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-1自动配置微调"><span class="nav-text">3.2.1自动配置微调</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-禁用模板缓存"><span class="nav-text">1.禁用模板缓存</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-配置嵌入式服务器"><span class="nav-text">2.配置嵌入式服务器</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-配置日志"><span class="nav-text">3.配置日志</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-配置数据源"><span class="nav-text">4.配置数据源</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-2应用程序Bean的配置外置"><span class="nav-text">3.2.2应用程序Bean的配置外置</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-2-3使用Profile进行配置"><span class="nav-text">3.2.3使用Profile进行配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-使用特定于Profile的属性文件"><span class="nav-text">1.使用特定于Profile的属性文件</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-使用多Profile-YAML文件进行配置"><span class="nav-text">2.使用多Profile YAML文件进行配置</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-3定制应用程序错误页面"><span class="nav-text">3.3定制应用程序错误页面</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第四章-测试"><span class="nav-text">第四章 测试</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#4-1继承测试自动配置"><span class="nav-text">4.1继承测试自动配置</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-2测试Web应用程序"><span class="nav-text">4.2测试Web应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-1模拟SpringMVC"><span class="nav-text">4.2.1模拟SpringMVC</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-2-2测试Web安全"><span class="nav-text">4.2.2测试Web安全</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-3测试运行中的应用程序"><span class="nav-text">4.3测试运行中的应用程序</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-1用随机端口启动服务器"><span class="nav-text">4.3.1用随机端口启动服务器</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-3-2使用Selenium测试HTML页面"><span class="nav-text">4.3.2使用Selenium测试HTML页面</span></a></li></ol></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第七章-深入Actuator"><span class="nav-text">第七章 深入Actuator</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#7-1揭秘Actuator的Web端点-REST端点"><span class="nav-text">7.1揭秘Actuator的Web端点-REST端点</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-1查看配置明细"><span class="nav-text">7.1.1查看配置明细</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-获得Bean装配报告"><span class="nav-text">1.获得Bean装配报告</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-详细自动配置"><span class="nav-text">2.详细自动配置</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-查看配置属性"><span class="nav-text">3.查看配置属性</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#4-生成端点到控制器的映射"><span class="nav-text">4.生成端点到控制器的映射</span></a></li></ol></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-2运行时度量"><span class="nav-text">7.1.2运行时度量</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-3关闭应用程序"><span class="nav-text">7.1.3关闭应用程序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#7-1-4获取应用信息"><span class="nav-text">7.1.4获取应用信息</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-2连接Actuator的远程shell"><span class="nav-text">7.2连接Actuator的远程shell</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-3通过JMX监控应用程序"><span class="nav-text">7.3通过JMX监控应用程序</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-4自定义Actuator"><span class="nav-text">7.4自定义Actuator</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#7-4-5插入自定义健康指示器"><span class="nav-text">7.4.5插入自定义健康指示器</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-5保护Actuator端点"><span class="nav-text">7.5保护Actuator端点</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
         
       </div>
-    </a>
-  
-  
-</nav>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">黄国航</span>
 
   
-</article>
+</div>
 
-</section>
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
+
+
+
+
         
-          <aside id="sidebar">
-  
-    
-
-  
-    
-
-  
-    
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Archives</h3>
-    <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/04/">April 2018</a></li></ul>
-    </div>
-  </div>
 
 
-  
-    
-  <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
-    <div class="widget">
-      <ul>
-        
-          <li>
-            <a href="/2018/04/06/Spring笔记/">Spring笔记</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/06/SpringMVC笔记/">SpringMVC笔记</a>
-          </li>
-        
-          <li>
-            <a href="/2018/04/06/SpringBoot笔记/">SpringBoot笔记</a>
-          </li>
-        
-      </ul>
-    </div>
-  </div>
 
-  
-</aside>
+
+
+
+
         
       </div>
-      <footer id="footer">
-  
-  <div class="outer">
-    <div id="footer-info" class="inner">
-      &copy; 2018 John Doe<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
-    </div>
-  </div>
-</footer>
-    </div>
-    <nav id="mobile-nav">
-  
-    <a href="/" class="mobile-nav-link">Home</a>
-  
-    <a href="/archives" class="mobile-nav-link">Archives</a>
-  
-</nav>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
     
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-
-
-  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
-  <script src="/fancybox/jquery.fancybox.pack.js"></script>
-
-
-<script src="/js/script.js"></script>
-
-
+    
 
   </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
 </body>
 </html>
