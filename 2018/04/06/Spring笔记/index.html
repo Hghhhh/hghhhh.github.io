@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="黄国航的博客">
 <meta property="og:description" content="第一讲 Spring简介1.Spring：春天；2.理念：使现有技术更加实用，整合现有的框架技术3.Spring优点： 123456轻量级框架ioc容器--控制反转Aop面向切面编程对事务的支持对框架的支持....">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-08T09:33:33.935Z">
+<meta property="og:updated_time" content="2018-04-08T09:45:52.739Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring笔记">
 <meta name="twitter:description" content="第一讲 Spring简介1.Spring：春天；2.理念：使现有技术更加实用，整合现有的框架技术3.Spring优点： 123456轻量级框架ioc容器--控制反转Aop面向切面编程对事务的支持对框架的支持....">
@@ -373,16 +373,14 @@
 <p>缺点：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">类多了--多了代理类，工作量变大，开发效率变低了</span><br></pre></td></tr></table></figure>
 <h1 id="第七讲-动态代理"><a href="#第七讲-动态代理" class="headerlink" title="第七讲 动态代理"></a>第七讲 动态代理</h1><p>1.动态代理和静态代理的角色是一样的<br>2.动态代理的代理类是动态生成的<br>3.分为两类一类基于接口的动态代理和基于类的动态代理<br>1）基于接口的动态代理—jdk动态代理<br>2）基于类的动态代理—cglib<br>现在javasist来生成动态代理<br>4.jdk动态代理–Proxy类和invocationHandler类<br>一个动态代理一般代理某一类业务</p>
-<p>#第八讲 面向切面编程—aop</p>
-<p>1.aop：aspect oriented programming<br>2.aop在spring中的作用</p>
+<h1 id="第八讲-面向切面编程—aop"><a href="#第八讲-面向切面编程—aop" class="headerlink" title="第八讲 面向切面编程—aop"></a>第八讲 面向切面编程—aop</h1><p>1.aop：aspect oriented programming<br>2.aop在spring中的作用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">提供声明式服务</span><br><span class="line">允许用户实现自定义切面</span><br></pre></td></tr></table></figure>
 <p>3.aop:在不改变原有代码的情况下，增加新的功能</p>
 <p>Aop的编程模式：横向的编程</p>
 <p>4.名词解释：<br>关注点：增加的某个业务，如日志，安全，缓存，事务等。<br>切面（Aspect）：一个关注点的模块化<br>通知：在切面的某个链接点上执行的动作<br>织入（Weaving）：把切面连接到其他的应用程序类型或者对象上，并创建一个被通知的对象<br>5.使用spring实现aop<br>第一种实现方式–通过springAPI来实现<br>源码：F:\spring\spring\spring\demo\09spring4_aop1<br>Aop的重要性：很重要</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Spring将公共的业务（如日志，安全等）领域业务结合起来。当执行领域业务时将会把       公共业务加进来。实现公共业务的重复利用。领域业务更纯粹，程序员专注于领域业       务。其本质还是动态代理。</span><br></pre></td></tr></table></figure>
 <p>第二种实现方式—自定义类来实现<br>源码：spring\spring\demo\10spring4_aop2<br>第三种实现方式—通过注解的方式来实现<br>源码：spring\spring\demo\11spring4_aop3</p>
-<p>#第九讲 整合mybatis</p>
-<p>1.步骤：<br>   a) 导入相关jar包</p>
+<h1 id="第九讲-整合mybatis"><a href="#第九讲-整合mybatis" class="headerlink" title="第九讲 整合mybatis"></a>第九讲 整合mybatis</h1><p>1.步骤：<br>   a) 导入相关jar包</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">b)编写配置文件</span><br><span class="line">c)实现</span><br></pre></td></tr></table></figure>
 <figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 配置sqlSessionFactory --&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=<span class="string">"sqlSessionFactory"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.mybatis.spring.SqlSessionFactoryBean"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;property name=<span class="string">"dataSource"</span> ref=<span class="string">"dataSource"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;property name=<span class="string">"configLocation"</span> value=<span class="string">"classpath:mybatis.cfg.xml"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/bean&gt;</span><br><span class="line"></span><br><span class="line">&lt;bean id=<span class="string">"sqlSessionTemplate"</span> <span class="class"><span class="keyword">class</span></span>=<span class="string">"org.mybatis.spring.SqlSessionTemplate"</span>&gt;</span><br><span class="line"></span><br><span class="line">&lt;constructor-arg index=<span class="string">"0"</span> ref=<span class="string">"sqlSessionFactory"</span>/&gt;</span><br><span class="line"></span><br><span class="line">&lt;/bean&gt;</span><br></pre></td></tr></table></figure>
 <p>2.声明式事务管理</p>
@@ -581,7 +579,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一讲-Spring简介"><span class="nav-text">第一讲 Spring简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二讲：Spring-ioc"><span class="nav-text">第二讲：Spring ioc</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三讲-配置文件详解"><span class="nav-text">第三讲 配置文件详解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第四讲-依赖注入-DI"><span class="nav-text">第四讲 依赖注入 DI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第五讲：Bean的作用域"><span class="nav-text">第五讲：Bean的作用域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第六讲-静态代理"><span class="nav-text">第六讲 静态代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第七讲-动态代理"><span class="nav-text">第七讲 动态代理</span></a></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#第一讲-Spring简介"><span class="nav-text">第一讲 Spring简介</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第二讲：Spring-ioc"><span class="nav-text">第二讲：Spring ioc</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第三讲-配置文件详解"><span class="nav-text">第三讲 配置文件详解</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第四讲-依赖注入-DI"><span class="nav-text">第四讲 依赖注入 DI</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第五讲：Bean的作用域"><span class="nav-text">第五讲：Bean的作用域</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第六讲-静态代理"><span class="nav-text">第六讲 静态代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第七讲-动态代理"><span class="nav-text">第七讲 动态代理</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第八讲-面向切面编程—aop"><span class="nav-text">第八讲 面向切面编程—aop</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#第九讲-整合mybatis"><span class="nav-text">第九讲 整合mybatis</span></a></li></ol></div>
             
 
           </div>
