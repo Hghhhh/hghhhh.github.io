@@ -88,7 +88,7 @@
 <meta property="og:description" content="前言：Spring借鉴了AspectJ的切面，以提高注解驱动的AOP。本质上，它依然是Spring基于代理的AOP，但是编程模型几乎与编写成熟的AspectJ注解切面完全一致。这种AOP风格的好处在于能够不使用XML来完成功能。  1.  选择切点关于Spring AOP的AspectJ切点，最重要的一点就是Spring仅支持AspectJ切点指示器（pointcut designator）的一">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/springaop.png">
-<meta property="og:updated_time" content="2018-04-11T15:32:02.671Z">
+<meta property="og:updated_time" content="2018-05-03T15:44:43.057Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Spring AOP（使用AspectJ的注解方式的aop实现）">
 <meta name="twitter:description" content="前言：Spring借鉴了AspectJ的切面，以提高注解驱动的AOP。本质上，它依然是Spring基于代理的AOP，但是编程模型几乎与编写成熟的AspectJ注解切面完全一致。这种AOP风格的好处在于能够不使用XML来完成功能。  1.  选择切点关于Spring AOP的AspectJ切点，最重要的一点就是Spring仅支持AspectJ切点指示器（pointcut designator）的一">
@@ -341,6 +341,7 @@
 <p>为了阐述Spring中的切面，我们需要有一个主题来定义切面的切点。为此，我们定义一个Performance接口：</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> concert;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">Performance</span></span>&#123;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">perform</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 <p>假设我们要编写Performance的perform()方法触发的通知。</p>
+<a id="more"></a>
 <h2 id="execution"><a href="#execution" class="headerlink" title="execution"></a>execution</h2><p>下列的切点表达式能够设置当perform()方法执行时触发通知的调用。</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">execution(* concert.Performance.perform(..))</span><br><span class="line"></span><br><span class="line">* :表示切点返回的类型为任意类型</span><br><span class="line">concert.Performance ：为方法所属的类</span><br><span class="line">perform ：方法</span><br><span class="line">.. ：表示使用任意参数</span><br></pre></td></tr></table></figure>
 <h2 id="在切点中选择bean"><a href="#在切点中选择bean" class="headerlink" title="在切点中选择bean"></a>在切点中选择bean</h2><p>除了表4.1所示的指示器，Spring还引入了一个新的bean()指示器，它允许我们在切点表达式中使用bean的ID来标识bean。</p>
