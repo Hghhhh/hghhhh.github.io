@@ -249,6 +249,142 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/04/Mysql数据库查询/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄国航">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄国航的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/04/Mysql数据库查询/" itemprop="url">Mysql数据库查询</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T10:16:29+08:00">
+                2018-08-04
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/08/04/Mysql数据库查询/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/2018/08/04/Mysql数据库查询/" class="cy_cmt_count" data-xid="2018/08/04/Mysql数据库查询/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>参考：<a href="https://dev.mysql.com/doc/refman/5.7/en/select.html" target="_blank" rel="noopener">mysql参考手册</a></p>
+<h1 id="SELECT语句"><a href="#SELECT语句" class="headerlink" title="SELECT语句"></a>SELECT语句</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">      [ALL | <span class="keyword">DISTINCT</span> | <span class="keyword">DISTINCTROW</span> ]</span><br><span class="line">      [<span class="keyword">HIGH_PRIORITY</span>]</span><br><span class="line">      [<span class="keyword">STRAIGHT_JOIN</span>]</span><br><span class="line">      [<span class="keyword">SQL_SMALL_RESULT</span>][<span class="keyword">SQL_BIG_RESULT</span>][<span class="keyword">SQL_BUFFER_RESULT</span>]</span><br><span class="line">      [<span class="keyword">SQL_CACHE</span> | SQL_NO_CACHE]</span><br><span class="line">      [列名表达式...]</span><br><span class="line">      [<span class="keyword">FROM</span> 表或视图]										  //<span class="keyword">FORM</span>子句</span><br><span class="line">      [<span class="keyword">WHERE</span> 条件]											  //<span class="keyword">WHERE</span>子句		</span><br><span class="line">      [<span class="keyword">GROUP</span> <span class="keyword">BY</span> &#123;col_name | expr | <span class="keyword">position</span>&#125;, ... [<span class="keyword">WITH</span> <span class="keyword">ROLLUP</span>]]   //<span class="keyword">GROUP</span> <span class="keyword">BY</span>子句</span><br><span class="line">      [<span class="keyword">HAVING</span> 条件]											  //<span class="keyword">HAVING</span>子句	</span><br><span class="line">   	  [WINDOW window_name <span class="keyword">AS</span> (window_spec)[, window_name <span class="keyword">AS</span> (window_spec)] ...]</span><br><span class="line">      [<span class="keyword">ORDER</span> <span class="keyword">BY</span> &#123;col_name | expr | <span class="keyword">position</span>&#125;[<span class="keyword">ASC</span> | <span class="keyword">DESC</span>], ... [<span class="keyword">WITH</span> <span class="keyword">ROLLUP</span>]] //<span class="keyword">ORDER</span> <span class="keyword">BY</span>子句</span><br><span class="line">      [<span class="keyword">LIMIT</span> &#123;[<span class="keyword">offset</span>,] <span class="keyword">row_count</span> | <span class="keyword">row_count</span> <span class="keyword">OFFSET</span> <span class="keyword">offset</span>&#125;]			//<span class="keyword">LIMIT</span>子句	</span><br><span class="line">      [<span class="keyword">INTO</span> <span class="keyword">OUTFILE</span> <span class="string">'file_name'</span> [<span class="built_in">CHARACTER</span> <span class="keyword">SET</span> 字符集]</span><br><span class="line">        export_options | <span class="keyword">INTO</span> <span class="keyword">DUMPFILE</span> <span class="string">'file_name'</span>| <span class="keyword">INTO</span> var_name [, var_name]]</span><br><span class="line">      <span class="keyword">FOR</span> &#123;<span class="keyword">UPDATE</span> | <span class="keyword">SHARE</span>&#125; [<span class="keyword">OF</span> tbl_name [, tbl_name] ... | <span class="keyword">LOCK</span> <span class="keyword">IN</span> <span class="keyword">SHARE</span> <span class="keyword">MODE</span>]]</span><br></pre></td></tr></table></figure>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/04/Mysql数据库查询/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/05/03/使用Spring-MVC创建REST-API/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1148,7 +1284,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">6</span>
+                  <span class="site-state-item-count">7</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1161,7 +1297,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">4</span>
+                  <span class="site-state-item-count">5</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
