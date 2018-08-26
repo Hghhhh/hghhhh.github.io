@@ -249,6 +249,573 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/26/微信小程序支付/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄国航">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄国航的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/26/微信小程序支付/" itemprop="url">微信小程序支付</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-26T21:31:28+08:00">
+                2018-08-26
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/08/26/微信小程序支付/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/2018/08/26/微信小程序支付/" class="cy_cmt_count" data-xid="2018/08/26/微信小程序支付/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#一、微信小程序支付流程</p>
+<p><img src="https://pay.weixin.qq.com/wiki/doc/api/img/wxa-7-2.jpg" alt="支付流程"> </p>
+<p>商户系统和微信支付系统交互过程：</p>
+<p>1、小程序内调用登录接口，获取到用户的openid,api参见公共api【<a href="https://mp.weixin.qq.com/debug/wxadoc/dev/api/api-login.html?t=20161122" target="_blank" rel="noopener">小程序登录API</a>】</p>
+<p>2、商户server调用支付统一下单，api参见公共api【<a href="https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=9_1&amp;index=1" target="_blank" rel="noopener">统一下单API</a>】</p>
+<p>3、商户server调用再次签名，api参见公共api【<a href="https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=7_7&amp;index=3" target="_blank" rel="noopener">再次签名</a>】</p>
+<p>4、商户server接收支付通知，api参见公共api【<a href="https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=9_7" target="_blank" rel="noopener">支付结果通知API</a>】</p>
+<p><strong>pom.xml</strong></p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br></pre></td><td class="code"><pre><span class="line">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span><br><span class="line"><span class="tag">&lt;<span class="name">project</span> <span class="attr">xmlns</span>=<span class="string">"http://maven.apache.org/POM/4.0.0"</span> <span class="attr">xmlns:xsi</span>=<span class="string">"http://www.w3.org/2001/XMLSchema-instance"</span></span></span><br><span class="line"><span class="tag">	<span class="attr">xsi:schemaLocation</span>=<span class="string">"http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">modelVersion</span>&gt;</span>4.0.0<span class="tag">&lt;/<span class="name">modelVersion</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.yidong<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>ordersystem<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.0.1-SNAPSHOT<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">packaging</span>&gt;</span>jar<span class="tag">&lt;/<span class="name">packaging</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">name</span>&gt;</span>ordersystem<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">description</span>&gt;</span>OrderSystem for weixin app<span class="tag">&lt;/<span class="name">description</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">parent</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-parent<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.0.3.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">relativePath</span>/&gt;</span> <span class="comment">&lt;!-- lookup parent from repository --&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">parent</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">properties</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">project.build.sourceEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.build.sourceEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">project.reporting.outputEncoding</span>&gt;</span>UTF-8<span class="tag">&lt;/<span class="name">project.reporting.outputEncoding</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">java.version</span>&gt;</span>1.8<span class="tag">&lt;/<span class="name">java.version</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">properties</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-security<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-web<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.spring.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-spring-boot-starter<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>mysql<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mysql-connector-java<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>runtime<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.security<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-security-test<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">scope</span>&gt;</span>test<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-core<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-databind<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.datatype<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-datatype-joda<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.module<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-module-parameter-names<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!--解析json使用的--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.google.code.gson<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>gson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>2.8.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">scope</span>&gt;</span>compile<span class="tag">&lt;/<span class="name">scope</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- alibaba的druid数据库连接池 --&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>druid<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.9<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!--jwt的类库jjwt--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.jsonwebtoken<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jjwt<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.9.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!--腾讯云短信接口库--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.github.qcloudsms<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>qcloudsms<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.4<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"></span><br><span class="line">		<span class="comment">&lt;!--lombok 依赖--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.projectlombok<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>lombok<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.16.10<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!--解析xml使用的jar--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.jdom<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jdom<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.1.3<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>fastjson<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.2.47<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">		<span class="comment">&lt;!-- https://mvnrepository.com/artifact/org.weixin4j/weixin4j --&gt;</span></span><br><span class="line">        <span class="comment">&lt;!--这个jar包如果找不到请自己到官网下载然后导入本地git仓库--&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.weixin4j<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>weixin4j<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">version</span>&gt;</span>0.1.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;<span class="name">build</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;<span class="name">plugins</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">			<span class="comment">&lt;!-- mybatis generator 自动生成代码插件 --&gt;</span></span><br><span class="line">			<span class="tag">&lt;<span class="name">plugin</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.mybatis.generator<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>mybatis-generator-maven-plugin<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">version</span>&gt;</span>1.3.2<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">configuration</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;<span class="name">configurationFile</span>&gt;</span>$&#123;basedir&#125;/src/main/resources/generator/generatorConfig.xml<span class="tag">&lt;/<span class="name">configurationFile</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">overwrite</span>&gt;</span>true<span class="tag">&lt;/<span class="name">overwrite</span>&gt;</span></span><br><span class="line">					<span class="tag">&lt;<span class="name">verbose</span>&gt;</span>true<span class="tag">&lt;/<span class="name">verbose</span>&gt;</span></span><br><span class="line">				<span class="tag">&lt;/<span class="name">configuration</span>&gt;</span></span><br><span class="line">			<span class="tag">&lt;/<span class="name">plugin</span>&gt;</span></span><br><span class="line">		<span class="tag">&lt;/<span class="name">plugins</span>&gt;</span></span><br><span class="line">	<span class="tag">&lt;/<span class="name">build</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">project</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<p>##1.获得用户的openId</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment">  * 小程序后台登录，向微信平台发送获取access_token请求，并返回openId</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@param</span> code</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@return</span> openid</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@throws</span> WeixinException</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@throws</span> IOException</span></span><br><span class="line"><span class="comment">  * <span class="doctag">@since</span> Weixin4J 0.1.0</span></span><br><span class="line"><span class="comment">  */</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/wxLogin"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> Map&lt;String, Object&gt; <span class="title">login</span><span class="params">(@RequestParam String code)</span></span></span><br><span class="line"><span class="function">    						<span class="keyword">throws</span> WeixinException, IOException </span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (code == <span class="keyword">null</span> || code.equals(<span class="string">""</span>)) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> WeixinException(<span class="string">"invalid null, code is null."</span>);</span><br><span class="line">        &#125;</span><br><span class="line">        Map&lt;String, Object&gt; ret = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">        <span class="comment">//拼接参数</span></span><br><span class="line">        String param = <span class="string">"?grant_type="</span> + WxPayConfig.grant_type + <span class="string">"&amp;appid="</span> + WxPayConfig.appid + <span class="string">"&amp;secret="</span> + WxPayConfig.secret + <span class="string">"&amp;js_code="</span> + code;</span><br><span class="line">        <span class="comment">//创建请求对象</span></span><br><span class="line">        HttpsClient http = <span class="keyword">new</span> HttpsClient();</span><br><span class="line">        <span class="comment">//调用获取access_token接口</span></span><br><span class="line">        Response res = http.get(<span class="string">"https://api.weixin.qq.com/sns/jscode2session"</span> + param);</span><br><span class="line">        <span class="comment">//根据请求结果判定，是否验证成功</span></span><br><span class="line">        JSONObject jsonObj =  res.asJSONObject();</span><br><span class="line">        <span class="keyword">if</span> (jsonObj != <span class="keyword">null</span>) &#123;</span><br><span class="line">            Object errcode = jsonObj.get(<span class="string">"errcode"</span>);</span><br><span class="line">            <span class="keyword">if</span> (errcode != <span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="comment">//返回异常信息</span></span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> WeixinException(getCause(Integer.parseInt(errcode.toString()))+jsonObj.get(<span class="string">"errmsg"</span>));</span><br><span class="line">            &#125;</span><br><span class="line">            ObjectMapper mapper = <span class="keyword">new</span> ObjectMapper();</span><br><span class="line">            OAuthJsToken oauthJsToken = mapper.readValue(jsonObj.toJSONString(),OAuthJsToken.class);</span><br><span class="line">            log.info(<span class="string">"openid="</span> + oauthJsToken.getOpenid());</span><br><span class="line">            ret.put(<span class="string">"openid"</span>, oauthJsToken.getOpenid());</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> ret;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-统一下单"><a href="#2-统一下单" class="headerlink" title="2.统一下单"></a>2.统一下单</h2><p>注意这里要进行两次签名，第一次签名后发起统一下单请求，拿到<code>prepay_id</code>，第二次再次签名后，包括sign等参数返回给小程序前端，让前端发起支付请求。 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>: 发起微信支付</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> openid</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> orderFormId 支付的订单id</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> request</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(<span class="string">"/wxPay"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ResponseEntity&lt;Json&gt; <span class="title">wxPay</span><span class="params">(@RequestParam String openid, @RequestParam String orderFormId, HttpServletRequest request)</span></span>&#123;</span><br><span class="line">    Json json = <span class="keyword">new</span> Json();</span><br><span class="line">    <span class="comment">//判断订单是否过期</span></span><br><span class="line">    <span class="keyword">if</span>(OrderFormId.isExprexpired(orderFormId))&#123;</span><br><span class="line">        orderFormService.update(orderFormId,<span class="number">5</span>);</span><br><span class="line">        log.error(<span class="string">"该订单已经过期失效！"</span>+orderFormId);</span><br><span class="line">        json.setSuccess(<span class="keyword">false</span>);</span><br><span class="line">        json.setMsg(<span class="string">"该订单已经过期失效!"</span>);</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.badRequest().body(json);</span><br><span class="line">    &#125;</span><br><span class="line">    OrderForm orderForm = orderFormService.selectByPrimaryKey(orderFormId);<span class="comment">//拿到支付订单</span></span><br><span class="line">    <span class="comment">//判断是否订单为未支付</span></span><br><span class="line">    <span class="keyword">if</span>(orderForm.getState()!=<span class="number">1</span>)&#123;</span><br><span class="line">        json.setSuccess(<span class="keyword">false</span>);</span><br><span class="line">        json.setMsg(<span class="string">"该订单已支付或失效!"</span>);</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.badRequest().body(json);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">try</span>&#123;</span><br><span class="line">        <span class="comment">//生成的随机字符串</span></span><br><span class="line">        String nonce_str = StringUtils.getRandomStringByLength(<span class="number">32</span>);</span><br><span class="line">        <span class="comment">//商品名称</span></span><br><span class="line">        String body = <span class="string">"测试商品"</span>;</span><br><span class="line">        <span class="comment">//获取本机的ip地址</span></span><br><span class="line">        String spbill_create_ip = IpUtils.getIpAddr(request);</span><br><span class="line">        String money = Math.round((orderForm.getSum()*<span class="number">100</span>))+<span class="string">""</span>;</span><br><span class="line">        <span class="comment">//支付金额，单位：分，这边需要转成字符串类型，否则后面的签名会失败</span></span><br><span class="line">        Map&lt;String, String&gt; packageParams = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">        packageParams.put(<span class="string">"appid"</span>, WxPayConfig.appid);</span><br><span class="line">        packageParams.put(<span class="string">"mch_id"</span>, WxPayConfig.mch_id);</span><br><span class="line">        packageParams.put(<span class="string">"nonce_str"</span>, nonce_str);</span><br><span class="line">        packageParams.put(<span class="string">"body"</span>, body);</span><br><span class="line">        packageParams.put(<span class="string">"out_trade_no"</span>, orderFormId);<span class="comment">//商户订单号</span></span><br><span class="line">        packageParams.put(<span class="string">"total_fee"</span>, money);<span class="comment">//支付金额，这边需要转成字符串类型，否则后面的签名会失败</span></span><br><span class="line">        packageParams.put(<span class="string">"spbill_create_ip"</span>, spbill_create_ip);</span><br><span class="line">        packageParams.put(<span class="string">"notify_url"</span>, WxPayConfig.notify_url);<span class="comment">//微信支付通知路径</span></span><br><span class="line">        packageParams.put(<span class="string">"trade_type"</span>, WxPayConfig.TRADETYPE);</span><br><span class="line">        packageParams.put(<span class="string">"openid"</span>, openid);</span><br><span class="line">        <span class="comment">// 除去数组中的空值和签名参数</span></span><br><span class="line">        packageParams = PayUtil.paraFilter(packageParams);</span><br><span class="line">        String prestr = PayUtil.createLinkString(packageParams); </span><br><span class="line">        <span class="comment">// 把数组所有元素，按照“参数=参数值”的模式用“&amp;”字符拼接成字符串</span></span><br><span class="line">        <span class="comment">//MD5运算生成签名，这里是第一次签名，用于调用统一下单接口</span></span><br><span class="line">        String mysign = PayUtil.sign(prestr, WxPayConfig.key, <span class="string">"utf-8"</span>).toUpperCase();</span><br><span class="line"></span><br><span class="line">        <span class="comment">//拼接统一下单接口使用的xml数据，要将上一步生成的签名一起拼接进去</span></span><br><span class="line">        String xml = <span class="string">"&lt;xml&gt;"</span> + <span class="string">"&lt;appid&gt;"</span> + WxPayConfig.appid + <span class="string">"&lt;/appid&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;body&gt;&lt;![CDATA["</span> + body + <span class="string">"]]&gt;&lt;/body&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;mch_id&gt;"</span> + WxPayConfig.mch_id + <span class="string">"&lt;/mch_id&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;nonce_str&gt;"</span> + nonce_str + <span class="string">"&lt;/nonce_str&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;notify_url&gt;"</span> + WxPayConfig.notify_url + <span class="string">"&lt;/notify_url&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;openid&gt;"</span> + openid + <span class="string">"&lt;/openid&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;out_trade_no&gt;"</span> + orderFormId + <span class="string">"&lt;/out_trade_no&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;spbill_create_ip&gt;"</span> + spbill_create_ip + <span class="string">"&lt;/spbill_create_ip&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;total_fee&gt;"</span> + money + <span class="string">"&lt;/total_fee&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;trade_type&gt;"</span> + WxPayConfig.TRADETYPE + <span class="string">"&lt;/trade_type&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;sign&gt;"</span> + mysign + <span class="string">"&lt;/sign&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;/xml&gt;"</span>;</span><br><span class="line">        log.info(<span class="string">"firstPayxml:\n"</span>+xml);</span><br><span class="line">        <span class="comment">//调用统一下单接口，并接受返回的结果</span></span><br><span class="line">        <span class="comment">// 将解析结果存储在Map中</span></span><br><span class="line">        Map map = PayUtil.httpRequest(WxPayConfig.pay_url, <span class="string">"POST"</span>, xml);</span><br><span class="line">        String return_code = (String) map.get(<span class="string">"return_code"</span>);<span class="comment">//返回状态码</span></span><br><span class="line">        <span class="comment">//返回给移动端需要的参数</span></span><br><span class="line">        Map&lt;String, Object&gt; response = <span class="keyword">new</span> HashMap&lt;String, Object&gt;();</span><br><span class="line">        <span class="keyword">if</span>(return_code.equals(<span class="string">"SUCCESS"</span>))&#123;<span class="comment">//首先判断通信是否成功</span></span><br><span class="line">    		 <span class="comment">//接下来判断交易是否成功</span></span><br><span class="line">            <span class="keyword">if</span>(map.get(<span class="string">"result_code"</span>).equals(<span class="string">"SUCCESS"</span>)) &#123;     </span><br><span class="line">                <span class="comment">//最后判断微信传过来的sign是否正确</span></span><br><span class="line">                <span class="keyword">if</span> (PayUtil.verify(PayUtil.createLinkString(PayUtil.paraFilter(map)), (String)map.get(<span class="string">"sign"</span>), WxPayConfig.key, <span class="string">"utf-8"</span>)) &#123;                 </span><br><span class="line">                    String prepay_id = (String) map.get(<span class="string">"prepay_id"</span>);<span class="comment">//返回的预付单信息</span></span><br><span class="line">                    response.put(<span class="string">"nonceStr"</span>, nonce_str);</span><br><span class="line">                    response.put(<span class="string">"package"</span>, <span class="string">"prepay_id="</span> + prepay_id);</span><br><span class="line">                    Long timeStamp = System.currentTimeMillis() / <span class="number">1000</span>;</span><br><span class="line">                    response.put(<span class="string">"timeStamp"</span>, timeStamp + <span class="string">""</span>);<span class="comment">//这边要将返回的时间戳转化成字符串，不然小程序端调用wx.requestPayment方法会报签名错误</span></span><br><span class="line">                    String stringSignTemp = <span class="string">"appId="</span> + WxPayConfig.appid + <span class="string">"&amp;nonceStr="</span> + nonce_str + <span class="string">"&amp;package=prepay_id="</span> + prepay_id + <span class="string">"&amp;signType="</span> + WxPayConfig.SIGNTYPE + <span class="string">"&amp;timeStamp="</span> + timeStamp;</span><br><span class="line">                    <span class="comment">//再次签名，这个签名用于小程序端调用wx.requesetPayment方法</span></span><br><span class="line">                    String paySign = PayUtil.sign(stringSignTemp, WxPayConfig.key, <span class="string">"utf-8"</span>).toUpperCase();</span><br><span class="line">                    response.put(<span class="string">"paySign"</span>, paySign);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="keyword">else</span>&#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> WeixinException(<span class="string">"签名不正确，数据无效，请重新支付！ "</span>+orderFormId);</span><br><span class="line">                &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">else</span>&#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> WeixinException((String) map.get(<span class="string">"err_code"</span>)+(String)map.get(<span class="string">"err_code_des"</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">else</span>&#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> WeixinException((String) map.get(<span class="string">"return_msg"</span>));</span><br><span class="line">        &#125;</span><br><span class="line">        response.put(<span class="string">"appid"</span>, WxPayConfig.appid);</span><br><span class="line">        json.setSuccess(<span class="keyword">true</span>);</span><br><span class="line">        json.setData(response);</span><br><span class="line">    &#125;<span class="keyword">catch</span>(Exception e)&#123;</span><br><span class="line">        log.error(e.getMessage());</span><br><span class="line">        json.setSuccess(<span class="keyword">false</span>);</span><br><span class="line">        json.setMsg(e.getMessage());</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(<span class="number">500</span>).body(json);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ResponseEntity.ok(json);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>##3.接收支付结果</p>
+<p>前端发起支付请求后，微信会按照支付通知路径将支付结果返回给服务器后台。</p>
+<p>按照微信文档的要求，收到微信支付的通知要记得判断微信的签名是否正确，然后判断商户侧订单金额是否与微信传过来的订单金额一致。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@Description</span>:微信支付通知路径</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@return</span></span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> WeixinException</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/wxNotify"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">wxNotify</span><span class="params">(HttpServletRequest request,HttpServletResponse response)</span> <span class="keyword">throws</span> Exception</span>&#123;</span><br><span class="line">    String resXml = <span class="string">""</span>;</span><br><span class="line">    Map map = <span class="keyword">this</span>.getResultMap(<span class="keyword">new</span> InputStreamReader((ServletInputStream)request.getInputStream()));</span><br><span class="line">    <span class="comment">//获得返回的报文，并转为map</span></span><br><span class="line">    String returnCode = (String) map.get(<span class="string">"return_code"</span>);</span><br><span class="line">     <span class="comment">//判断微信支付通信是否成功</span></span><br><span class="line">    <span class="keyword">if</span>(<span class="string">"SUCCESS"</span>.equals(returnCode))&#123;</span><br><span class="line"> 		<span class="comment">//判断微信支付的业务是否成功</span></span><br><span class="line">        <span class="keyword">if</span>(<span class="string">"SUCCESS"</span>.equals((String) map.get(<span class="string">"result_code"</span>)))&#123;</span><br><span class="line">        	<span class="comment">//验证签名是否正确</span></span><br><span class="line">            <span class="keyword">if</span> (PayUtil.verify(PayUtil.createLinkString(PayUtil.paraFilter(map)), (String) map.get(<span class="string">"sign"</span>), WxPayConfig.key, <span class="string">"utf-8"</span>)) &#123;</span><br><span class="line">                 <span class="comment">/**此处添加自己的业务逻辑代码start**/</span></span><br><span class="line">                <span class="comment">//拿商户侧的订单金额</span></span><br><span class="line">                String orderFormId = (String) map.get(<span class="string">"out_trade_no"</span>);</span><br><span class="line">                OrderForm orderForm = orderFormService.selectByPrimaryKey(orderFormId);</span><br><span class="line">                <span class="keyword">int</span> money = Math.round((orderForm.getSum() * <span class="number">100</span>));</span><br><span class="line">                <span class="comment">//判断订单金额是否与商户侧的订单金额一致</span></span><br><span class="line">                <span class="keyword">if</span> (money == Integer.parseInt((String) map.get(<span class="string">"total_fee"</span>))) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (orderForm.getState() == <span class="number">1</span>) &#123;</span><br><span class="line">                        <span class="comment">//将订单状态变成待发货状态</span></span><br><span class="line">                        orderFormService.update(orderFormId, <span class="number">2</span>);</span><br><span class="line">                        <span class="comment">//通知微信服务器已经支付成功</span></span><br><span class="line">                        log.info(orderFormId + <span class="string">" pay success!"</span>);</span><br><span class="line">                        resXml = <span class="string">"&lt;xml&gt;"</span> + <span class="string">"&lt;return_code&gt;&lt;![CDATA[SUCCESS]]&gt;&lt;/return_code&gt;"</span></span><br><span class="line">                                + <span class="string">"&lt;return_msg&gt;&lt;![CDATA[OK]]&gt;&lt;/return_msg&gt;"</span> + <span class="string">"&lt;/xml&gt; "</span>;</span><br><span class="line">                    &#125;</span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"orderForm："</span> + orderFormId + <span class="string">"The payment amount is inconsistent with the order amount on the merchant side!\n"</span> +</span><br><span class="line">                            <span class="string">"Please contact customer service!"</span>);</span><br><span class="line">                &#125;</span><br><span class="line">                <span class="comment">/**此处添加自己的业务逻辑代码start**/</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                log.error(<span class="string">"the return sign is not corret! orderFormId:"</span>+map.get(<span class="string">"out_trade_no"</span>));</span><br><span class="line">            &#125;</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            resXml = <span class="string">"&lt;xml&gt;"</span> + <span class="string">"&lt;return_code&gt;&lt;![CDATA[FAIL]]&gt;&lt;/return_code&gt;"</span></span><br><span class="line">                    + <span class="string">"&lt;return_msg&gt;&lt;![CDATA[报文为空]]&gt;&lt;/return_msg&gt;"</span> + <span class="string">"&lt;/xml&gt; "</span>;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        resXml = <span class="string">"&lt;xml&gt;"</span> + <span class="string">"&lt;return_code&gt;&lt;![CDATA[FAIL]]&gt;&lt;/return_code&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;return_msg&gt;&lt;![CDATA[报文为空]]&gt;&lt;/return_msg&gt;"</span> + <span class="string">"&lt;/xml&gt; "</span>;</span><br><span class="line">    &#125;</span><br><span class="line">    BufferedOutputStream out = <span class="keyword">new</span> BufferedOutputStream(</span><br><span class="line">            response.getOutputStream());</span><br><span class="line">    out.write(resXml.getBytes());</span><br><span class="line">    out.flush();</span><br><span class="line">    out.close();</span><br><span class="line">    <span class="comment">//如果支付失败，报错</span></span><br><span class="line">    <span class="keyword">if</span>(resXml.equals(<span class="string">"&lt;xml&gt;"</span> + <span class="string">"&lt;return_code&gt;&lt;![CDATA[FAIL]]&gt;&lt;/return_code&gt;"</span></span><br><span class="line">            + <span class="string">"&lt;return_msg&gt;&lt;![CDATA[报文为空]]&gt;&lt;/return_msg&gt;"</span> + <span class="string">"&lt;/xml&gt; "</span>))&#123;</span><br><span class="line">        <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"微信支付失败!orderFormID："</span>+map.get(<span class="string">"out_trade_no"</span>));</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h1 id="二、微信小程序退款"><a href="#二、微信小程序退款" class="headerlink" title="二、微信小程序退款"></a>二、微信小程序退款</h1><p><strong>应用场景</strong></p>
+<p>当交易发生之后一段时间内，由于买家或者卖家的原因需要退款时，卖家可以通过退款接口将支付款退还给买家，微信支付将在收到退款请求并且验证成功之后，按照退款规则将支付款按原路退到买家帐号上。</p>
+<p>注意：</p>
+<p>1、交易时间超过一年的订单无法提交退款</p>
+<p>2、微信支付退款支持单笔交易分多次退款，多次退款需要提交原支付订单的商户订单号和设置不同的退款单号。申请退款总金额不能超过订单金额。 一笔退款失败后重新提交，请不要更换退款单号，请使用原商户退款单号</p>
+<p>3、请求频率限制：150qps，即每秒钟正常的申请退款请求次数不超过150次</p>
+<p>​    错误或无效请求频率限制：6qps，即每秒钟异常或错误的退款申请请求不超过6次</p>
+<p>4、每个支付订单的部分退款次数不能超过50次</p>
+<p><strong>注意：请求需要双向证书。 详见<a href="https://pay.weixin.qq.com/wiki/doc/api/wxa/wxa_api.php?chapter=4_3" target="_blank" rel="noopener">证书使用</a></strong> </p>
+<p>这里的证书需要到微信商户平台下载</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">/**</span></span><br><span class="line"><span class="comment"> * 发起退款</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@param</span> orderFormId</span></span><br><span class="line"><span class="comment"> * <span class="doctag">@throws</span> Exception</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="meta">@RequestMapping</span>(value=<span class="string">"/wxRefund"</span>)</span><br><span class="line"><span class="function"><span class="keyword">public</span> ResponseEntity&lt;Boolean&gt; <span class="title">wxRefund</span><span class="params">(@RequestParam String orderFormId)</span> <span class="keyword">throws</span> 											Exception </span>&#123;</span><br><span class="line">    <span class="comment">/**业务代码**/</span></span><br><span class="line">    OrderForm orderForm = orderFormService.selectByPrimaryKey(orderFormId);</span><br><span class="line">    <span class="comment">//拿到支付订单，并判断订单的状态是否满足可退款的条件</span></span><br><span class="line">    <span class="keyword">if</span>(orderForm.getState()!=<span class="number">2</span>)&#123;</span><br><span class="line">        <span class="keyword">return</span>  ResponseEntity.status(<span class="number">400</span>).body(Boolean.FALSE);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="comment">/**业务代码**/</span></span><br><span class="line">    KeyStore keyStore  = KeyStore.getInstance(<span class="string">"PKCS12"</span>);</span><br><span class="line">    FileInputStream instream = <span class="keyword">new</span> FileInputStream(<span class="keyword">new</span> File(<span class="string">"证书路径.p12"</span>));<span class="comment">//读取商户证书</span></span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        keyStore.load(instream, <span class="string">"商户号"</span>.toCharArray());<span class="comment">//这里keystore的密码即为商户号</span></span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            log.error(e.getMessage());</span><br><span class="line">            <span class="keyword">return</span> ResponseEntity.status(<span class="number">500</span>).body(Boolean.FALSE);</span><br><span class="line">     &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">            instream.close();</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// Trust own CA and all self-signed certs</span></span><br><span class="line">    SSLContext sslcontext = SSLContexts.custom()</span><br><span class="line">                    .loadKeyMaterial(keyStore, <span class="string">"1510906771"</span>.toCharArray())</span><br><span class="line">                    .build();</span><br><span class="line">    <span class="comment">// Allow TLSv1 protocol only</span></span><br><span class="line">    SSLConnectionSocketFactory sslsf = <span class="keyword">new</span> SSLConnectionSocketFactory(sslcontext, <span class="keyword">new</span> String[] &#123; <span class="string">"TLSv1"</span> &#125;, <span class="keyword">null</span>,</span><br><span class="line">            SSLConnectionSocketFactory.BROWSER_COMPATIBLE_HOSTNAME_VERIFIER);</span><br><span class="line">    CloseableHttpClient httpClient = HttpClients.custom()</span><br><span class="line">                    .setSSLSocketFactory(sslsf)</span><br><span class="line">                    .build();</span><br><span class="line">    <span class="keyword">try</span> &#123;</span><br><span class="line">        <span class="comment">//发起退款请求</span></span><br><span class="line">        HttpPost httpPost = <span class="keyword">new</span> HttpPost(<span class="string">"https://api.mch.weixin.qq.com/secapi/pay/refund"</span>);</span><br><span class="line">        <span class="comment">// 构造消息头</span></span><br><span class="line">        httpPost.setHeader(<span class="string">"Content-type"</span>, <span class="string">"application/json; charset=utf-8"</span>);</span><br><span class="line">        <span class="comment">//准备参数</span></span><br><span class="line">        <span class="comment">//生成的随机字符串</span></span><br><span class="line">        String nonce_str = StringUtils.getRandomStringByLength(<span class="number">32</span>);</span><br><span class="line">        String money = Math.round((orderForm.getSum()*<span class="number">100</span>))+<span class="string">""</span>;<span class="comment">//支付金额，单位：分，这边需要转成字符串类型，否则后面的签名会失败</span></span><br><span class="line">        Map&lt;String, String&gt; packageParams = <span class="keyword">new</span> HashMap&lt;String, String&gt;();</span><br><span class="line">        packageParams.put(<span class="string">"appid"</span>, WxPayConfig.appid);</span><br><span class="line">        packageParams.put(<span class="string">"mch_id"</span>, WxPayConfig.mch_id);</span><br><span class="line">        packageParams.put(<span class="string">"nonce_str"</span>, nonce_str);</span><br><span class="line">        packageParams.put(<span class="string">"out_trade_no"</span>, orderFormId);<span class="comment">//商户订单号</span></span><br><span class="line">        packageParams.put(<span class="string">"out_refund_no"</span>, orderFormId);<span class="comment">//商户退款单号</span></span><br><span class="line">        packageParams.put(<span class="string">"total_fee"</span>, money);<span class="comment">//支付金额，这边需要转成字符串类型，否则后面的签名会失败</span></span><br><span class="line">        packageParams.put(<span class="string">"refund_fee"</span>, money);<span class="comment">//退款金额</span></span><br><span class="line">        <span class="comment">// 除去数组中的空值和签名参数</span></span><br><span class="line">        packageParams = PayUtil.paraFilter(packageParams);</span><br><span class="line">        String prestr = PayUtil.createLinkString(packageParams); <span class="comment">// 把数组所有元素，按照“参数=参数值”的模式用“&amp;”字符拼接成字符串</span></span><br><span class="line">        <span class="comment">//MD5运算生成签名，用于调用退款接口</span></span><br><span class="line">        String mysign = PayUtil.sign(prestr, WxPayConfig.key, <span class="string">"utf-8"</span>).toUpperCase();</span><br><span class="line">        <span class="comment">//拼接统一下单接口使用的xml数据，要将上一步生成的签名一起拼接进去</span></span><br><span class="line">        String xml = <span class="string">"&lt;xml&gt;"</span> + <span class="string">"&lt;appid&gt;"</span> + WxPayConfig.appid + <span class="string">"&lt;/appid&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;mch_id&gt;"</span> + WxPayConfig.mch_id + <span class="string">"&lt;/mch_id&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;nonce_str&gt;"</span> + nonce_str + <span class="string">"&lt;/nonce_str&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;out_trade_no&gt;"</span> + orderFormId + <span class="string">"&lt;/out_trade_no&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;out_refund_no&gt;"</span> + orderFormId + <span class="string">"&lt;/out_refund_no&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;total_fee&gt;"</span> + money + <span class="string">"&lt;/total_fee&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;refund_fee&gt;"</span> + money + <span class="string">"&lt;/refund_fee&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;sign&gt;"</span> + mysign + <span class="string">"&lt;/sign&gt;"</span></span><br><span class="line">                + <span class="string">"&lt;/xml&gt;"</span>;</span><br><span class="line">        <span class="comment">// 构建消息实体</span></span><br><span class="line">        StringEntity entity = <span class="keyword">new</span> StringEntity(xml, Charset.forName(<span class="string">"UTF-8"</span>));</span><br><span class="line">        entity.setContentEncoding(<span class="string">"UTF-8"</span>);</span><br><span class="line">        <span class="comment">// 发送Json格式的数据请求</span></span><br><span class="line">        entity.setContentType(<span class="string">"application/json"</span>);</span><br><span class="line">        httpPost.setEntity(entity);</span><br><span class="line">        CloseableHttpResponse response = httpClient.execute(httpPost);</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            HttpEntity responseEntity = response.getEntity();</span><br><span class="line">            <span class="keyword">if</span> (responseEntity != <span class="keyword">null</span>) &#123;</span><br><span class="line">                Map map = getResultMap(<span class="keyword">new</span> 		InputStreamReader(responseEntity.getContent()));</span><br><span class="line">                String returnCode = (String) map.get(<span class="string">"return_code"</span>);</span><br><span class="line">                <span class="keyword">if</span> (<span class="string">"SUCCESS"</span>.equals(returnCode)) &#123;</span><br><span class="line">                    <span class="keyword">if</span> (<span class="string">"SUCCESS"</span>.equals((String) map.get(<span class="string">"result_code"</span>))) &#123;</span><br><span class="line">                        <span class="comment">//退款订单号</span></span><br><span class="line">                        String refunrOrderForm = (String) map.get(<span class="string">"out_trade_no"</span>);</span><br><span class="line">                        <span class="comment">//验证签名是否正确</span></span><br><span class="line">                        <span class="keyword">if</span> (PayUtil.verify(PayUtil.createLinkString(PayUtil.paraFilter(map)), (String) map.get(<span class="string">"sign"</span>), WxPayConfig.key, <span class="string">"utf-8"</span>)) &#123;</span><br><span class="line">                            <span class="comment">/**此处添加自己的业务逻辑代码start**/</span></span><br><span class="line">                            orderFormService.update(refunrOrderForm, <span class="number">5</span>);<span class="comment">//订单跳到失效</span></span><br><span class="line">                            log.info(<span class="string">"orderForm："</span>+refunrOrderForm+<span class="string">" refunded successfully!"</span>);</span><br><span class="line">                            <span class="comment">/**此处添加自己的业务逻辑代码end**/</span></span><br><span class="line">                        &#125;</span><br><span class="line">                    &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                        <span class="keyword">throw</span> <span class="keyword">new</span> WeixinException((String) map.get(<span class="string">"orderFormId:"</span>+orderFormId+<span class="string">"  err_code:"</span>+(String) map.get(<span class="string">"err_code"</span>) ));</span><br><span class="line">                    &#125;</span><br><span class="line"></span><br><span class="line">                &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                    <span class="keyword">throw</span> <span class="keyword">new</span> WeixinException((String) map.get(<span class="string">"orderFormId:"</span>+orderFormId+<span class="string">"   return_code"</span>) + (String) map.get(<span class="string">"return_msg"</span>));</span><br><span class="line">                &#125;</span><br><span class="line">                EntityUtils.consume(responseEntity);</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(<span class="string">"发起退款请求返回为空!请重试！"</span>);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">            log.error(<span class="string">"refund 1:"</span>+e.getMessage());</span><br><span class="line">            <span class="keyword">return</span> ResponseEntity.status(<span class="number">500</span>).body(Boolean.FALSE);</span><br><span class="line">        &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                response.close();</span><br><span class="line">            &#125;</span><br><span class="line">    &#125;<span class="keyword">catch</span> (Exception e)&#123;</span><br><span class="line">        log.error(<span class="string">"refund 2:"</span>+e.getMessage());</span><br><span class="line">        <span class="keyword">return</span> ResponseEntity.status(<span class="number">500</span>).body(Boolean.FALSE);</span><br><span class="line">    &#125; <span class="keyword">finally</span> &#123;</span><br><span class="line">                httpClient.close();</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> ResponseEntity.ok(Boolean.TRUE);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/12/Java虚拟机/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄国航">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄国航的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/12/Java虚拟机/" itemprop="url">Java虚拟机</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-12T10:19:44+08:00">
+                2018-08-12
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/08/12/Java虚拟机/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/2018/08/12/Java虚拟机/" class="cy_cmt_count" data-xid="2018/08/12/Java虚拟机/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/Mysql过程式数据库对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄国航">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄国航的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/08/Mysql过程式数据库对象/" itemprop="url">Mysql过程式数据库对象</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-08T09:30:28+08:00">
+                2018-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/08/08/Mysql过程式数据库对象/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/2018/08/08/Mysql过程式数据库对象/" class="cy_cmt_count" data-xid="2018/08/08/Mysql过程式数据库对象/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>#一、存储过程</p>
+<p>在MYSQL中，可以定义一段程序存放在数据库中，这样的程序称为存储过程。它是最重要的数据库对象之一。存储过程实质上就是一段代码，它可以由声明式SQL语句（如CREATE、UPDATE和SELECT等）和过程式SQL语句（如IF-THEN-ELSE)组成。存储过程可以由程序、触发器或者另一个存储过程来调用，从而激活它，实现代码段中的SQL语句。</p>
+<p>使用存储过程的优点有：</p>
+<p>（1 )存储过程在服务器端运行，执行速度快。</p>
+<p>（2）存储过程执行一次后，其执行规划就驻留在高速缓冲存储器，在以后的操作中，只需从高速缓冲存储器中调用已编译好的二进制代码执行，从而提高了系统性能。</p>
+<p>（3）确保数据库安全。使用存储过程可以完成所有数据库操作，并可通过编程方式控制上述操作对数据库信息访问的权限。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/08/Mysql过程式数据库对象/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/Mysql索引/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄国航">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄国航的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/06/Mysql索引/" itemprop="url">Mysql索引</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T11:43:15+08:00">
+                2018-08-06
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/08/06/Mysql索引/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/2018/08/06/Mysql索引/" class="cy_cmt_count" data-xid="2018/08/06/Mysql索引/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>copy from <a href="https://www.cnblogs.com/bypp/p/7755307.html" target="_blank" rel="noopener">https://www.cnblogs.com/bypp/p/7755307.html</a></p>
+<p>#一、介绍</p>
+<p>##1.什么是索引？</p>
+<p>一般的应用系统，读写比例在10:1左右，而且插入操作和一般的更新操作很少出现性能问题，在生产环境中，我们遇到最多的，也是最容易出问题的，还是一些复杂的查询操作，因此对查询语句的优化显然是重中之重。说起加速查询，就不得不提到索引了。</p>
+<p>##2.为什么要有索引呢？</p>
+<p>索引在MySQL中也叫做“键”，是存储引擎用于快速找到记录的一种数据结构。索引对于良好的性能<br>非常关键，尤其是当表中的数据量越来越大时，索引对于性能的影响愈发重要。<br>索引优化应该是对查询性能优化最有效的手段了。索引能够轻易将查询性能提高好几个数量级。<br>索引相当于字典的音序表，如果要查某个字，如果不使用音序表，则需要从几百页中逐页去查。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/06/Mysql索引/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/Mysql视图/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1128,291 +1695,13 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/06/SpringMVC笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="黄国航">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黄国航的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/06/SpringMVC笔记/" itemprop="url">SpringMVC笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-06T11:29:24+08:00">
-                2018-04-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/04/06/SpringMVC笔记/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/2018/04/06/SpringMVC笔记/" class="cy_cmt_count" data-xid="2018/04/06/SpringMVC笔记/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h2><blockquote>
-<p>一个http请求包含3个部分内容<br>1.方法-URL-协议/版本<br>2.请求头消息<br>3.请求正文（请求头消息和请求正文之间用空格隔开）<br>示例：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GET/sample.jsp HTTP/1.1</span><br><span class="line">Accept:image/gif.image/jpeg.*/*</span><br><span class="line">Accept-Language:zh-cn</span><br><span class="line">Connection:Keep-Alive</span><br><span class="line">Host:localhost</span><br><span class="line">User-Agent:Mozila/4.0(compatible:MSIE5.01:Windows NT5.0)</span><br><span class="line">Accept-Encoding:gzip,deflate</span><br><span class="line"></span><br><span class="line">username=jinqiao&amp;password=1234</span><br></pre></td></tr></table></figure>
-<h2 id="HTTP响应"><a href="#HTTP响应" class="headerlink" title="HTTP响应"></a>HTTP响应</h2><blockquote>
-<p>同http请求一眼，http响应也包括三个部分<br>1.协议-状态码-描述<br>2.响应头信息<br>3.响应正文(正文是HTML文档)<br>示例：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Sat, 31 Dec 2005 23:59:59 GMT</span><br><span class="line">Content-Type: text/html;charset=ISO-8859-1</span><br><span class="line">Content-Length: 122`</span><br><span class="line"></span><br><span class="line">＜html＞</span><br><span class="line">＜head＞</span><br><span class="line">＜title＞Wrox Homepage＜/title＞</span><br><span class="line">＜/head＞</span><br><span class="line">＜body＞</span><br><span class="line">＜!-- body goes here --＞</span><br><span class="line">＜/body＞</span><br><span class="line">＜/html＞</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/06/SpringMVC笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/06/SpringBoot笔记/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="黄国航">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黄国航的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/04/06/SpringBoot笔记/" itemprop="url">SpringBoot笔记</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-06T11:29:14+08:00">
-                2018-04-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/04/06/SpringBoot笔记/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/2018/04/06/SpringBoot笔记/" class="cy_cmt_count" data-xid="2018/04/06/SpringBoot笔记/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><strong>SpringBoot官网：<a href="https://projects.spring.io/spring-boot" target="_blank" rel="noopener">https://projects.spring.io/spring-boot</a></strong></p>
-<p><strong>SpringBootAPI文档：<a href="https://docs.spring.io/spring-boot/docs/current/api/" target="_blank" rel="noopener">https://docs.spring.io/spring-boot/docs/current/api/</a></strong></p>
-<p><strong>SpringBoot文档：<a href="https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/" target="_blank" rel="noopener">https://docs.spring.io/spring-boot/docs/current/reference/htmlsingle/</a></strong></p>
-<p><strong>开始学习前先了解一下SpringBoot注解大全：<a href="https://www.cnblogs.com/tanwei81/p/6814022.html" target="_blank" rel="noopener">https://www.cnblogs.com/tanwei81/p/6814022.html</a></strong></p>
-<h1 id="第二章-开发第一个应用程序"><a href="#第二章-开发第一个应用程序" class="headerlink" title="第二章 开发第一个应用程序"></a>第二章 开发第一个应用程序</h1><h2 id="2-1运用SpringBoot"><a href="#2-1运用SpringBoot" class="headerlink" title="2.1运用SpringBoot"></a>2.1运用SpringBoot</h2><p>使用IntelliJ IDEA创建快速创建一个SpringBoot项目，项目结构如下：</p>
-<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/%E6%8D%95%E8%8E%B7.PNG" alt="项目结构"></p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/04/06/SpringBoot笔记/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
+  <nav class="pagination">
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right"></i></a>
+  </nav>
+
 
 
           </div>
@@ -1460,7 +1749,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">12</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1473,7 +1762,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">5</span>
+                  <span class="site-state-item-count">6</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
