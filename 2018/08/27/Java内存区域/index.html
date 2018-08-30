@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="SpringMVC," />
+  <meta name="keywords" content="JVM," />
 
 
 
@@ -79,18 +79,22 @@
 
 
 
-<meta name="description" content="前言HTTP请求 一个http请求包含3个部分内容1.方法-URL-协议/版本2.请求头消息3.请求正文（请求头消息和请求正文之间用空格隔开）示例：  123456789GET/sample.jsp HTTP/1.1Accept:image/gif.image/jpeg.*/*Accept-Language:zh-cnConnection:Keep-AliveHost:localhostUser-">
-<meta name="keywords" content="SpringMVC">
+<meta name="description" content="整理自《深入理解Java虚拟机–JVM高级特性与最佳实践第二版》  Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的“高墙”，墙外面的人想进去，墙里面的人却想出来。  Java虚拟机定义了若干种程序运行期间会使用到的运行时数据区，其中有一些会随着虚拟机启动而创建，随着虚拟机退出而销毁。另外一些则是与线程一一对应的，这些与线程对应的数据区域会随着线程开始和结束而创建和销毁：">
+<meta name="keywords" content="JVM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SpringMVC笔记">
-<meta property="og:url" content="http://yoursite.com/2018/04/06/SpringMVC笔记/index.html">
+<meta property="og:title" content="Java内存区域">
+<meta property="og:url" content="http://yoursite.com/2018/08/27/Java内存区域/index.html">
 <meta property="og:site_name" content="黄国航的博客">
-<meta property="og:description" content="前言HTTP请求 一个http请求包含3个部分内容1.方法-URL-协议/版本2.请求头消息3.请求正文（请求头消息和请求正文之间用空格隔开）示例：  123456789GET/sample.jsp HTTP/1.1Accept:image/gif.image/jpeg.*/*Accept-Language:zh-cnConnection:Keep-AliveHost:localhostUser-">
+<meta property="og:description" content="整理自《深入理解Java虚拟机–JVM高级特性与最佳实践第二版》  Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的“高墙”，墙外面的人想进去，墙里面的人却想出来。  Java虚拟机定义了若干种程序运行期间会使用到的运行时数据区，其中有一些会随着虚拟机启动而创建，随着虚拟机退出而销毁。另外一些则是与线程一一对应的，这些与线程对应的数据区域会随着线程开始和结束而创建和销毁：">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-04-07T09:56:49.941Z">
+<meta property="og:image" content="https://images2015.cnblogs.com/blog/874710/201612/874710-20161206164443851-339965653.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/%E6%A0%88%E5%B8%A7.JPG">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/java%E5%A0%86.jpg">
+<meta property="og:updated_time" content="2018-08-30T14:58:14.632Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="SpringMVC笔记">
-<meta name="twitter:description" content="前言HTTP请求 一个http请求包含3个部分内容1.方法-URL-协议/版本2.请求头消息3.请求正文（请求头消息和请求正文之间用空格隔开）示例：  123456789GET/sample.jsp HTTP/1.1Accept:image/gif.image/jpeg.*/*Accept-Language:zh-cnConnection:Keep-AliveHost:localhostUser-">
+<meta name="twitter:title" content="Java内存区域">
+<meta name="twitter:description" content="整理自《深入理解Java虚拟机–JVM高级特性与最佳实践第二版》  Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的“高墙”，墙外面的人想进去，墙里面的人却想出来。  Java虚拟机定义了若干种程序运行期间会使用到的运行时数据区，其中有一些会随着虚拟机启动而创建，随着虚拟机退出而销毁。另外一些则是与线程一一对应的，这些与线程对应的数据区域会随着线程开始和结束而创建和销毁：">
+<meta name="twitter:image" content="https://images2015.cnblogs.com/blog/874710/201612/874710-20161206164443851-339965653.png">
 
 
 
@@ -120,13 +124,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/04/06/SpringMVC笔记/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/08/27/Java内存区域/"/>
 
 
 
 
 
-  <title>SpringMVC笔记 | 黄国航的博客</title>
+  <title>Java内存区域 | 黄国航的博客</title>
   
 
 
@@ -253,7 +257,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/04/06/SpringMVC笔记/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/27/Java内存区域/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="黄国航">
@@ -270,7 +274,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">SpringMVC笔记</h1>
+          <h1 class="post-title" itemprop="name headline">Java内存区域</h1>
         
 
         <div class="post-meta">
@@ -282,8 +286,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-04-06T11:29:24+08:00">
-                2018-04-06
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T17:28:33+08:00">
+                2018-08-27
               </time>
             
 
@@ -302,8 +306,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2018/04/06/SpringMVC笔记/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/04/06/SpringMVC笔记/" itemprop="commentsCount"></span>
+                <a href="/2018/08/27/Java内存区域/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/08/27/Java内存区域/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -331,25 +335,47 @@
       
 
       
-        <h1 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h1><h2 id="HTTP请求"><a href="#HTTP请求" class="headerlink" title="HTTP请求"></a>HTTP请求</h2><blockquote>
-<p>一个http请求包含3个部分内容<br>1.方法-URL-协议/版本<br>2.请求头消息<br>3.请求正文（请求头消息和请求正文之间用空格隔开）<br>示例：</p>
+        <p><em>整理自《深入理解Java虚拟机–JVM高级特性与最佳实践第二版》</em></p>
+<blockquote>
+<p>Java与C++之间有一堵由内存动态分配和垃圾收集技术所围成的“高墙”，墙外面的人想进去，墙里面的人却想出来。</p>
 </blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">GET/sample.jsp HTTP/1.1</span><br><span class="line">Accept:image/gif.image/jpeg.*/*</span><br><span class="line">Accept-Language:zh-cn</span><br><span class="line">Connection:Keep-Alive</span><br><span class="line">Host:localhost</span><br><span class="line">User-Agent:Mozila/4.0(compatible:MSIE5.01:Windows NT5.0)</span><br><span class="line">Accept-Encoding:gzip,deflate</span><br><span class="line"></span><br><span class="line">username=jinqiao&amp;password=1234</span><br></pre></td></tr></table></figure>
-<h2 id="HTTP响应"><a href="#HTTP响应" class="headerlink" title="HTTP响应"></a>HTTP响应</h2><blockquote>
-<p>同http请求一眼，http响应也包括三个部分<br>1.协议-状态码-描述<br>2.响应头信息<br>3.响应正文(正文是HTML文档)<br>示例：</p>
-</blockquote>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Date: Sat, 31 Dec 2005 23:59:59 GMT</span><br><span class="line">Content-Type: text/html;charset=ISO-8859-1</span><br><span class="line">Content-Length: 122`</span><br><span class="line"></span><br><span class="line">＜html＞</span><br><span class="line">＜head＞</span><br><span class="line">＜title＞Wrox Homepage＜/title＞</span><br><span class="line">＜/head＞</span><br><span class="line">＜body＞</span><br><span class="line">＜!-- body goes here --＞</span><br><span class="line">＜/body＞</span><br><span class="line">＜/html＞</span><br></pre></td></tr></table></figure>
+<p>Java虚拟机定义了若干种程序运行期间会使用到的运行时数据区，其中有一些会随着虚拟机启动而创建，随着虚拟机退出而销毁。另外一些则是与线程一一对应的，这些与线程对应的数据区域会随着线程开始和结束而创建和销毁：</p>
+<p><img src="https://images2015.cnblogs.com/blog/874710/201612/874710-20161206164443851-339965653.png" alt="img"></p>
 <a id="more"></a>
-<h1 id="应用基于注解额度控制器"><a href="#应用基于注解额度控制器" class="headerlink" title="应用基于注解额度控制器"></a>应用基于注解额度控制器</h1><h2 id="控制类注解："><a href="#控制类注解：" class="headerlink" title="控制类注解："></a>控制类注解：</h2><blockquote>
-<p>注解控制类前加@Controller，方法前加@RequestMapping(value=”…”(,method={RequestMethod.POST,RequestMethod.GET}))</p>
-</blockquote>
-<h2 id="重定向和Flash属性"><a href="#重定向和Flash属性" class="headerlink" title="重定向和Flash属性"></a>重定向和Flash属性</h2><blockquote>
-<h3 id="重定向的使用情况："><a href="#重定向的使用情况：" class="headerlink" title="重定向的使用情况："></a>重定向的使用情况：</h3><p>1.需要访问一个外部网站时<br>2.避免用户重新加载页面时再次调用同样的动作，为了避免这样的情况，提交表单后，让用户重定向到一个不同的页面。这个页面即时任意重新加载都没有副作用。</p>
-<h3 id="springMVC提供的重定向传值方法：使用Flash属性"><a href="#springMVC提供的重定向传值方法：使用Flash属性" class="headerlink" title="springMVC提供的重定向传值方法：使用Flash属性"></a>springMVC提供的重定向传值方法：使用Flash属性</h3><p>步骤：<br>1.必须在springMVC配置文件中加入<annotation-driven>元素<br>2.在方法上添加一个新的参数类型RedirectAttributes<br>3.通过redirectAttributes的addFlashAttribute(String agr0,Object arg1)方法来传达参数</annotation-driven></p>
-</blockquote>
-<h2 id="使用路径变量："><a href="#使用路径变量：" class="headerlink" title="使用路径变量："></a>使用路径变量：</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">@RequestMapping(value=&quot;product_save&quot;, method=RequestMethod.POST)</span><br><span class="line">public String save(ProductForm productForm, RedirectAttributes redirectAttributes) throws Exception&#123;</span><br><span class="line">	logger.info(&quot;SaveProductController called&quot;);</span><br><span class="line">	Product product  = new Product();</span><br><span class="line">	product.setDescription(productForm.getDescription());</span><br><span class="line">	product.setName(productForm.getName());</span><br><span class="line">	try &#123;</span><br><span class="line">		product.setPrice(Integer.parseInt(productForm.getPrice()));</span><br><span class="line">	&#125; catch(NumberFormatException e) &#123;</span><br><span class="line">		e.printStackTrace();</span><br><span class="line">	&#125;</span><br><span class="line">	Product newProduct = productService.add(product);</span><br><span class="line">	redirectAttributes.addAttribute(&quot;message&quot;, &quot;Add product success!&quot;);</span><br><span class="line">	return &quot;redirect:/product_view/&quot;+ newProduct.getId();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">@RequestMapping(value=&quot;/product_view/&#123;id&#125;&quot;)</span><br><span class="line">public String viewProduct(@PathVariable long id, Model model) &#123;</span><br><span class="line">	Product product = productService.get(id);</span><br><span class="line">	model.addAttribute(&quot;product&quot;, product);</span><br><span class="line">	return &quot;ProductDetails&quot;;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-<p>上面的id为路径变量，在方法参数前加一个@PathVariable即可使用</p>
-<h2 id="获取请求参数："><a href="#获取请求参数：" class="headerlink" title="获取请求参数："></a>获取请求参数：</h2><p>如：<br><a href="http://localhost:8080/app04b/product_input?productId=3" target="_blank" rel="noopener">http://localhost:8080/app04b/product_input?productId=3</a><br>只需要使用在方法的参数前加@RequestParam注解<br>如：<br>public void sendProduct(@RequestParam int productId)<br>@RequestParam注解的参数类型不一定是字符串</p>
+<p>#1.程序计数器</p>
+<p>​    程序计数器是一块较小的内存空间，它可以看作是当前线程所执行的字节码的行号指示器。在虚拟机的概念模型里，字节码解释器工作时就是通过改变这个计数器的值来选取下一条需要执行的字节码指令，分支、循环、跳转、异常处理、线程恢复等基础功能都需要依赖这个计数器来完成。 此内存区域是唯一一个在Java虚拟机规范中没有规定任何OutOfMemoryError情况的区域。</p>
+<p>#2.Java虚拟机栈</p>
+<p>​    与程序计数器一样，Java虚拟机栈也是线程私有的，它的生命周期也线程相同。虚拟机栈描述的是Java方法执行的内存模型：每个方法在执行的同时会创建一个栈帧用于存储局部变量表、操作数栈、动态链接、方法出入口等信息。<strong>每一个方法从调用直到执行完成的过程，就对于着一个栈帧在虚拟机栈中的入栈出栈的过程。</strong></p>
+<p>​    Java虚拟机栈可能发生如下异常情况：</p>
+<ul>
+<li><p>如果线程请求分配的栈容量超过Java虚拟机栈允许的最大容量，Java虚拟机将会抛出一一个StackOverflowError异常。</p>
+</li>
+<li><p>如果Java虚拟机栈可以动态扩展，并且在尝试扩展的时候无法申请到足够的内存，或者在创建新的线程时没有足够的内存去创建对应的虚拟机栈，那Java虚拟机将会抛出一个OutOfMemoryError异常。</p>
+</li>
+</ul>
+<p>##2.1栈帧</p>
+<p>​    栈帧的存储空间由创建它的线程分配在Java虚拟机栈中，每个栈帧中都有自己的局部变量表、操作数栈和指向当前方法所属类的运行时常量池的引用。栈帧中还允许携带与Java虚拟机实现相关的一些附加信息，例如，对程序调试提供支持的信息。</p>
+<p>​    在某条线程执行过程中的某个时间点上，只有目前正在执行的那个方法的栈帧是活动的。这个栈帧称为当前栈帧，这个栈帧对应的方法称为当前方法，定义这个方法的类称作当前类。对局部变量表和操作数栈的各种操作，通常都指的是对当前栈帧的局部变量表和操作数栈所进行的操作。</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/%E6%A0%88%E5%B8%A7.JPG" alt="栈帧"></p>
+<p>###2.1.1局部变量表</p>
+<p>​    每个栈帧内部都包含一组称为局部变量表的变量列表。栈帧中局部变量表的长度由编译期决定，并且存储于类或接口的二进制表示之中，即通过方法的code属性保存及提供给栈帧使用。</p>
+<p>​    局部变量表的容量以Slot为最小单位，一个Slot可以保存一个类型为boolean、byte、char、short、int、float、reference或returnAddress的数据。两个Slot可以保存一个类型为long或double的数据。</p>
+<p>​    局部变量使用索引来进行定位访问。首个局部变量的索引值为0。局部变量的索引值是个整数，它大于等于0，且小于局部变量表的长度。</p>
+<p>###2.1.2操作数栈</p>
+<p>​    每个栈帧内部都包含一个称为操作数栈的后进先出（Last-In-First-Out，LIFO)栈。栈帧中操作数栈的最大深度由编译期决定，并且通过方法的code属性保存及提供给栈帧使用。</p>
+<p>​    在任意时刻，操作数栈都会有一个确定的栈深度，一个long或者double类型的数据 会占用两个单位的栈深度，其他数据类型则会占用一个单位的栈深度。</p>
+<p>###2.1.3动态连接</p>
+<p>​    每个栈帧内部都包含一个指向当前方法所在类型的运行时常量池的引用，以便对当前方法的代码实现动态链接。在class文件里面，一个方法若要调用其他方法，或者访问成员变量，则需要通过符号引用来表示，动态链接的作用就是将这些以符号引用所表示的方法转换为对实际方法的直接引用。类加载的过程中将要解析尚未被解析的符号引用，并且将对变量的访问转化为变量在程度运行时，位于存储结构中的正确偏移量。</p>
+<p>#3.本地方法栈</p>
+<p>本地方法栈与虚拟机栈所发挥的作用是非常相似的，它们之间的区别不过是虚拟机栈为虚拟机执行Java方法服务，而本地方法栈则为虚拟机使用到的Native方法服务·在虚拟机规范中对本地方法栈中方法使用的语言、使用方式与数据结构并没有强制规定，因此具体的虚拟机可以自由实现它·甚至有的虚拟机（譬如SunHotSpot虚拟机）直接就把本地方法栈和虚拟机栈合二为一·与虚拟机栈一样，本地方法栈区域也会抛出StackOverflowError和OutOfMemoryError异常。</p>
+<p>#4.Java堆</p>
+<p>​    对于大多数应用来说，Java堆(JavaHeap）是Java虚拟机所管理的内存中最大的一块。Java堆是被所有线程共享的一块内存区域，在虚拟机启动时创建。此内存区域的唯一目的就是存放对象实例，几乎所有的对象实例都在这里分配的。</p>
+<p>​    存储在JVM中的Java对象可以被划分为两类：一类是生命周期较短的瞬时对象，这类对象“朝生夕死”；而另一类对象的生命周期却非常长。因此对这些不同的生命周期的java对象，应该采取不同的垃圾收集策略，分代收集由此诞生。所以Java堆还可细分为新生代(YoungGen)和老年代(OldGen)，其中的新生代又可以划分为Eden空间、From Survivor空间和To Survivor空间：</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/java%E5%A0%86.jpg" alt="java堆"></p>
+<p>#5.方法区</p>
+<p>​    方法区与Java堆一样，是各个线程共享的内存区域，它用于存储已被虚拟机加载的类信息、常量、静态变量、即时编译器编译后的代码等数据。</p>
+<p>##5.1运行时常量池</p>
+<p>运行时常量池属于方法区中的一部分，一个有效的字节码文件中除了包含类的版本信息、字段、方法以及接口等描述信息外，还包含一项信息那就是常量池表，那么运行时常量池就是字节码文件中常量池表的运行时表示形式。运行时常量池中包含多种不同的常量，比如编译期就已经明确的数值字面量到运行期解析后才能够获得的方法或者字段引用。运行时常量池类似于传统编程语言中的符号表，但是它所包含的数据却比符号表要更加丰富一些。 </p>
 
       
     </div>
@@ -367,7 +393,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/SpringMVC/" rel="tag"># SpringMVC</a>
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
           
         </div>
       
@@ -380,8 +406,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/04/06/SpringBoot笔记/" rel="next" title="SpringBoot笔记">
-                <i class="fa fa-chevron-left"></i> SpringBoot笔记
+              <a href="/2018/08/26/微信小程序支付/" rel="next" title="微信小程序支付">
+                <i class="fa fa-chevron-left"></i> 微信小程序支付
               </a>
             
           </div>
@@ -390,8 +416,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/04/06/Spring笔记/" rel="prev" title="Spring笔记">
-                Spring笔记 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/08/27/垃圾收集器与内存分配策略/" rel="prev" title="JVM的垃圾收集">
+                JVM的垃圾收集 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -449,17 +475,8 @@
       
 
       
-        <ul class="sidebar-nav motion-element">
-          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
-            文章目录
-          </li>
-          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
-            站点概览
-          </li>
-        </ul>
-      
 
-      <section class="site-overview-wrap sidebar-panel">
+      <section class="site-overview-wrap sidebar-panel sidebar-panel-active">
         <div class="site-overview">
           <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
             
@@ -530,22 +547,6 @@
         </div>
       </section>
 
-      
-      <!--noindex-->
-        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
-          <div class="post-toc">
-
-            
-              
-            
-
-            
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#前言"><span class="nav-text">前言</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP请求"><span class="nav-text">HTTP请求</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#HTTP响应"><span class="nav-text">HTTP响应</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#应用基于注解额度控制器"><span class="nav-text">应用基于注解额度控制器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#控制类注解："><span class="nav-text">控制类注解：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#重定向和Flash属性"><span class="nav-text">重定向和Flash属性</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#重定向的使用情况："><span class="nav-text">重定向的使用情况：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#springMVC提供的重定向传值方法：使用Flash属性"><span class="nav-text">springMVC提供的重定向传值方法：使用Flash属性</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#使用路径变量："><span class="nav-text">使用路径变量：</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#获取请求参数："><span class="nav-text">获取请求参数：</span></a></li></ol></li></ol></div>
-            
-
-          </div>
-        </section>
-      <!--/noindex-->
       
 
       
