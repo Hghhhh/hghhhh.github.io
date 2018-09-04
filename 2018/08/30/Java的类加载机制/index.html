@@ -88,7 +88,7 @@
 <meta property="og:description" content="整理自《深入理解Java虚拟机–JVM高级特性与最佳实践第二版》 虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制。 类从被加载到虚拟机内存中开始，到卸载出内存为止，它的整个生命周期包括：加载、验证、准备、解析、初始化、使用和卸载7个阶段。其中验证、准备、解析三个部分统称为连接。其中加载、验证、">
 <meta property="og:locale" content="zh-Hans">
 <meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/%E5%8F%8C%E4%BA%B2%E5%A7%94%E6%B4%BE%E6%A8%A1%E5%9E%8B0.jpg">
-<meta property="og:updated_time" content="2018-08-30T15:04:48.009Z">
+<meta property="og:updated_time" content="2018-09-03T12:28:47.473Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Java虚拟机的类加载机制">
 <meta name="twitter:description" content="整理自《深入理解Java虚拟机–JVM高级特性与最佳实践第二版》 虚拟机把描述类的数据从Class文件加载到内存，并对数据进行校验、转换解析和初始化，最终形成可以被虚拟机直接使用的Java类型，这就是虚拟机的类加载机制。 类从被加载到虚拟机内存中开始，到卸载出内存为止，它的整个生命周期包括：加载、验证、准备、解析、初始化、使用和卸载7个阶段。其中验证、准备、解析三个部分统称为连接。其中加载、验证、">
@@ -440,6 +440,8 @@
 <p>好处是：Java类随着它的类加载器一起具备了一种带有优先级的层次关系。例如类java.lang.Object，它存放在rt.jar中，无论哪个类加载器要加载这个类，最终都会委派给启动类加载器进行加载，因此Object类在程序的各种类加载器环境中都是同一个类。相反，如果用户自己写了一个名为java.lang.Object的类，并放在程序的Classpath中，那系统中将会出现多个不同的Object类，java类型体系中最基础的行为也无法保证，应用程序也会变得一片混乱。 </p>
 <p>下面是实现双亲委派模型的主要代码：先检查是否已经被加载过，若没有则调用父类加载器的loadClass()方法，若父类加载器为空默认使用启动类加载器作为父加载器。如果父加载器失败，抛出ClassNotFoundException异常后，再调用自己的findClass()方法进行加载。</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">proteceted <span class="keyword">synchronized</span> Class&lt;?&gt; loadClass(String name,<span class="keyword">boolean</span> resolve) </span><br><span class="line">	<span class="keyword">throw</span> ClassNotFundException&#123;</span><br><span class="line">    Class c=findLoadClass(name);</span><br><span class="line">    <span class="keyword">if</span>(c==<span class="keyword">null</span>)&#123;</span><br><span class="line">        <span class="keyword">try</span>&#123;</span><br><span class="line">            <span class="keyword">if</span>(parent!=<span class="keyword">null</span>)&#123;</span><br><span class="line">                c=parent.loadClass(name,resolve);          </span><br><span class="line">            &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">                c= findBootstrapClass0(name);               </span><br><span class="line">            &#125;<span class="keyword">catch</span>(ClassNotFoundException e)&#123;</span><br><span class="line">                c = findClass(name);</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span>(resolve)&#123;<span class="comment">//是否初始化</span></span><br><span class="line">        resolveClass(c);</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> c;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="破坏双亲委派模型"><a href="#破坏双亲委派模型" class="headerlink" title="破坏双亲委派模型"></a>破坏双亲委派模型</h2><p>​    双亲委派模型很好地解决了各个类加载器的基础类的统一问题（越基础的类由越上层的加载器进行加载），但如果基础类又要调用回用户的代码，也就是父类加载器要请求子类加载器去完成类加载的动作，该怎么办？</p>
+<p>​    一个典型的例子便是JNDI服务，它的代码由类加载器去加载，但JNDI的目的就是对资源进行集中管理和查找，它需要调用有独立厂商实现并部署在应用程序的ClassPath下的JNDI接口提供者的代码，但启动类加载器不可能“认识”这些代码。为了解决这个问题，Java团队引入了：线程上下文类加载器。这个类加载器可以通过java.lang.Thread类的setContextClassLoader()方法进行设置，如果创建线程是还未设置，它将会从父线程中继承一个，如果在应用程序的全局范围内都没有设置过的话，那这个类加载器默认就是应用程序类加载器。</p>
 
       
     </div>
@@ -479,6 +481,10 @@
           <span class="post-nav-divider"></span>
 
           <div class="post-nav-prev post-nav-item">
+            
+              <a href="/2018/09/04/早期（编译期）优化/" rel="prev" title="早期（编译期）优化">
+                早期（编译期）优化 <i class="fa fa-chevron-right"></i>
+              </a>
             
           </div>
         </div>
@@ -564,7 +570,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">14</span>
+                  <span class="site-state-item-count">16</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -626,7 +632,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#二、类加载的过程"><span class="nav-text">二、类加载的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-加载"><span class="nav-text">1.加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-验证"><span class="nav-text">2.验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）文件格式验证"><span class="nav-text">（1）文件格式验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）元数据验证"><span class="nav-text">（2）元数据验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）字节码验证"><span class="nav-text">（3）字节码验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-符号引用验证"><span class="nav-text">(4)符号引用验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-准备"><span class="nav-text">3.准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-解析"><span class="nav-text">4.解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）类或接口的解析"><span class="nav-text">（1）类或接口的解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）字段解析"><span class="nav-text">（2）字段解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（4）接口方法解析"><span class="nav-text">（4）接口方法解析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-初始化"><span class="nav-text">5.初始化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、类加载器"><span class="nav-text">三、类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#双亲委派模型"><span class="nav-text">双亲委派模型</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#二、类加载的过程"><span class="nav-text">二、类加载的过程</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#1-加载"><span class="nav-text">1.加载</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-验证"><span class="nav-text">2.验证</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）文件格式验证"><span class="nav-text">（1）文件格式验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）元数据验证"><span class="nav-text">（2）元数据验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）字节码验证"><span class="nav-text">（3）字节码验证</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#4-符号引用验证"><span class="nav-text">(4)符号引用验证</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-准备"><span class="nav-text">3.准备</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-解析"><span class="nav-text">4.解析</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#（1）类或接口的解析"><span class="nav-text">（1）类或接口的解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）字段解析"><span class="nav-text">（2）字段解析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（4）接口方法解析"><span class="nav-text">（4）接口方法解析</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-初始化"><span class="nav-text">5.初始化</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#三、类加载器"><span class="nav-text">三、类加载器</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#双亲委派模型"><span class="nav-text">双亲委派模型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#破坏双亲委派模型"><span class="nav-text">破坏双亲委派模型</span></a></li></ol></li></ol></div>
             
 
           </div>

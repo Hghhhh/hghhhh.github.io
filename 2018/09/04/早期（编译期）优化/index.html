@@ -68,7 +68,7 @@
 
 
 
-  <meta name="keywords" content="mysql," />
+  <meta name="keywords" content="JVM," />
 
 
 
@@ -79,18 +79,20 @@
 
 
 
-<meta name="description" content="视图的概念视图（View）是从一个或多个表（或视图）导出（采用查询方式）的表，但视图是一个虚 表，即它所对应的数据不进行实际存储，数据库中只存储视图的定义，对视图的数据进行操 作时，系统根据视图的定义去操作与视图相关联的基本表。 视图一经定义，就可以像表一样被查询、修改、删除和更新。 ##使用视图有下列优点： （1)为用户集中数据，简化用户的数据查询和处理。有时用户所需要的数据分散在多个表中，定义">
-<meta name="keywords" content="mysql">
+<meta name="description" content="整理自《深入理解Java虚拟机第二版》 #一、概述 JVM的编译器可以分为三个编译器：    前端编译器：把.java转变为.class的过程。如Sun的Javac、Eclipse JDT中的增量式编译器（ECJ）。   JIT编译器（即时编译器）：把字节码转变为机器码的过程，如HotSpot VM的C1、C2编译器。  AOT编译器：静态提前编译器，直接将*.java文件编译本地机器代码的过程。">
+<meta name="keywords" content="JVM">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Mysql视图">
-<meta property="og:url" content="http://yoursite.com/2018/08/05/Mysql视图/index.html">
+<meta property="og:title" content="早期（编译期）优化">
+<meta property="og:url" content="http://yoursite.com/2018/09/04/早期（编译期）优化/index.html">
 <meta property="og:site_name" content="黄国航的博客">
-<meta property="og:description" content="视图的概念视图（View）是从一个或多个表（或视图）导出（采用查询方式）的表，但视图是一个虚 表，即它所对应的数据不进行实际存储，数据库中只存储视图的定义，对视图的数据进行操 作时，系统根据视图的定义去操作与视图相关联的基本表。 视图一经定义，就可以像表一样被查询、修改、删除和更新。 ##使用视图有下列优点： （1)为用户集中数据，简化用户的数据查询和处理。有时用户所需要的数据分散在多个表中，定义">
+<meta property="og:description" content="整理自《深入理解Java虚拟机第二版》 #一、概述 JVM的编译器可以分为三个编译器：    前端编译器：把.java转变为.class的过程。如Sun的Javac、Eclipse JDT中的增量式编译器（ECJ）。   JIT编译器（即时编译器）：把字节码转变为机器码的过程，如HotSpot VM的C1、C2编译器。  AOT编译器：静态提前编译器，直接将*.java文件编译本地机器代码的过程。">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-05T15:32:45.775Z">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/javac%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B.JPG">
+<meta property="og:updated_time" content="2018-09-04T16:23:10.271Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Mysql视图">
-<meta name="twitter:description" content="视图的概念视图（View）是从一个或多个表（或视图）导出（采用查询方式）的表，但视图是一个虚 表，即它所对应的数据不进行实际存储，数据库中只存储视图的定义，对视图的数据进行操 作时，系统根据视图的定义去操作与视图相关联的基本表。 视图一经定义，就可以像表一样被查询、修改、删除和更新。 ##使用视图有下列优点： （1)为用户集中数据，简化用户的数据查询和处理。有时用户所需要的数据分散在多个表中，定义">
+<meta name="twitter:title" content="早期（编译期）优化">
+<meta name="twitter:description" content="整理自《深入理解Java虚拟机第二版》 #一、概述 JVM的编译器可以分为三个编译器：    前端编译器：把.java转变为.class的过程。如Sun的Javac、Eclipse JDT中的增量式编译器（ECJ）。   JIT编译器（即时编译器）：把字节码转变为机器码的过程，如HotSpot VM的C1、C2编译器。  AOT编译器：静态提前编译器，直接将*.java文件编译本地机器代码的过程。">
+<meta name="twitter:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/javac%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B.JPG">
 
 
 
@@ -120,13 +122,13 @@
 
 
 
-  <link rel="canonical" href="http://yoursite.com/2018/08/05/Mysql视图/"/>
+  <link rel="canonical" href="http://yoursite.com/2018/09/04/早期（编译期）优化/"/>
 
 
 
 
 
-  <title>Mysql视图 | 黄国航的博客</title>
+  <title>早期（编译期）优化 | 黄国航的博客</title>
   
 
 
@@ -253,7 +255,7 @@
   
   
   <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/Mysql视图/">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/04/早期（编译期）优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="name" content="黄国航">
@@ -270,7 +272,7 @@
 
         
         
-          <h1 class="post-title" itemprop="name headline">Mysql视图</h1>
+          <h1 class="post-title" itemprop="name headline">早期（编译期）优化</h1>
         
 
         <div class="post-meta">
@@ -282,8 +284,8 @@
               
                 <span class="post-meta-item-text">发表于</span>
               
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T20:08:45+08:00">
-                2018-08-05
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-04T19:57:22+08:00">
+                2018-09-04
               </time>
             
 
@@ -302,8 +304,8 @@
                 <i class="fa fa-comment-o"></i>
               </span>
               
-                <a href="/2018/08/05/Mysql视图/#SOHUCS" itemprop="discussionUrl">
-                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/08/05/Mysql视图/" itemprop="commentsCount"></span>
+                <a href="/2018/09/04/早期（编译期）优化/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/09/04/早期（编译期）优化/" itemprop="commentsCount"></span>
                 </a>
               
             
@@ -331,52 +333,39 @@
       
 
       
-        <h1 id="视图的概念"><a href="#视图的概念" class="headerlink" title="视图的概念"></a>视图的概念</h1><p>视图（View）是从一个或多个表（或视图）导出（采用查询方式）的表，但视图是一个虚</p>
-<p>表，即它所对应的数据不进行实际存储，数据库中只存储视图的定义，对视图的数据进行操</p>
-<p>作时，系统根据视图的定义去操作与视图相关联的基本表。</p>
-<p>视图一经定义，就可以像表一样被查询、修改、删除和更新。</p>
-<p>##使用视图有下列优点：</p>
-<p>（1)为用户集中数据，简化用户的数据查询和处理。有时用户所需要的数据分散在多个表中，定义视图可将它们集中在一起，从而方便用户的数据查询和处理。</p>
-<p>（2）屏蔽数据库的复杂性。用户不必了解复杂的数据库中的表结构，并且数据库表的更改也不影响用户对数据库的使用。</p>
-<p>（3）简化用户权限的管理。只需授予用户使用视图的权限，而不必指定用户只能使用表的特定列，也增加了安全性。</p>
-<p>（4）便于数据共享。各用户不必都定义和存储自己所需的数据，可共享数据库的数据，这样同样的数据只需存储一次。</p>
-<p>（5）可以重新组织数据以便输出到其他应用程序中。</p>
-<p>##使用数据库视图有几个缺点：</p>
-<p>（1）<em>性能</em>：从数据库视图查询数据可能会很慢，特别是如果视图是基于其他视图创建的。</p>
-<p>（2）<em>表依赖关系</em>：将根据数据库的基础表创建一个视图。每当更改与其相关联的表的结构时，都必须更改视图。</p>
-<h2 id="MySQL视图的限制"><a href="#MySQL视图的限制" class="headerlink" title="MySQL视图的限制"></a>MySQL视图的限制</h2><p>不能在视图上创建索引。当使用合并算法的视图查询数据时，MySQL会使用底层表的索引。对于使用诱惑算法的视图，当您针对视图查询数据时，不会使用索引。</p>
-<p>在<em>MySQL 5.7.7</em>之前版本，是不能在<code>SELECT</code>语句的<code>FROM</code>子句中使用子查询来定义视图的。</p>
-<p>如果删除或重命名视图所基于的表，则MySQL不会发出任何错误。但是，MySQL会使视图无效。 可以使用<code>CHECK TABLE</code>语句来检查视图是否有效。</p>
-<p>一个简单的视图可以更新表中数据。基于具有连接，子查询等的复杂SELECT语句创建的视图无法更新。</p>
-<p>MySQL不像：<a href="http://www.oraok.com/" target="_blank" rel="noopener">Oracle</a>，<a href="http://www.yiibai.com/postgresql/" target="_blank" rel="noopener">PostgreSQL</a>等其他数据库系统那样支持物理视图，MySQL是不支持物理视图的。</p>
-<h1 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h1><p>语法格式：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span></span><br><span class="line">    [<span class="keyword">OR</span> <span class="keyword">REPLACE</span>]</span><br><span class="line">    [ALGORITHM = &#123;UNDEFINED | <span class="keyword">MERGE</span> | TEMPTABLE&#125;]</span><br><span class="line">    [DEFINER = &#123; <span class="keyword">user</span> | <span class="keyword">CURRENT_USER</span> &#125;]</span><br><span class="line">    [<span class="keyword">SQL</span> <span class="keyword">SECURITY</span> &#123; DEFINER | INVOKER &#125;]</span><br><span class="line">    <span class="keyword">VIEW</span> view_name [(column_list)]</span><br><span class="line">    <span class="keyword">AS</span> select_statement</span><br><span class="line">    [<span class="keyword">WITH</span> [<span class="keyword">CASCADED</span> | <span class="keyword">LOCAL</span>] <span class="keyword">CHECK</span> <span class="keyword">OPTION</span>]</span><br></pre></td></tr></table></figure>
-<p><em>select_statement</em>是一个<code>SELECT</code>提供视图定义的语句。 </p>
-<p>WITH CHECK OPTION : 指出在可更新视图上所进行的修改都要符合select_statement所指定的限制条件，这样可以确保数据修改后，仍可通过视图看到修改的数据。当视图是根据另一个视图定义的时，WITHCHECKOPTION给出两个参数：LOCAL和CASCADED。它们决定了检查测试的范围。LOCAL关键字使CHECK OPTION只对定义的视图进行检查，CASCADED则会对所有视图进行检查。如未给定任一关键词，则默认值为CASCADED。</p>
-<p><a href="https://www.yiibai.com/mysql/view-with-check-option.html" target="_blank" rel="noopener">WITH CHECK OPTION子句简介</a></p>
-<p>其它的具体见<a href="https://dev.mysql.com/doc/refman/5.7/en/create-view.html" target="_blank" rel="noopener">创建视图语法</a></p>
-<p>【例1】：创建包含计算机专业各学生的学号、其选修的课程号及成绩的视图</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">OR</span> <span class="keyword">REPLACE</span> <span class="keyword">VIEW</span> view_one </span><br><span class="line">	<span class="keyword">AS</span> </span><br><span class="line">	<span class="keyword">SELECT</span> tb_student.<span class="string">`sid`</span>,cid,mark</span><br><span class="line">	<span class="keyword">FROM</span> tb_student, tb_student_course</span><br><span class="line">	<span class="keyword">WHERE</span> tb_student.<span class="string">`sid`</span>=tb_student_course.<span class="string">`sid`</span> <span class="keyword">AND</span> tb_student.<span class="string">`subject`</span>=<span class="string">'计算机'</span></span><br><span class="line">	<span class="keyword">WITH</span> <span class="keyword">CHECK</span> <span class="keyword">OPTION</span></span><br></pre></td></tr></table></figure>
-<h1 id="查询视图"><a href="#查询视图" class="headerlink" title="查询视图"></a>查询视图</h1><p>视图定义后，就可以如同查询基本表那样对视图进行查询</p>
-<h1 id="更新视图"><a href="#更新视图" class="headerlink" title="更新视图"></a>更新视图</h1><h1 id="可更新视图"><a href="#可更新视图" class="headerlink" title="可更新视图"></a>可更新视图</h1><p>在MySQL中，视图不仅是可查询的，而且是可更新的。这意味着您可以使用INSER或UPDATE语句通过可更新视图插入或更新基表的行。另外，您可以使用DELETE语句通过视图删除底层表的行。</p>
-<p>但是，创建可更新视图，定义视图的SELECT语句不能有以下任何元素：</p>
+        <p><em>整理自《深入理解Java虚拟机第二版》</em></p>
+<p>#一、概述</p>
+<p>JVM的编译器可以分为三个编译器：  </p>
 <ul>
-<li>聚合函数，如：MIN，MAX，SUM，AVG，COUNT等。</li>
-<li>DISTINCT子句</li>
-<li>GROUP BY子句</li>
-<li>HAVING子句</li>
-<li>UNION运算符</li>
-<li>位于选择列表中的子查询</li>
-<li>SELECT语句中引用了不可更新视图</li>
-<li>WHERE子句中的子查询，引用FROM子句中的表</li>
+<li><p>前端编译器：把<em>.java转变为</em>.class的过程。如Sun的Javac、Eclipse JDT中的增量式编译器（ECJ）。 </p>
+</li>
+<li><p>JIT编译器（即时编译器）：把字节码转变为机器码的过程，如HotSpot VM的C1、C2编译器。</p>
+</li>
+<li>AOT编译器：静态提前编译器，直接将*.java文件编译本地机器代码的过程。</li>
 </ul>
-<p>如果ALGORITHM使用的不是Temptable算法创建视图，则无法更新视图。</p>
-<h2 id="修改视图"><a href="#修改视图" class="headerlink" title="修改视图"></a>修改视图</h2><p>创建视图后，可以使用<code>ALTER VIEW</code>语句修改视图。</p>
-<p><code>ALTER VIEW</code>语句的语法类似于<code>CREATE VIEW</code>语句，除了<code>CREATE</code>关键字被<code>ALTER</code>关键字替换外，其它都一样。</p>
-<p>##删除视图</p>
-<p>创建视图后，可以使用<code>DROP VIEW</code>语句将其删除。下面说明了<code>DROP VIEW</code>语句的语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP VIEW [IF EXISTS] [database_name].[view_name]</span><br></pre></td></tr></table></figure>
-<p><code>IF EXISTS</code>是语句的可选子句，它允许您检查视图是否存在。它可以避免删除不存在的视图的错误。</p>
+<p>Java中即时编译器在运行期的优化过程对于程序运行来说更重要，而前端编译器在优化过程对于程序编码来说关系更加密切。</p>
+<a id="more"></a>
+<p>#二、Javac编译器</p>
+<p>从Sun Javac的代码来看，编译过程大致可以分为3个过程，分别是：</p>
+<ul>
+<li>解析与填充符号表过程</li>
+<li>插入式注解处理器的注解处理过程</li>
+<li>分析与字节码生成过程</li>
+</ul>
+<p>这3个步骤之间的关系与交互顺序如下：<br><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/javac%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B.JPG" alt="Javac的编译过程"></p>
+<h2 id="2-1解析与填充符号表"><a href="#2-1解析与填充符号表" class="headerlink" title="2.1解析与填充符号表"></a>2.1解析与填充符号表</h2><h3 id="2-1-1词法、语法分析"><a href="#2-1-1词法、语法分析" class="headerlink" title="2.1.1词法、语法分析"></a>2.1.1词法、语法分析</h3><p>​    词法分析是将源码的字符流转变为标记（Token）集合，单个字符是程序编写过程的最小元素，而标记则是编译过程的最小元素，关键字、变量名、字面量、运算符都可以成为标记。</p>
+<p>​    语法分析是根据Token序列构造抽象语法树的过程，抽象语法树是一种用来描述程序代码语法结构的树形表示方法，语法数的每一个节点都代表着程序代码中的一个语法结构，例如包、类型、修饰符、运算符、接口、返回值甚至代码注释等。经过这个阶段后编译器就基本不会对源码文件进行操作了，后续的操作都建立在抽象语法树之上了。</p>
+<h3 id="2-1-2填充符号表"><a href="#2-1-2填充符号表" class="headerlink" title="2.1.2填充符号表"></a>2.1.2填充符号表</h3><p>​    符号表是由一组符号地址和符号信息构成的表格。符号表中所登记的信息在编译的不同阶段都要用到，在语义分析阶段中，符号表所登记的内容将进行语义检查和产生中间代码；在目标代码生成阶段，当对符号名进行地址分配时，符号表是地址分配的依据。</p>
+<h2 id="2-2注解处理器"><a href="#2-2注解处理器" class="headerlink" title="2.2注解处理器"></a>2.2注解处理器</h2><pre><code>在JDK1.6中实现了JSR-269规范提供了一组插入式注解处理器的标准API在编译期间对注解进行处理，我们可以把它看做是一组编译器的插件，在这些插件里面，可以读取、修改、添加抽象语法树中的任意元素。如果这些插件在处理注解期间对语法树进行了修改，编译器将回到解析及填充符号表的过程重新处理，直到所有插人式注解处理器都没有再对语法树进行修改为止，每一次循环称为一个Round，也就是上图中的回环过程。
+</code></pre><h2 id="2-3语义分析与字节码生成"><a href="#2-3语义分析与字节码生成" class="headerlink" title="2.3语义分析与字节码生成"></a>2.3语义分析与字节码生成</h2><p>​    语义分析的主要任务是对结构上正确的源程序进行上下文有关性质的审查，如进行类型审查。</p>
+<h3 id="2-3-1标注检查"><a href="#2-3-1标注检查" class="headerlink" title="2.3.1标注检查"></a>2.3.1标注检查</h3><p>​    标注检查步骤检查的内容包括诸如变量使用前是否已被声明、变量与赋值之间的数据类型是否匹配等。在标注检查中，有一个重要的动作：<strong>常量折叠</strong>。</p>
+<p>​    如果我们在代码中写了如下定义：<code>int a = 1+2;</code>那么在语法树上仍然能看到字面量“1”，“2”以及操作符“+”，但是在经过常量折叠后，它们将会被折叠为字面量“3”，这个插入式表达式的值已经在语法树上标注出来了。由于在编译期进行了常量折叠，所以在代码里面定义“a=1+2“比起直接定义”a=3“，并不会增加程序运行期间的CPU指令运算量。</p>
+<h3 id="2-3-2数据及控制流分析"><a href="#2-3-2数据及控制流分析" class="headerlink" title="2.3.2数据及控制流分析"></a>2.3.2数据及控制流分析</h3><p>​    数据及控制流分析是对程序上下文逻辑更近一步的验证，它可以检查出诸如程序局部变量在使用前是否赋值、方法的每条路径是否有返回值、是否所以的受查异常都被正确处理等问题。</p>
+<p>​    值得注意的是虽然这里的数据及控制流分析与类加载时的数据及控制流分析的目的基本一致，但校验范围是有所区别，一些校验项只有在编译期或运行期才能进行。例如局部变量在Class文件的常量池中没有符号引用，自然就没有访问标志的信息，所以在Class文件中不可能知道一个局部变量的访问标志。因此，如果将局部变量声明为final，对运行期是没有影响的，变量的不变性仅仅在编译期间保障。</p>
+<h3 id="2-3-3解语法糖"><a href="#2-3-3解语法糖" class="headerlink" title="2.3.3解语法糖"></a>2.3.3解语法糖</h3><p>​    语法糖（Syntactic Sugar）指在计算机语言中添加某种方便使用的对语言功能没有影响的语法。Java中最常用的语法糖主要是泛型、变长参数、自动装箱/拆箱等。虚拟机运行时不支持这些语法，所以它们在编译阶段还原回简单的基础语法，这个过程称为解语法糖。</p>
+<h3 id="2-3-4字节码生成"><a href="#2-3-4字节码生成" class="headerlink" title="2.3.4字节码生成"></a>2.3.4字节码生成</h3><p>​    字节码生成时javac编译过程的最后一个阶段，不仅仅是把前面各个阶段所生成的信息转化为字节码写到磁盘，编译器还进行了少量代码的添加和转换工作。</p>
+<p>​    例如实例构造器<code>&lt;init&gt;</code>方法和类构造器<code>&lt;clinit&gt;</code>方法就是这个阶段添加到语法树中的。（注意，这里的实例构造器并不是指默认的构造函数，这两个构造器的产生过程实际上是一个代码收敛的过程，编译器会把语句块、变量初始化、调用父类的实例构造器等操作收敛到<code>&lt;init&gt;</code>、<code>&lt;clinit&gt;</code>方法中，并且保证一定是按先执行父类的实例构造器，然后初始化变量，最后执行语句块的顺序进行）</p>
+<p>​    除了生成构造器外，还有其他的一些代码替换工作，如把字符串的加操作替换为StringBuffer或StringBuilder的append操作等。</p>
 
       
     </div>
@@ -394,7 +383,7 @@
       
         <div class="post-tags">
           
-            <a href="/tags/mysql/" rel="tag"># mysql</a>
+            <a href="/tags/JVM/" rel="tag"># JVM</a>
           
         </div>
       
@@ -407,8 +396,8 @@
         <div class="post-nav">
           <div class="post-nav-next post-nav-item">
             
-              <a href="/2018/08/04/Mysql数据库查询/" rel="next" title="Mysql数据库查询">
-                <i class="fa fa-chevron-left"></i> Mysql数据库查询
+              <a href="/2018/08/30/Java的类加载机制/" rel="next" title="Java虚拟机的类加载机制">
+                <i class="fa fa-chevron-left"></i> Java虚拟机的类加载机制
               </a>
             
           </div>
@@ -417,8 +406,8 @@
 
           <div class="post-nav-prev post-nav-item">
             
-              <a href="/2018/08/06/Mysql索引/" rel="prev" title="Mysql索引">
-                Mysql索引 <i class="fa fa-chevron-right"></i>
+              <a href="/2018/09/04/晚期（运行期）优化/" rel="prev" title="晚期（运行期）优化">
+                晚期（运行期）优化 <i class="fa fa-chevron-right"></i>
               </a>
             
           </div>
@@ -567,7 +556,7 @@
             
 
             
-              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#视图的概念"><span class="nav-text">视图的概念</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#MySQL视图的限制"><span class="nav-text">MySQL视图的限制</span></a></li></ol></li><li class="nav-item nav-level-1"><a class="nav-link" href="#创建视图"><span class="nav-text">创建视图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#查询视图"><span class="nav-text">查询视图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#更新视图"><span class="nav-text">更新视图</span></a></li><li class="nav-item nav-level-1"><a class="nav-link" href="#可更新视图"><span class="nav-text">可更新视图</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#修改视图"><span class="nav-text">修改视图</span></a></li></ol></li></ol></div>
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-1解析与填充符号表"><span class="nav-text">2.1解析与填充符号表</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-1词法、语法分析"><span class="nav-text">2.1.1词法、语法分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-1-2填充符号表"><span class="nav-text">2.1.2填充符号表</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-2注解处理器"><span class="nav-text">2.2注解处理器</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#2-3语义分析与字节码生成"><span class="nav-text">2.3语义分析与字节码生成</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-1标注检查"><span class="nav-text">2.3.1标注检查</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-2数据及控制流分析"><span class="nav-text">2.3.2数据及控制流分析</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-3解语法糖"><span class="nav-text">2.3.3解语法糖</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-3-4字节码生成"><span class="nav-text">2.3.4字节码生成</span></a></li></ol></li></ol></div>
             
 
           </div>
