@@ -249,6 +249,556 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/30/排序算法/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄国航">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄国航的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/30/排序算法/" itemprop="url">排序算法</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-30T19:57:22+08:00">
+                2018-11-30
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/11/30/排序算法/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/2018/11/30/排序算法/" class="cy_cmt_count" data-xid="2018/11/30/排序算法/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <h1 id="排序算法"><a href="#排序算法" class="headerlink" title="排序算法"></a>排序算法</h1><p>排序方法可分为5类：</p>
+<ul>
+<li>交换排序：对无序区中的记录的关键字两两比较，若逆序则交换，直到关键字之间不再逆序，典型的有冒泡排序、快速排序</li>
+<li>选择排序：在无序区中选出关键字最小的记录，置于有序区后面，直到所有记录有序，典型的有简单选择排序、堆排序</li>
+<li>插入排序：将无序区中的一个记录插入至有序区，使得有序区的长度加1，直到所有记录有序，典型的有直接插入排序、希尔排序</li>
+<li>归并排序：是不断将两个或两个以上有序区合并成一个有序区，直到全部记录有序</li>
+<li>基数排序：基数排序是按照低位先排序，然后收集；再按照高位排序，然后再收集；依次类推，直到最高位。</li>
+</ul>
+<p>排序方法可按时间复杂度分为下面4类：</p>
+<ul>
+<li>简单的排序方法：O（n^2）</li>
+<li>先进的排序方法：O（nlogn）</li>
+<li>基数排序，时间复杂度为O（n）</li>
+<li>希尔排序介于1和2之间</li>
+</ul>
+<p>具体如下：</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/849589-20180402133438219-1946132192.png" alt="时间复杂度"></p>
+<h2 id="冒泡排序"><a href="#冒泡排序" class="headerlink" title="冒泡排序"></a>冒泡排序</h2><p>###普通冒泡排序：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] nums = &#123;<span class="number">3</span>,<span class="number">5</span>,<span class="number">15</span>,<span class="number">36</span>,<span class="number">26</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">38</span>,<span class="number">44</span>,<span class="number">46</span>,<span class="number">47</span>,<span class="number">50</span>&#125;;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;nums.length-i-<span class="number">1</span>;j++) &#123;</span><br><span class="line">				<span class="keyword">if</span>(nums[j+<span class="number">1</span>]&lt;nums[j]) &#123;</span><br><span class="line">					<span class="keyword">int</span> tem = nums[j+<span class="number">1</span>];</span><br><span class="line">					nums[j+<span class="number">1</span>]=nums[j];</span><br><span class="line">					nums[j]=tem;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">			System.out.println(nums[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h3 id="改良的冒泡排序："><a href="#改良的冒泡排序：" class="headerlink" title="改良的冒泡排序："></a>改良的冒泡排序：</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">BubbleSortBetter</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span>[] nums = &#123;<span class="number">3</span>,<span class="number">5</span>,<span class="number">15</span>,<span class="number">36</span>,<span class="number">26</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">38</span>,<span class="number">44</span>,<span class="number">46</span>,<span class="number">47</span>,<span class="number">50</span>&#125;;</span><br><span class="line">		<span class="comment">//flag可以判断排序的时间是否已经有序，如果一趟排序没有再进行交换就是已经有序了</span></span><br><span class="line">		<span class="keyword">boolean</span> flag = <span class="keyword">true</span>;</span><br><span class="line">		<span class="comment">//作为有序的边界</span></span><br><span class="line">		<span class="keyword">int</span> sortBorder = nums.length-<span class="number">1</span>;</span><br><span class="line">		<span class="keyword">int</span> lastExchangeIndex = <span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">			flag = <span class="keyword">true</span>;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=<span class="number">0</span>;j&lt;sortBorder;j++) &#123;</span><br><span class="line">				<span class="keyword">if</span>(nums[j+<span class="number">1</span>]&lt;nums[j]) &#123;</span><br><span class="line">					<span class="keyword">int</span> tem = nums[j+<span class="number">1</span>];</span><br><span class="line">					nums[j+<span class="number">1</span>]=nums[j];</span><br><span class="line">					nums[j]=tem;</span><br><span class="line">					flag = <span class="keyword">false</span>;</span><br><span class="line">					lastExchangeIndex  = j;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="comment">//每趟交换后，选择最晚交换的那个序号作为有序区的边界，可以尽可能的增加有序区的元素</span></span><br><span class="line">			sortBorder = lastExchangeIndex;</span><br><span class="line">			<span class="keyword">if</span>(flag) &#123;</span><br><span class="line">				<span class="keyword">break</span>;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">			System.out.println(nums[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="快速排序"><a href="#快速排序" class="headerlink" title="快速排序"></a>快速排序</h2><p>基本思想是，先从待排序列中选定一个记录，称为枢轴（pivot），通过关键字与枢轴的比较将待排序的序列划分成位于枢轴前后的两个子序列，其中位于枢轴之前的子序列的所以关键字都不大于枢轴，枢轴之后的子序列的所有关键字都不小于枢轴；此时枢轴已到位，再按同样的方法对这两个子序列分别递归进行快速排序，最终使整个排序有序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">FastSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span>[] nums = &#123;<span class="number">3</span>,<span class="number">5</span>,<span class="number">15</span>,<span class="number">36</span>,<span class="number">26</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">38</span>,<span class="number">44</span>,<span class="number">46</span>,<span class="number">47</span>,<span class="number">50</span>&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		</span><br><span class="line">		qSort(nums,<span class="number">0</span>,nums.length-<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">			System.out.println(nums[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 快排实现算法</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> rcd 待排序数组</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> s</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> t</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">qSort</span><span class="params">(<span class="keyword">int</span>[] rcd,<span class="keyword">int</span> s,<span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> pivot;</span><br><span class="line">		<span class="keyword">if</span>(s&lt;t) &#123;</span><br><span class="line">			pivot = partition(rcd,s,t);</span><br><span class="line">			qSort(rcd,s,pivot-<span class="number">1</span>);</span><br><span class="line">			qSort(rcd,pivot+<span class="number">1</span>,t);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 快排的调用接口</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> rcd 待排序数组</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> low 枢轴左边最低序号</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> high 枢轴右边最高序号</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@return</span> 枢轴位置</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">int</span> <span class="title">partition</span><span class="params">(<span class="keyword">int</span>[] rcd,<span class="keyword">int</span> low,<span class="keyword">int</span> high)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> pivot = nums[low];</span><br><span class="line">		<span class="keyword">while</span>(low&lt;high) &#123;</span><br><span class="line">			<span class="keyword">while</span>(low&lt;high&amp;&amp;nums[high]&gt;pivot) --high;</span><br><span class="line">			nums[low]=nums[high];</span><br><span class="line">			<span class="keyword">while</span>(low&lt;high&amp;&amp;nums[low]&lt;pivot) ++low;</span><br><span class="line">			nums[high]=nums[low];</span><br><span class="line">		&#125;</span><br><span class="line">		nums[low]=pivot;</span><br><span class="line">		<span class="keyword">return</span> low;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="选择排序"><a href="#选择排序" class="headerlink" title="选择排序"></a>选择排序</h2><p>选择排序(Selection-sort)是一种简单直观的排序算法。它的工作原理：首先在未排序序列中找到最小（大）元素，存放到排序序列的起始位置，然后，再从剩余未排序元素中继续寻找最小（大）元素，然后放到已排序序列的末尾。以此类推，直到所有元素均排序完毕。 </p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ChooseSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span>[] nums = &#123;<span class="number">3</span>,<span class="number">5</span>,<span class="number">15</span>,<span class="number">36</span>,<span class="number">26</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">38</span>,<span class="number">44</span>,<span class="number">46</span>,<span class="number">47</span>,<span class="number">50</span>&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length-<span class="number">1</span>;i++) &#123;</span><br><span class="line">			<span class="keyword">int</span> minIndex = i;</span><br><span class="line">			<span class="keyword">for</span>(<span class="keyword">int</span> j=i+<span class="number">1</span>;j&lt;nums.length;j++) &#123;</span><br><span class="line">				<span class="keyword">if</span>(nums[minIndex]&gt;nums[j]) &#123;</span><br><span class="line">					minIndex = j;</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">int</span> tem = nums[i];</span><br><span class="line">			nums[i]=nums[minIndex];</span><br><span class="line">			nums[minIndex] = tem;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">			System.out.println(nums[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="堆排序"><a href="#堆排序" class="headerlink" title="堆排序"></a>堆排序</h2><p>堆排序利用对的特性进行排序，首先将待排序列建成一个大顶堆，使得堆顶元素最大；然后将堆顶元素与堆尾元素交换，堆长度减1；然后调整剩余结点为堆，得到次大值；重复这一过程，即可得到一个升序序列。同理采用小顶堆进行降序排序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">HeapSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span>[] nums = &#123;<span class="number">3</span>,<span class="number">5</span>,<span class="number">15</span>,<span class="number">36</span>,<span class="number">26</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">38</span>,<span class="number">44</span>,<span class="number">46</span>,<span class="number">47</span>,<span class="number">50</span>&#125;;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span> length = nums.length;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 堆的调整方法，前提是pos结点的左右子树均为堆</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> pos</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shiftDown</span><span class="params">(<span class="keyword">int</span> pos)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> c, rc,largest = pos;</span><br><span class="line">		<span class="comment">//c,rc为pos的左右子结点</span></span><br><span class="line">		c=pos*<span class="number">2</span>+<span class="number">1</span>;</span><br><span class="line">		rc=pos*<span class="number">2</span>+<span class="number">2</span>;</span><br><span class="line">		<span class="keyword">if</span>(rc&lt;length&amp;&amp;nums[rc]&gt;nums[largest]) &#123;				</span><br><span class="line">			largest = rc;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">if</span>(c&lt;length&amp;&amp;nums[c]&gt;nums[largest]) &#123;</span><br><span class="line">			largest = c;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="comment">//找出三个结点中最大的结点，给pos</span></span><br><span class="line">		<span class="keyword">if</span>(largest!=pos) &#123;</span><br><span class="line">			swap(pos,largest);</span><br><span class="line">			<span class="comment">//继续向下调整</span></span><br><span class="line">			shiftDown(largest);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 交换两个元素的值</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> a</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> b</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">swap</span><span class="params">(<span class="keyword">int</span> a,<span class="keyword">int</span> b)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> tem = nums[a];</span><br><span class="line">		nums[a] = nums[b];</span><br><span class="line">		nums[b] = tem;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 建堆</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">makeHeap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=length/<span class="number">2</span>;i&gt;=<span class="number">0</span>;i--) &#123;</span><br><span class="line">			shiftDown(i);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 移除堆顶元素</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">removeFirstHeap</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		swap(<span class="number">0</span>,length-<span class="number">1</span>);</span><br><span class="line">		length--;</span><br><span class="line">		shiftDown(<span class="number">0</span>);</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		makeHeap();</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=nums.length;i&gt;<span class="number">0</span>;i--) &#123;</span><br><span class="line">			removeFirstHeap();</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">			System.out.println(nums[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="插入排序"><a href="#插入排序" class="headerlink" title="插入排序"></a>插入排序</h2><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">InsertSort</span> </span>&#123;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span>[] nums = &#123;<span class="number">3</span>,<span class="number">5</span>,<span class="number">15</span>,<span class="number">36</span>,<span class="number">26</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">38</span>,<span class="number">44</span>,<span class="number">46</span>,<span class="number">47</span>,<span class="number">50</span>&#125;;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">        <span class="keyword">int</span> i=<span class="number">0</span>,l=<span class="number">0</span>,k=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;nums.length-<span class="number">1</span>;i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(nums[i+<span class="number">1</span>]&lt;nums[i]) &#123;</span><br><span class="line">				l =nums[i+<span class="number">1</span>];</span><br><span class="line">				k = i;</span><br><span class="line">				<span class="keyword">while</span>(k&gt;=<span class="number">0</span>&amp;&amp;nums[k]&gt;l) &#123;</span><br><span class="line">					nums[k+<span class="number">1</span>]=nums[k];</span><br><span class="line">					k--;</span><br><span class="line">				&#125;</span><br><span class="line">				nums[k+<span class="number">1</span>]=l;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">			System.out.println(nums[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="希尔排序"><a href="#希尔排序" class="headerlink" title="希尔排序"></a>希尔排序</h2><p>将整个待排序的记录序列分割成为若干子序列分别进行直接插入排序，具体算法描述：</p>
+<ul>
+<li>选择一个增量序列t1，t2，…，tk，其中ti&gt;tj，tk=1；</li>
+<li>按增量序列个数k，对序列进行k 趟排序；</li>
+<li><p>每趟排序，根据对应的增量ti，将待排序列分割成若干长度为m 的子序列，分别对各子表进行直接插入排序。仅增量因子为1 时，整个序列作为一个表来处理，表长度即为整个序列的长度。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">ShellSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span>[] nums = &#123;<span class="number">3</span>,<span class="number">5</span>,<span class="number">15</span>,<span class="number">36</span>,<span class="number">26</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">38</span>,<span class="number">44</span>,<span class="number">46</span>,<span class="number">47</span>,<span class="number">50</span>&#125;;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">shellInsert</span><span class="params">(<span class="keyword">int</span> dk)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> i,tem,k;</span><br><span class="line">		<span class="keyword">for</span>(i=<span class="number">0</span>;i&lt;nums.length-dk;i++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(nums[i+dk]&lt;nums[i]) &#123;</span><br><span class="line">				k = i;</span><br><span class="line">				tem = nums[i+dk];</span><br><span class="line">				<span class="keyword">while</span>(k&gt;=<span class="number">0</span>&amp;&amp;nums[k]&gt;tem) &#123;</span><br><span class="line">					nums[k+dk] = nums[k];</span><br><span class="line">					k-=dk;</span><br><span class="line">				&#125;</span><br><span class="line">				nums[k+dk] = tem;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=nums.length/<span class="number">2</span>;i&gt;<span class="number">0</span>;i--) &#123;</span><br><span class="line">			shellInsert(i);</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">			System.out.println(nums[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+</ul>
+<p>##归并排序</p>
+<p>归并算法是指把无序的待排序列递归分解成若干个长度大致相等的有序子序列，并把有序子序列合并为整体有序序列的过程。长度为1的序列是有序的，因此应递归分解直到子序列长度为1。采用两两分解和归并的策略简单易行，这样的归并排序称为2-路归并排序。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MergeSort</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span>[] nums = &#123;<span class="number">3</span>,<span class="number">5</span>,<span class="number">15</span>,<span class="number">36</span>,<span class="number">26</span>,<span class="number">4</span>,<span class="number">2</span>,<span class="number">38</span>,<span class="number">44</span>,<span class="number">46</span>,<span class="number">47</span>,<span class="number">50</span>&#125;;</span><br><span class="line">	<span class="keyword">static</span> <span class="keyword">int</span>[] nums2 = <span class="keyword">new</span> <span class="keyword">int</span>[nums.length];</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 合并数组sr[i至m],s[m+1至n]两个数组到tr[]</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> sr</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> tr</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> i</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> m</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> n</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span>  <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">merge</span><span class="params">(<span class="keyword">int</span>[] sr,<span class="keyword">int</span>[] tr,<span class="keyword">int</span> i,<span class="keyword">int</span> m,<span class="keyword">int</span> n)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> k=<span class="number">0</span>,j=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">for</span>(j=m+<span class="number">1</span>,k=i;i&lt;=m&amp;&amp;j&lt;=n;k++) &#123;</span><br><span class="line">			<span class="keyword">if</span>(sr[i]&lt;sr[j]) &#123;</span><br><span class="line">				tr[k]=sr[i++];</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				tr[k]=sr[j++];</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">while</span>(i&lt;=m) tr[k++]=sr[i++];</span><br><span class="line">		<span class="keyword">while</span>(j&lt;=n) tr[k++]=sr[j++];</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	<span class="comment">/**</span></span><br><span class="line"><span class="comment">	 * 对r1进行归并排序,若i%2==1,则排序后的记录存入r2，否则存入r1</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> r1</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> r2</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> i</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> s</span></span><br><span class="line"><span class="comment">	 * <span class="doctag">@param</span> t</span></span><br><span class="line"><span class="comment">	 */</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span>  <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">mSort</span><span class="params">(<span class="keyword">int</span> i,<span class="keyword">int</span> s,<span class="keyword">int</span> t)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">int</span> m=<span class="number">0</span>;</span><br><span class="line">		<span class="keyword">if</span>(s==t) &#123;</span><br><span class="line">			<span class="keyword">if</span>(<span class="number">1</span>==i%<span class="number">2</span>) nums2[s] = nums[s];</span><br><span class="line">		&#125;</span><br><span class="line">		<span class="keyword">else</span> &#123;</span><br><span class="line">			m = (s+t)/<span class="number">2</span>;</span><br><span class="line">			<span class="comment">//将区间[s...t],平分为[s...m]和[m+1...t]</span></span><br><span class="line">			mSort(i+<span class="number">1</span>,s,m);</span><br><span class="line">			mSort(i+<span class="number">1</span>,m+<span class="number">1</span>,t);</span><br><span class="line">			<span class="keyword">if</span>(<span class="number">1</span>==i%<span class="number">2</span>) &#123;</span><br><span class="line">				merge(nums,nums2,s,m,t);</span><br><span class="line">			&#125;</span><br><span class="line">			<span class="keyword">else</span> &#123;</span><br><span class="line">				merge(nums2,nums,s,m,t);</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		mSort(<span class="number">0</span>, <span class="number">0</span>, nums.length-<span class="number">1</span>);</span><br><span class="line">		<span class="keyword">for</span>(<span class="keyword">int</span> i=<span class="number">0</span>;i&lt;nums.length;i++) &#123;</span><br><span class="line">			System.out.println(nums[i]);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>##基数排序</p>
+<p>基数排序是按照低位先排序，然后收集；再按照高位排序，然后再收集；依次类推，直到最高位。有时候有些属性是有优先级顺序的，先按低优先级排序，再按高优先级排序。最后的次序就是高优先级高的在前，高优先级相同的低优先级高的在前。</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">var counter = [];</span><br><span class="line"><span class="function">function <span class="title">radixSort</span><span class="params">(arr, maxDigit)</span> </span>&#123;</span><br><span class="line">    var mod = <span class="number">10</span>;</span><br><span class="line">    var dev = <span class="number">1</span>;</span><br><span class="line">    <span class="keyword">for</span> (var i = <span class="number">0</span>; i &lt; maxDigit; i++, dev *= <span class="number">10</span>, mod *= <span class="number">10</span>) &#123;</span><br><span class="line">        <span class="keyword">for</span>(var j = <span class="number">0</span>; j &lt; arr.length; j++) &#123;</span><br><span class="line">            var bucket = parseInt((arr[j] % mod) / dev);</span><br><span class="line">            <span class="keyword">if</span>(counter[bucket]==<span class="keyword">null</span>) &#123;</span><br><span class="line">                counter[bucket] = [];</span><br><span class="line">            &#125;</span><br><span class="line">            counter[bucket].push(arr[j]);</span><br><span class="line">        &#125;</span><br><span class="line">        var pos = <span class="number">0</span>;</span><br><span class="line">        <span class="keyword">for</span>(var j = <span class="number">0</span>; j &lt; counter.length; j++) &#123;</span><br><span class="line">            var value = <span class="keyword">null</span>;</span><br><span class="line">            <span class="keyword">if</span>(counter[j]!=<span class="keyword">null</span>) &#123;</span><br><span class="line">                <span class="keyword">while</span> ((value = counter[j].shift()) != <span class="keyword">null</span>) &#123;</span><br><span class="line">                      arr[pos++] = value;</span><br><span class="line">                &#125;</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="计数排序"><a href="#计数排序" class="headerlink" title="计数排序"></a>计数排序</h2><p>计数排序不是基于比较的排序算法，其核心在于将输入的数据值转化为键存储在额外开辟的数组空间中。 作为一种线性时间复杂度的排序，计数排序要求输入的数据必须是有确定范围的整数。</p>
+<p> 算法描述：</p>
+<ul>
+<li>找出待排序的数组中最大和最小的元素；</li>
+<li>统计数组中每个值为i的元素出现的次数，存入数组C的第i项；</li>
+<li>对所有的计数累加（从C中的第一个元素开始，每一项和前一项相加）；</li>
+<li>反向填充目标数组：将每个元素i放在新数组的第C(i)项，每放一个元素就将C(i)减去1。</li>
+</ul>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">countingSort</span><span class="params">(arr, maxValue)</span> </span>&#123;</span><br><span class="line">    var bucket = <span class="keyword">new</span> Array(maxValue + <span class="number">1</span>),</span><br><span class="line">        sortedIndex = <span class="number">0</span>;</span><br><span class="line">        arrLen = arr.length,</span><br><span class="line">        bucketLen = maxValue + <span class="number">1</span>;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">for</span> (var i = <span class="number">0</span>; i &lt; arrLen; i++) &#123;</span><br><span class="line">        <span class="keyword">if</span> (!bucket[arr[i]]) &#123;</span><br><span class="line">            bucket[arr[i]] = <span class="number">0</span>;</span><br><span class="line">        &#125;</span><br><span class="line">        bucket[arr[i]]++;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">for</span> (var j = <span class="number">0</span>; j &lt; bucketLen; j++) &#123;</span><br><span class="line">        <span class="keyword">while</span>(bucket[j] &gt; <span class="number">0</span>) &#123;</span><br><span class="line">            arr[sortedIndex++] = j;</span><br><span class="line">            bucket[j]--;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="桶排序"><a href="#桶排序" class="headerlink" title="桶排序"></a>桶排序</h2><p>桶排序是计数排序的升级版。它利用了函数的映射关系，高效与否的关键就在于这个映射函数的确定。桶排序 (Bucket sort)的工作的原理：假设输入数据服从均匀分布，将数据分到有限数量的桶里，每个桶再分别排序（有可能再使用别的排序算法或是以递归方式继续使用桶排序进行排）。</p>
+<p> 算法描述：</p>
+<ul>
+<li>设置一个定量的数组当作空桶；</li>
+<li>遍历输入数据，并且把数据一个一个放到对应的桶里去；</li>
+<li>对每个不是空的桶进行排序；</li>
+<li>从不是空的桶里把排好序的数据拼接起来。 </li>
+</ul>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/849589-20171015232107090-1920702011.png" alt="桶"></p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br></pre></td><td class="code"><pre><span class="line"><span class="function">function <span class="title">bucketSort</span><span class="params">(arr, bucketSize)</span> </span>&#123;</span><br><span class="line">    <span class="keyword">if</span> (arr.length === <span class="number">0</span>) &#123;</span><br><span class="line">      <span class="keyword">return</span> arr;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    var i;</span><br><span class="line">    var minValue = arr[<span class="number">0</span>];</span><br><span class="line">    var maxValue = arr[<span class="number">0</span>];</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">1</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">      <span class="keyword">if</span> (arr[i] &lt; minValue) &#123;</span><br><span class="line">          minValue = arr[i];                <span class="comment">// 输入数据的最小值</span></span><br><span class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (arr[i] &gt; maxValue) &#123;</span><br><span class="line">          maxValue = arr[i];                <span class="comment">// 输入数据的最大值</span></span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 桶的初始化</span></span><br><span class="line">    var DEFAULT_BUCKET_SIZE = <span class="number">5</span>;            <span class="comment">// 设置桶的默认数量为5</span></span><br><span class="line">    bucketSize = bucketSize || DEFAULT_BUCKET_SIZE;</span><br><span class="line">    var bucketCount = Math.floor((maxValue - minValue) / bucketSize) + <span class="number">1</span>;  </span><br><span class="line">    var buckets = <span class="keyword">new</span> Array(bucketCount);</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; buckets.length; i++) &#123;</span><br><span class="line">        buckets[i] = [];</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="comment">// 利用映射函数将数据分配到各个桶中</span></span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; arr.length; i++) &#123;</span><br><span class="line">        buckets[Math.floor((arr[i] - minValue) / bucketSize)].push(arr[i]);</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    arr.length = <span class="number">0</span>;</span><br><span class="line">    <span class="keyword">for</span> (i = <span class="number">0</span>; i &lt; buckets.length; i++) &#123;</span><br><span class="line">        insertionSort(buckets[i]);                   <span class="comment">// 对每个桶进行排序，这里使用了插入排序</span></span><br><span class="line">        <span class="keyword">for</span> (var j = <span class="number">0</span>; j &lt; buckets[i].length; j++) &#123;</span><br><span class="line">            arr.push(buckets[i][j]);                     </span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"> </span><br><span class="line">    <span class="keyword">return</span> arr;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>参考：<a href="https://www.cnblogs.com/onepixel/articles/7674659.html" target="_blank" rel="noopener">十大经典排序</a></p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/11/20/JAVA集合框架/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄国航">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄国航的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/11/20/JAVA集合框架/" itemprop="url">JAVA集合框架</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-11-20T19:57:22+08:00">
+                2018-11-20
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/11/20/JAVA集合框架/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/2018/11/20/JAVA集合框架/" class="cy_cmt_count" data-xid="2018/11/20/JAVA集合框架/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            <p>#JAVA集合框架</p>
+<p>java三大集合框架 :  Set  List   Map</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/20170714230605815.jpg" alt="20170714230605815"></p>
+<p>如上图 Set List 都属于Collection的子接口(Collection为顶层接口) Map 不属于Collection接口</p>
+<p>##Set接口:  </p>
+<p>无序可变的数组,不允许添加重复元素,如果视图把两个相同的元素加入到同一个集合中,add方法返回false.</p>
+<p>set判断对象是否相同使用equals方法, 就是说返回true就表示两个对象相同 set不会接受.</p>
+<p>需要注意的是:虽然Set中元素没有顺序，但是元素在set中的位置是有由该元素的HashCode决定的，其具体位置其实是固定的。</p>
+<p>###HashSet:</p>
+<p>不能保证元素的排列顺序,</p>
+<p>不是同步的(线程不安全)</p>
+<p>集合元素可以是null,但只能放入一个null</p>
+<p>当向HashSet集合中存入一个元素时,HashSet会调用该对象的HashCode()方法来得到该对象的HashCode值,然后根据HashCode值来决定该对象在HashSet中的储存位置.</p>
+<p>判断两个HashSet元素相等的标准是两个对象通过equals方法比较相等,并且两个对象的HashCode()方法返回值相等</p>
+<p>如果要一个对象放入HashSet中,重写该对象对应类的equals方法,也应该重写HashCode()方法.</p>
+<p>另外，<strong>HashSet底层是基于HashMap实现的</strong>，只需把HashMap的value值固定，根据HashMap的key值来判重，添加元素的代码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">public</span> <span class="keyword">boolean</span> <span class="title">add</span><span class="params">(E e)</span> </span>&#123;</span><br><span class="line">    	<span class="comment">//PRESENT是一个固定的虚拟值</span></span><br><span class="line">        <span class="keyword">return</span> map.put(e, PRESENT)==<span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>###LinkedHashSet:</p>
+<p>LinkedHashSet集合同样是根据HashCode()方法来决定元素的存储位置,但是它同时使用链表维护元素的次序.这样使得元素看起来像是以插入顺序保存的,当遍历该集合的时候,LinkedHashSet将会以元素的添加顺序访问集合的元素.</p>
+<p>通过查看LinkedHashSet的源码可以发现,其**底层是基于LinkedHashMap来实现的哦。</p>
+<p>对于LinkedHashSet而言，它和HashSet主要区别在于LinkedHashSet中存储的元素是在哈希算法的基础上增加了链式表的结构。</p>
+<p>LinkedHashSet在迭代访问Set中的全部元素时,性能比HashSet好,但是插入时性能稍逊色于HashSet.</p>
+<p>###TreeSet:</p>
+<p>TreeSet是SortedSet接口的唯一实现类，TreeSet可以确保集合元素处于排序状态。<strong>底层算法是基于TreeMap来实现的。</strong></p>
+<p>由于TreeMap需要排序,所以需要一个Comparator为键值进行大小比较.当然也是用Comparator定位的.<br>​    a. Comparator可以在创建TreeMap时指定</p>
+<p>​    b. 如果创建时没有确定,那么就会使用key.compareTo()方法,这就要求key必须实现Comparable接口.</p>
+<p>​    c. TreeMap是使用Tree数据结构实现的,所以使用compare接口就可以完成定位了.</p>
+<p>##List接口:</p>
+<p>一个 List 是一个元素有序的、可以重复、可以为 null 的集合（有时候我们也叫它“序列”）</p>
+<p>###ArrayList:</p>
+<p>用类似数组的形式进行存储，因此它的随机访问速度极快，缺点是插入和删除的速度慢，就像数组一样，每次插入和删除都需要移动数组中的元素。</p>
+<p>注意：</p>
+<ul>
+<li>ArrayList默认长度是10</li>
+<li>扩容ensureCapacity的方案为“原始容量*3/2+1”</li>
+<li>ArrayList是线程不安全的，在多线程的情况下不要使用。</li>
+</ul>
+<p>###LinkedList:</p>
+<p>在实现中采用链表数据结构。插入和删除速度快，访问速度慢。 </p>
+<p>注意：</p>
+<ul>
+<li><p>LinkedList的内部实现</p>
+<p>LinkedList的内部是基于双向循环链表的结构来实现的。在LinkedList中有一个类似于c语言中结构体的Entry内部类。 在Entry的内部类中包含了前一个元素的地址引用和后一个元素的地址引用类似于c语言中指针</p>
+</li>
+<li><p>LinkedList不是线程安全的</p>
+</li>
+</ul>
+<p>​        注意LinkedList和ArrayList一样也不是线程安全的，如果在对线程下面访问可以自己重写LinkedList</p>
+<p>​        然后在需要同步的方法上面加上同步关键字synchronized</p>
+<h3 id="Vector"><a href="#Vector" class="headerlink" title="Vector:"></a>Vector:</h3><p>Vector与ArrayList一样，也是通过数组实现的，不同的是它支持线程的同步，即某一时刻只有一个线程能够写Vector，避免多线程同时写而引起的不一致性，但实现同步需要很高的花费，因此，访问它比访问ArrayList慢。</p>
+<p>补充:ListIterator(list特有的迭代器)提供了对List的双向遍历的方法。</p>
+<p>Queue接口:暂时不讨论感兴趣的同学可以自行查找</p>
+<p>##Map接口:</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/20170715001340612.jpg" alt="20170715001340612"></p>
+<p>Map是一种把键对象和值对象映射的集合，它的每一个元素都包含一对键对象和值对象。Map接口不直接继承于Collection接口（需要注意啦），因为它包装的是一组成对的“键-值”对象的集合，而且在Map接口的集合中也不能有重复的key出现，因为每个键只能与一个成员元素相对应。 从Map集合中检索元素时，只要给出键对象，就会返回对应的值对象。 </p>
+<p>另外前边已经说明了，Set接口的底层是基于Map接口实现的。Set中存储的值，其实就是Map中的key，它们都是不允许重复的。</p>
+<p>###HashTable:</p>
+<p>HashTable类实现一个哈希表，该哈希表将键映射到相应的值。默认容量为11。任何非 null 对象都可以用作键或值。为了成功地在哈希表中存储和获取对象，用作键的对象必须实现 hashCode 方法和 equals 方法。</p>
+<p>与HashMap区别主要有三点：</p>
+<ol>
+<li>Hashtable是基于陈旧的Dictionary实现的，而HashMap是基于Java1.2引进的Map接口实现的；</li>
+<li>Hashtable是线程安全的，而HashMap是非线程安全的，我们可以使用外部同步的方法解决这个问题。</li>
+<li>HashMap可以允许你在列表中放一个key值为null的元素，并且可以有任意多value为null，而Hashtable不允许键或者值为null。</li>
+<li>默认容量不同</li>
+</ol>
+<h3 id="HashMap"><a href="#HashMap" class="headerlink" title="HashMap:"></a>HashMap:</h3><p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/J7vuaqR.jpg!web" alt="散列桶"></p>
+<p>HashMap基于散列桶的实现，散列桶的每一行相当于一个链表。</p>
+<p>根据Entry&lt;K,V&gt;的K.hash()去找对应散列表table的位置，对应的方式为K.hash()&amp;table.length-1（即K的hash值对散列表的函数取余），对于具有hash值相同的Key的Entry，插入散列表中对应位置链表。</p>
+<p>每一个Entry都保存了一个hash—-键对象的hashcode，如果键没有按照任何特定顺序保存，查找时通过equals()逐一与每一个数组元素进行比较，那么时间复杂度为O(n)，数组长度越大，效率越低。</p>
+<p>所以瓶颈在于键的查询速度，如何通过键来快速的定位到存储位置呢？</p>
+<p>HashMap将键的hash值与数组下标建立映射，通过键对象的hash函数生成一个值，以此作为数组的下标，这样我们就可以通过键来快速的定位到存储位置了。如果hash函数设计的完美的话，数组的每个位置只有较少的值，那么在O(1)的时间我们就可以找到需要的元素，从而不需要去遍历链表。这样就大大提高了查询速度。</p>
+<p>那么HashMap根据hashcode是如何得到数组下标呢？可以拆分为以下几步：</p>
+<ul>
+<li>第一步： <code>h = key.hashCode()</code></li>
+<li>第二步： <code>h ^ (h &gt;&gt;&gt; 16)</code></li>
+<li>第三步： <code>(length - 1) &amp; hash</code></li>
+</ul>
+<h4 id="分析"><a href="#分析" class="headerlink" title="分析"></a>分析</h4><p>第一步是得到key的hashcode值；</p>
+<p>第二步是将键的hashcode的高16位异或低16位(高位运算)，这样即使数组table的length比较小的时候，也能保证高低Bit都参与到Hash的计算中，同时不会有太大的开销；</p>
+<p>第三步是hash值和数组长度进行取模运算，这样元素的分布相对来说比较均匀。当length总是2的n次方时， <code>h &amp; (length-1)</code> 运算等价于对length取模，这样模运算转化为位移运算速度更快。</p>
+<p>源码如下：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">   <span class="function"><span class="keyword">static</span> <span class="keyword">final</span> <span class="keyword">int</span> <span class="title">hash</span><span class="params">(Object key)</span> </span>&#123;</span><br><span class="line">       <span class="keyword">int</span> h;</span><br><span class="line">       <span class="keyword">return</span> (key == <span class="keyword">null</span>) ? <span class="number">0</span> : (h = key.hashCode()) ^ (h &gt;&gt;&gt; <span class="number">16</span>);</span><br><span class="line">   &#125;</span><br><span class="line"><span class="function"><span class="keyword">final</span> V <span class="title">putVal</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">boolean</span> onlyIfAbsent,</span></span></span><br><span class="line"><span class="function"><span class="params">                  <span class="keyword">boolean</span> evict)</span> </span>&#123;</span><br><span class="line">		...</span><br><span class="line">       <span class="keyword">if</span> ((p = tab[i = (n - <span class="number">1</span>) &amp; hash]) == <span class="keyword">null</span>)</span><br><span class="line">           tab[i] = newNode(hash, key, value, <span class="keyword">null</span>);</span><br><span class="line">       	...</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+<p>插入和查询“键值对”的开销是固定的。可以通过构造器设置容量capacity和负载因子loadFactor，以调整容器的性能。 <strong>默认的容量是16，负载因子是0.75，扩容时扩展1倍；如果传入一个容量值capacity，实际容量值为2^n。</strong></p>
+<p>####负载因子的作用：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">final</span> V <span class="title">putVal</span><span class="params">(<span class="keyword">int</span> hash, K key, V value, <span class="keyword">boolean</span> onlyIfAbsent,</span></span></span><br><span class="line"><span class="function"><span class="params">               <span class="keyword">boolean</span> evict)</span> </span>&#123;</span><br><span class="line">  	....添加Entry...</span><br><span class="line">    <span class="comment">//threshold=当前容量*负载因子，如果添加Entry后size值&gt;threshold阈值,就扩容</span></span><br><span class="line">    <span class="keyword">if</span> (++size &gt; threshold)</span><br><span class="line">        resize();</span><br><span class="line">    afterNodeInsertion(evict);</span><br><span class="line">    <span class="keyword">return</span> <span class="keyword">null</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>可以看出：负载因子表示一个散列桶的空间的使用程度。</strong></p>
+<p><strong>负载因子越大则散列桶的装填程度越高，也就是能容纳更多的元素，元素多了，链表大了，所以此时索引效率就会降低。反之，负载因子越小则链表中的数据量就越稀疏，此时会对空间造成浪费，但是此时索引效率高。</strong></p>
+<h3 id="LinkedHashMap"><a href="#LinkedHashMap" class="headerlink" title="LinkedHashMap:"></a>LinkedHashMap:</h3><p>类似于HashMap，但是迭代遍历它时，取得“键值对”的顺序是其插入次序，或者是最近最少使用(LRU)的次序。只比HashMap慢一点。而在迭代访问时反而更快，因为它使用链表维护内部次序。 </p>
+<p>LinkedHashMap实现与HashMap的不同之处在于，后者维护着一个运行于所有条目的双重链接列表。</p>
+<p>###TreeMap:</p>
+<p>基于红黑树数据结构的实现。查看“键”或“键值对”时，它们会被排序(次序由Comparable或Comparator决定)。TreeMap的特点在于，你得到的结果是经过排序的。TreeMap是唯一的带有subMap()方法的Map，它可以返回一个子树。 </p>
+<p>###ConCurrentHashMap:</p>
+<p>HashTable容器在竞争激烈的并发环境下表现出效率低下的原因，是因为所有访问HashTable的线程都必须竞争同一把锁，那假如容器里有多把锁，每一把锁用于锁容器其中一部分数据，那么当多线程访问容器里不同数据段的数据时，线程间就不会存在锁竞争，从而可以有效的提高并发访问效率，这就是ConcurrentHashMap所使用的锁分段技术，首先将数据分成一段一段的存储，然后给每一段数据配一把锁，当一个线程占用锁访问其中一个段数据的时候，其他段的数据也能被其他线程访问。有些方法需要跨段，比如size()和containsValue()，它们可能需要锁定整个表而而不仅仅是某个段，这需要按顺序锁定所有段，操作完毕后，又按顺序释放所有段的锁。这里“按顺序”是很重要的，否则极有可能出现死锁，在ConcurrentHashMap内部，段数组是final的，并且其成员变量实际上也是final的，但是，仅仅是将数组声明为final的并不保证数组成员也是final的，这需要实现上的保证。这可以确保不会出现死锁，因为获得锁的顺序是固定的。</p>
+<p><img src="https://images2017.cnblogs.com/blog/400827/201709/400827-20170928212457434-1134706220.png" alt="img"></p>
+<p>ConcurrentHashMap是由Segment数组结构和HashEntry数组结构组成。Segment是一种可重入锁ReentrantLock，在ConcurrentHashMap里扮演锁的角色，HashEntry则用于存储键值对数据。一个ConcurrentHashMap里包含一个Segment数组，Segment的结构和HashMap类似，是一种数组和链表结构， 一个Segment里包含一个HashEntry数组，每个HashEntry是一个链表结构的元素， 每个Segment守护者一个HashEntry数组里的元素,当对HashEntry数组的数据进行修改时，必须首先获得它对应的Segment锁。</p>
+<p>参考：<a href="https://www.cnblogs.com/ITtangtang/p/3948786.html" target="_blank" rel="noopener"><a href="https://www.cnblogs.com/ITtangtang/p/3948786.html" target="_blank" rel="noopener">Java集合—ConcurrentHashMap原理分析</a></a></p>
+<p>##相关知识:</p>
+<p>迭代器(Iterator)<br>提供一种方法访问一个容器（container）对象中各个元素，而又不需暴露该对象的内部细节。<br>对于遍历一个容器中所有的元素，Iterator模式是首选的方式<br>Collection定义了Iterator<e> iterator()方法，子类都各自实现了该方法，我们直接调用即可</e></p>
+<p>Map中虽没有定义，我们可以利用map.entrySet()的iterator()方法</p>
+
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/13/Java内存模型与线程/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄国航">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄国航的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/09/13/Java内存模型与线程/" itemprop="url">Java内存模型与线程</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-09-13T19:56:56+08:00">
+                2018-09-13
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/09/13/Java内存模型与线程/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/2018/09/13/Java内存模型与线程/" class="cy_cmt_count" data-xid="2018/09/13/Java内存模型与线程/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          
+            
+          
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/09/04/晚期（运行期）优化/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -330,9 +880,15 @@
 
       
         
-          
-            
-          
+          <p><em>整理自《深入理解java虚拟机第二版》</em></p>
+<h1 id="一、概述"><a href="#一、概述" class="headerlink" title="一、概述"></a>一、概述</h1><p>​    当虚拟机发现某个方法或代码块的运行特别频繁时，就会把这些代码认定为“热点代码”（Hot Spot Code）。运行时，虚拟机会将这些代码编译成本地平台相关的机器码，并进行各种层次的优化，完成这个过程的编译器称为即时编译器（Just In Time Compiler,JIT）。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/09/04/晚期（运行期）优化/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1206,458 +1762,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/Mysql索引/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="黄国航">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黄国航的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/06/Mysql索引/" itemprop="url">Mysql索引</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-06T11:43:15+08:00">
-                2018-08-06
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/08/06/Mysql索引/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/2018/08/06/Mysql索引/" class="cy_cmt_count" data-xid="2018/08/06/Mysql索引/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>copy from <a href="https://www.cnblogs.com/bypp/p/7755307.html" target="_blank" rel="noopener">https://www.cnblogs.com/bypp/p/7755307.html</a></p>
-<p>#一、介绍</p>
-<p>##1.什么是索引？</p>
-<p>一般的应用系统，读写比例在10:1左右，而且插入操作和一般的更新操作很少出现性能问题，在生产环境中，我们遇到最多的，也是最容易出问题的，还是一些复杂的查询操作，因此对查询语句的优化显然是重中之重。说起加速查询，就不得不提到索引了。</p>
-<p>##2.为什么要有索引呢？</p>
-<p>索引在MySQL中也叫做“键”，是存储引擎用于快速找到记录的一种数据结构。索引对于良好的性能<br>非常关键，尤其是当表中的数据量越来越大时，索引对于性能的影响愈发重要。<br>索引优化应该是对查询性能优化最有效的手段了。索引能够轻易将查询性能提高好几个数量级。<br>索引相当于字典的音序表，如果要查某个字，如果不使用音序表，则需要从几百页中逐页去查。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/06/Mysql索引/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/05/Mysql视图/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="黄国航">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黄国航的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/05/Mysql视图/" itemprop="url">Mysql视图</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-05T20:08:45+08:00">
-                2018-08-05
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/08/05/Mysql视图/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/2018/08/05/Mysql视图/" class="cy_cmt_count" data-xid="2018/08/05/Mysql视图/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          
-            <h1 id="视图的概念"><a href="#视图的概念" class="headerlink" title="视图的概念"></a>视图的概念</h1><p>视图（View）是从一个或多个表（或视图）导出（采用查询方式）的表，但视图是一个虚</p>
-<p>表，即它所对应的数据不进行实际存储，数据库中只存储视图的定义，对视图的数据进行操</p>
-<p>作时，系统根据视图的定义去操作与视图相关联的基本表。</p>
-<p>视图一经定义，就可以像表一样被查询、修改、删除和更新。</p>
-<p>##使用视图有下列优点：</p>
-<p>（1)为用户集中数据，简化用户的数据查询和处理。有时用户所需要的数据分散在多个表中，定义视图可将它们集中在一起，从而方便用户的数据查询和处理。</p>
-<p>（2）屏蔽数据库的复杂性。用户不必了解复杂的数据库中的表结构，并且数据库表的更改也不影响用户对数据库的使用。</p>
-<p>（3）简化用户权限的管理。只需授予用户使用视图的权限，而不必指定用户只能使用表的特定列，也增加了安全性。</p>
-<p>（4）便于数据共享。各用户不必都定义和存储自己所需的数据，可共享数据库的数据，这样同样的数据只需存储一次。</p>
-<p>（5）可以重新组织数据以便输出到其他应用程序中。</p>
-<p>##使用数据库视图有几个缺点：</p>
-<p>（1）<em>性能</em>：从数据库视图查询数据可能会很慢，特别是如果视图是基于其他视图创建的。</p>
-<p>（2）<em>表依赖关系</em>：将根据数据库的基础表创建一个视图。每当更改与其相关联的表的结构时，都必须更改视图。</p>
-<h2 id="MySQL视图的限制"><a href="#MySQL视图的限制" class="headerlink" title="MySQL视图的限制"></a>MySQL视图的限制</h2><p>不能在视图上创建索引。当使用合并算法的视图查询数据时，MySQL会使用底层表的索引。对于使用诱惑算法的视图，当您针对视图查询数据时，不会使用索引。</p>
-<p>在<em>MySQL 5.7.7</em>之前版本，是不能在<code>SELECT</code>语句的<code>FROM</code>子句中使用子查询来定义视图的。</p>
-<p>如果删除或重命名视图所基于的表，则MySQL不会发出任何错误。但是，MySQL会使视图无效。 可以使用<code>CHECK TABLE</code>语句来检查视图是否有效。</p>
-<p>一个简单的视图可以更新表中数据。基于具有连接，子查询等的复杂SELECT语句创建的视图无法更新。</p>
-<p>MySQL不像：<a href="http://www.oraok.com/" target="_blank" rel="noopener">Oracle</a>，<a href="http://www.yiibai.com/postgresql/" target="_blank" rel="noopener">PostgreSQL</a>等其他数据库系统那样支持物理视图，MySQL是不支持物理视图的。</p>
-<h1 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h1><p>语法格式：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span></span><br><span class="line">    [<span class="keyword">OR</span> <span class="keyword">REPLACE</span>]</span><br><span class="line">    [ALGORITHM = &#123;UNDEFINED | <span class="keyword">MERGE</span> | TEMPTABLE&#125;]</span><br><span class="line">    [DEFINER = &#123; <span class="keyword">user</span> | <span class="keyword">CURRENT_USER</span> &#125;]</span><br><span class="line">    [<span class="keyword">SQL</span> <span class="keyword">SECURITY</span> &#123; DEFINER | INVOKER &#125;]</span><br><span class="line">    <span class="keyword">VIEW</span> view_name [(column_list)]</span><br><span class="line">    <span class="keyword">AS</span> select_statement</span><br><span class="line">    [<span class="keyword">WITH</span> [<span class="keyword">CASCADED</span> | <span class="keyword">LOCAL</span>] <span class="keyword">CHECK</span> <span class="keyword">OPTION</span>]</span><br></pre></td></tr></table></figure>
-<p><em>select_statement</em>是一个<code>SELECT</code>提供视图定义的语句。 </p>
-<p>WITH CHECK OPTION : 指出在可更新视图上所进行的修改都要符合select_statement所指定的限制条件，这样可以确保数据修改后，仍可通过视图看到修改的数据。当视图是根据另一个视图定义的时，WITHCHECKOPTION给出两个参数：LOCAL和CASCADED。它们决定了检查测试的范围。LOCAL关键字使CHECK OPTION只对定义的视图进行检查，CASCADED则会对所有视图进行检查。如未给定任一关键词，则默认值为CASCADED。</p>
-<p><a href="https://www.yiibai.com/mysql/view-with-check-option.html" target="_blank" rel="noopener">WITH CHECK OPTION子句简介</a></p>
-<p>其它的具体见<a href="https://dev.mysql.com/doc/refman/5.7/en/create-view.html" target="_blank" rel="noopener">创建视图语法</a></p>
-<p>【例1】：创建包含计算机专业各学生的学号、其选修的课程号及成绩的视图</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">OR</span> <span class="keyword">REPLACE</span> <span class="keyword">VIEW</span> view_one </span><br><span class="line">	<span class="keyword">AS</span> </span><br><span class="line">	<span class="keyword">SELECT</span> tb_student.<span class="string">`sid`</span>,cid,mark</span><br><span class="line">	<span class="keyword">FROM</span> tb_student, tb_student_course</span><br><span class="line">	<span class="keyword">WHERE</span> tb_student.<span class="string">`sid`</span>=tb_student_course.<span class="string">`sid`</span> <span class="keyword">AND</span> tb_student.<span class="string">`subject`</span>=<span class="string">'计算机'</span></span><br><span class="line">	<span class="keyword">WITH</span> <span class="keyword">CHECK</span> <span class="keyword">OPTION</span></span><br></pre></td></tr></table></figure>
-<h1 id="查询视图"><a href="#查询视图" class="headerlink" title="查询视图"></a>查询视图</h1><p>视图定义后，就可以如同查询基本表那样对视图进行查询</p>
-<h1 id="更新视图"><a href="#更新视图" class="headerlink" title="更新视图"></a>更新视图</h1><h1 id="可更新视图"><a href="#可更新视图" class="headerlink" title="可更新视图"></a>可更新视图</h1><p>在MySQL中，视图不仅是可查询的，而且是可更新的。这意味着您可以使用INSER或UPDATE语句通过可更新视图插入或更新基表的行。另外，您可以使用DELETE语句通过视图删除底层表的行。</p>
-<p>但是，创建可更新视图，定义视图的SELECT语句不能有以下任何元素：</p>
-<ul>
-<li>聚合函数，如：MIN，MAX，SUM，AVG，COUNT等。</li>
-<li>DISTINCT子句</li>
-<li>GROUP BY子句</li>
-<li>HAVING子句</li>
-<li>UNION运算符</li>
-<li>位于选择列表中的子查询</li>
-<li>SELECT语句中引用了不可更新视图</li>
-<li>WHERE子句中的子查询，引用FROM子句中的表</li>
-</ul>
-<p>如果ALGORITHM使用的不是Temptable算法创建视图，则无法更新视图。</p>
-<h2 id="修改视图"><a href="#修改视图" class="headerlink" title="修改视图"></a>修改视图</h2><p>创建视图后，可以使用<code>ALTER VIEW</code>语句修改视图。</p>
-<p><code>ALTER VIEW</code>语句的语法类似于<code>CREATE VIEW</code>语句，除了<code>CREATE</code>关键字被<code>ALTER</code>关键字替换外，其它都一样。</p>
-<p>##删除视图</p>
-<p>创建视图后，可以使用<code>DROP VIEW</code>语句将其删除。下面说明了<code>DROP VIEW</code>语句的语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP VIEW [IF EXISTS] [database_name].[view_name]</span><br></pre></td></tr></table></figure>
-<p><code>IF EXISTS</code>是语句的可选子句，它允许您检查视图是否存在。它可以避免删除不存在的视图的错误。</p>
-
-          
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/04/Mysql数据库查询/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="黄国航">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黄国航的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/04/Mysql数据库查询/" itemprop="url">Mysql数据库查询</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-04T10:16:29+08:00">
-                2018-08-04
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/08/04/Mysql数据库查询/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/2018/08/04/Mysql数据库查询/" class="cy_cmt_count" data-xid="2018/08/04/Mysql数据库查询/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p>参考：<a href="https://dev.mysql.com/doc/refman/5.7/en/select.html" target="_blank" rel="noopener">mysql参考手册</a></p>
-<h1 id="SELECT语句"><a href="#SELECT语句" class="headerlink" title="SELECT语句"></a>SELECT语句</h1><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">SELECT</span></span><br><span class="line">      [ALL | <span class="keyword">DISTINCT</span> | <span class="keyword">DISTINCTROW</span> ]</span><br><span class="line">      [<span class="keyword">HIGH_PRIORITY</span>]</span><br><span class="line">      [<span class="keyword">STRAIGHT_JOIN</span>]</span><br><span class="line">      [<span class="keyword">SQL_SMALL_RESULT</span>][<span class="keyword">SQL_BIG_RESULT</span>][<span class="keyword">SQL_BUFFER_RESULT</span>]</span><br><span class="line">      [<span class="keyword">SQL_CACHE</span> | SQL_NO_CACHE]</span><br><span class="line">      [列名表达式...]</span><br><span class="line">      [<span class="keyword">FROM</span> 表或视图]										  //<span class="keyword">FORM</span>子句</span><br><span class="line">      [<span class="keyword">WHERE</span> 条件]											  //<span class="keyword">WHERE</span>子句		</span><br><span class="line">      [<span class="keyword">GROUP</span> <span class="keyword">BY</span> &#123;col_name | expr | <span class="keyword">position</span>&#125;, ... [<span class="keyword">WITH</span> <span class="keyword">ROLLUP</span>]]   //<span class="keyword">GROUP</span> <span class="keyword">BY</span>子句</span><br><span class="line">      [<span class="keyword">HAVING</span> 条件]											  //<span class="keyword">HAVING</span>子句	</span><br><span class="line">   	  [WINDOW window_name <span class="keyword">AS</span> (window_spec)[, window_name <span class="keyword">AS</span> (window_spec)] ...]</span><br><span class="line">      [<span class="keyword">ORDER</span> <span class="keyword">BY</span> &#123;col_name | expr | <span class="keyword">position</span>&#125;[<span class="keyword">ASC</span> | <span class="keyword">DESC</span>], ... [<span class="keyword">WITH</span> <span class="keyword">ROLLUP</span>]] //<span class="keyword">ORDER</span> <span class="keyword">BY</span>子句</span><br><span class="line">      [<span class="keyword">LIMIT</span> &#123;[<span class="keyword">offset</span>,] <span class="keyword">row_count</span> | <span class="keyword">row_count</span> <span class="keyword">OFFSET</span> <span class="keyword">offset</span>&#125;]			//<span class="keyword">LIMIT</span>子句	</span><br><span class="line">      [<span class="keyword">INTO</span> <span class="keyword">OUTFILE</span> <span class="string">'file_name'</span> [<span class="built_in">CHARACTER</span> <span class="keyword">SET</span> 字符集]</span><br><span class="line">        export_options | <span class="keyword">INTO</span> <span class="keyword">DUMPFILE</span> <span class="string">'file_name'</span>| <span class="keyword">INTO</span> var_name [, var_name]]</span><br><span class="line">      <span class="keyword">FOR</span> &#123;<span class="keyword">UPDATE</span> | <span class="keyword">SHARE</span>&#125; [<span class="keyword">OF</span> tbl_name [, tbl_name] ... | <span class="keyword">LOCK</span> <span class="keyword">IN</span> <span class="keyword">SHARE</span> <span class="keyword">MODE</span>]]</span><br></pre></td></tr></table></figure>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/04/Mysql数据库查询/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1712,7 +1816,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">16</span>
+                  <span class="site-state-item-count">19</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1725,7 +1829,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">8</span>
+                  <span class="site-state-item-count">9</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
