@@ -87,7 +87,7 @@
 <meta property="og:site_name" content="黄国航的博客">
 <meta property="og:description" content="视图的概念视图（View）是从一个或多个表（或视图）导出（采用查询方式）的表，但视图是一个虚 表，即它所对应的数据不进行实际存储，数据库中只存储视图的定义，对视图的数据进行操 作时，系统根据视图的定义去操作与视图相关联的基本表。 视图一经定义，就可以像表一样被查询、修改、删除和更新。 ##使用视图有下列优点： （1)为用户集中数据，简化用户的数据查询和处理。有时用户所需要的数据分散在多个表中，定义">
 <meta property="og:locale" content="zh-Hans">
-<meta property="og:updated_time" content="2018-08-05T15:32:45.775Z">
+<meta property="og:updated_time" content="2018-11-30T15:26:44.257Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Mysql视图">
 <meta name="twitter:description" content="视图的概念视图（View）是从一个或多个表（或视图）导出（采用查询方式）的表，但视图是一个虚 表，即它所对应的数据不进行实际存储，数据库中只存储视图的定义，对视图的数据进行操 作时，系统根据视图的定义去操作与视图相关联的基本表。 视图一经定义，就可以像表一样被查询、修改、删除和更新。 ##使用视图有下列优点： （1)为用户集中数据，简化用户的数据查询和处理。有时用户所需要的数据分散在多个表中，定义">
@@ -344,6 +344,7 @@
 <p>##使用数据库视图有几个缺点：</p>
 <p>（1）<em>性能</em>：从数据库视图查询数据可能会很慢，特别是如果视图是基于其他视图创建的。</p>
 <p>（2）<em>表依赖关系</em>：将根据数据库的基础表创建一个视图。每当更改与其相关联的表的结构时，都必须更改视图。</p>
+<a id="more"></a>
 <h2 id="MySQL视图的限制"><a href="#MySQL视图的限制" class="headerlink" title="MySQL视图的限制"></a>MySQL视图的限制</h2><p>不能在视图上创建索引。当使用合并算法的视图查询数据时，MySQL会使用底层表的索引。对于使用诱惑算法的视图，当您针对视图查询数据时，不会使用索引。</p>
 <p>在<em>MySQL 5.7.7</em>之前版本，是不能在<code>SELECT</code>语句的<code>FROM</code>子句中使用子查询来定义视图的。</p>
 <p>如果删除或重命名视图所基于的表，则MySQL不会发出任何错误。但是，MySQL会使视图无效。 可以使用<code>CHECK TABLE</code>语句来检查视图是否有效。</p>
@@ -505,7 +506,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -518,7 +519,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>

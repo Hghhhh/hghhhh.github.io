@@ -1,0 +1,830 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="redis," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="Redis学习##1、redis是什么 redis是一种支持Key-Value等多种数据结构的存储系统。可用于缓存、事件发布或订阅、高速队列等场景。该数据库使用ANSI C语言编写，支持网络，提供字符串、哈希、列表、队列、集合结构直接存取，基于内存，可持久化。 2.redis的应用场景 会话缓存（最常用） 消息队列，比如支付 活动排行榜或计数 发布、订阅消息（消息通知） 商品列表、评论列表等  3">
+<meta name="keywords" content="redis">
+<meta property="og:type" content="article">
+<meta property="og:title" content="redis学习">
+<meta property="og:url" content="http://yoursite.com/2018/12/08/redis学习/index.html">
+<meta property="og:site_name" content="黄国航的博客">
+<meta property="og:description" content="Redis学习##1、redis是什么 redis是一种支持Key-Value等多种数据结构的存储系统。可用于缓存、事件发布或订阅、高速队列等场景。该数据库使用ANSI C语言编写，支持网络，提供字符串、哈希、列表、队列、集合结构直接存取，基于内存，可持久化。 2.redis的应用场景 会话缓存（最常用） 消息队列，比如支付 活动排行榜或计数 发布、订阅消息（消息通知） 商品列表、评论列表等  3">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/string.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185459_Jybr_3857802.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/hash.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185511_vnOX_3857802.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/list.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185522_EQod_3857802.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/set.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185531_mDEe_3857802.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/zset.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185541_lLjp_3857802.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185558_fy7Z_3857802.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/20170415153941123.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/1.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/2.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/3.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185628_jRHv_3857802.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185639_qE9F_3857802.png">
+<meta property="og:updated_time" content="2018-12-08T14:59:34.621Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="redis学习">
+<meta name="twitter:description" content="Redis学习##1、redis是什么 redis是一种支持Key-Value等多种数据结构的存储系统。可用于缓存、事件发布或订阅、高速队列等场景。该数据库使用ANSI C语言编写，支持网络，提供字符串、哈希、列表、队列、集合结构直接存取，基于内存，可持久化。 2.redis的应用场景 会话缓存（最常用） 消息队列，比如支付 活动排行榜或计数 发布、订阅消息（消息通知） 商品列表、评论列表等  3">
+<meta name="twitter:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/string.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/08/redis学习/"/>
+
+
+
+
+
+  <title>redis学习 | 黄国航的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">黄国航的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/08/redis学习/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄国航">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄国航的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">redis学习</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-08T22:58:42+08:00">
+                2018-12-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/12/08/redis学习/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/12/08/redis学习/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h1 id="Redis学习"><a href="#Redis学习" class="headerlink" title="Redis学习"></a>Redis学习</h1><p>##1、redis是什么</p>
+<p>redis是一种支持Key-Value等多种数据结构的存储系统。可用于缓存、事件发布或订阅、高速队列等场景。该数据库使用ANSI C语言编写，支持网络，提供字符串、哈希、列表、队列、集合结构直接存取，基于内存，可持久化。</p>
+<h2 id="2-redis的应用场景"><a href="#2-redis的应用场景" class="headerlink" title="2.redis的应用场景"></a>2.redis的应用场景</h2><ul>
+<li>会话缓存（最常用）</li>
+<li>消息队列，比如支付</li>
+<li>活动排行榜或计数</li>
+<li>发布、订阅消息（消息通知）</li>
+<li>商品列表、评论列表等</li>
+</ul>
+<h2 id="3-redis的数据类型"><a href="#3-redis的数据类型" class="headerlink" title="3.redis的数据类型"></a>3.redis的数据类型</h2><p>redis一共支持五种数据类：string(字符串)、hash(哈希)、list(列表)、set(集合)和zset（sorted set 有序集合）。</p>
+<p>###（1）string(字符串)</p>
+<p>它是redis最基本的数据类型，一个key对应一个value，需要注意是一个value最大存储512MB。</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/string.png" alt="命令"></p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185459_Jybr_3857802.png" alt="string"></p>
+<p>###（2）hash(哈希)</p>
+<p>redis hash是一个键值对的集合， 是一个string类型的field和value的映射表，适合用于存储对象</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/hash.png" alt="命令"></p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185511_vnOX_3857802.png" alt="hash"></p>
+<p>###（3）list(列表)<br>list是redis简单的字符串列表，它按插入顺序排序</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/list.png" alt="命令"></p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185522_EQod_3857802.png" alt="list"></p>
+<p>###（4）set(集合)<br>set是string类型的无序集合，也不可重复</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/set.png" alt="命令"></p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185531_mDEe_3857802.png" alt="set"></p>
+<p>###（5）zset（sorted set 有序集合）<br>是string类型的有序集合，也不可重复<br>sorted set中的每个元素都需要指定一个分数，根据分数对元素进行升序排序，如果多个元素有相同的分数，则以字典序进行升序排序，sorted set 因此非常适合实现排名</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/zset.png" alt="命令"></p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185541_lLjp_3857802.png" alt="zset"></p>
+<h2 id="4-redis服务相关的命令"><a href="#4-redis服务相关的命令" class="headerlink" title="4.redis服务相关的命令"></a>4.redis服务相关的命令</h2><ul>
+<li><code>select</code>           #选择数据库(数据库编号0-15)</li>
+<li><code>quit</code>             #退出连接</li>
+<li><code>info</code>             #获得服务的信息与统计</li>
+<li><code>monitor</code>       #实时监控</li>
+<li><code>config get</code>   #获得服务配置</li>
+<li><code>flushdb</code>       #删除当前选择的数据库中的key</li>
+<li><code>flushall</code>       #删除所有数据库中的key</li>
+</ul>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185558_fy7Z_3857802.png" alt="service"></p>
+<h2 id="5-redis的订阅与发布"><a href="#5-redis的订阅与发布" class="headerlink" title="5.redis的订阅与发布"></a>5.redis的订阅与发布</h2><p>Redis提供了发布订阅功能，可以用于消息的传输，Redis的发布订阅机制包括三个部分，发布者，订阅者和Channel。 </p>
+<p>发布者和订阅者都是Redis客户端，Channel则为Redis服务器端，发布者将消息发送到某个的频道，订阅了这个频道的订阅者就能接收到这条消息。Redis的这种发布订阅机制与基于主题的发布订阅类似，Channel相当于主题。</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/20170415153941123.png" alt="订阅和发布"></p>
+<h3 id="1-发送消息"><a href="#1-发送消息" class="headerlink" title="(1)发送消息"></a>(1)发送消息</h3><p>Redis采用PUBLISH命令发送消息，其返回值为接收到该消息的订阅者的数量。</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/1.png" alt="publish"></p>
+<h3 id="（2）订阅消息"><a href="#（2）订阅消息" class="headerlink" title="（2）订阅消息"></a>（2）订阅消息</h3><p>Redis采用SUBSCRIBE命令订阅某个频道，其返回值包括客户端订阅的频道，目前已订阅的频道数量，以及接收到的消息，其中subscribe表示已经成功订阅了某个频道。 </p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/2.png" alt="subscribe"></p>
+<h3 id="（3）模式匹配"><a href="#（3）模式匹配" class="headerlink" title="（3）模式匹配"></a>（3）模式匹配</h3><p>模式匹配功能允许客户端订阅符合某个模式的频道，Redis采用PSUBSCRIBE订阅符合某个模式所有频道，用“*”表示模式，星号可以被任意值代替。 假设客户端同时订阅了某种模式和符合该模式的某个频道，那么发送给这个频道的消息将被客户端接收到两次，只不过这两条消息的类型不同，一个是message类型，一个是pmessage类型，但其内容相同。 </p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/3.png" alt="psubscribe"></p>
+<h3 id="（4）取消订阅"><a href="#（4）取消订阅" class="headerlink" title="（4）取消订阅"></a>（4）取消订阅</h3><p>Redis采用UNSUBSCRIBE和PUNSUBSCRIBE命令取消订阅，其返回值与订阅类似。<br>由于Redis的订阅操作是阻塞式的，因此一旦客户端订阅了某个频道或模式，就将会一直处于订阅状态直到退出。在SUBSCRIBE，PSUBSCRIBE，UNSUBSCRIBE和PUNSUBSCRIBE命令中，其返回值都包含了该客户端当前订阅的频道和模式的数量，当这个数量变为0时，该客户端会自动退出订阅状态。</p>
+<h2 id="6-redis持久化"><a href="#6-redis持久化" class="headerlink" title="6.redis持久化"></a>6.redis持久化</h2><p>由于数据存储在内存中，因此Redis的速度很快，但是每次重启Redis服务时，其中的数据也会丢失，因此，Redis也提供了持久化存储机制，将数据以某种形式保存在文件中，每次重启时，可以自动从文件加载数据到内存当中。 </p>
+<p>redis持久有两种方式:Snapshotting(快照),Append-only file(AOF)</p>
+<p>###Snapshotting(快照)</p>
+<p>1、将存储在内存的数据以快照的方式写入二进制文件中，如默认dump.rdb中</p>
+<p>2、<code>save 900 1</code> </p>
+<p>#900秒内如果超过1个Key被修改，则启动快照保存</p>
+<p>3、<code>save 300 10</code> </p>
+<p>#300秒内如果超过10个Key被修改，则启动快照保存</p>
+<p>4、<code>save 60 10000</code> </p>
+<p>#60秒内如果超过10000个Key被修改，则启动快照保存</p>
+<p>###Append-only file(AOF)</p>
+<p>1、使用AOF持久时，服务会将每个收到的写命令通过write函数追加到文件中（appendonly.aof）</p>
+<p>2、AOF持久化存储方式参数说明<br>​    <code>appendonly yes</code>  </p>
+<p>​           #开启AOF持久化存储方式<br>​    <code>appendfsync always</code> </p>
+<p>​         #收到写命令后就立即写入磁盘，效率最差，效果最好<br>​    <code>appendfsync everysec</code></p>
+<p>​         #每秒写入磁盘一次，效率与效果居中<br>​    <code>appendfsync no</code> </p>
+<p>​         #完全依赖OS，效率最佳，效果没法保证</p>
+<h2 id="7-redis性能测试"><a href="#7-redis性能测试" class="headerlink" title="7.redis性能测试"></a>7.redis性能测试</h2><p>使用redis自动的性能测试工具redis-benchmark.exe</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185628_jRHv_3857802.png" alt="redis-benchmark --help"></p>
+<p>实际测试同时执行100万的请求</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/185639_qE9F_3857802.png" alt=""></p>
+<p>参考：<a href="https://blog.csdn.net/middleware2018/article/details/80355418" target="_blank" rel="noopener">https://blog.csdn.net/middleware2018/article/details/80355418</a></p>
+<p><a href="https://www.cnblogs.com/yitudake/p/6747995.html" target="_blank" rel="noopener">https://www.cnblogs.com/yitudake/p/6747995.html</a></p>
+<p><a href="https://blog.csdn.net/sinat_36098122/article/details/80572997" target="_blank" rel="noopener">https://blog.csdn.net/sinat_36098122/article/details/80572997</a></p>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/redis/" rel="tag"># redis</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/11/30/排序算法/" rel="next" title="排序算法">
+                <i class="fa fa-chevron-left"></i> 排序算法
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.png"
+                alt="黄国航" />
+            
+              <p class="site-author-name" itemprop="name">黄国航</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">20</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">10</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Hghhhh" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:huangguohang123@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#Redis学习"><span class="nav-text">Redis学习</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#2-redis的应用场景"><span class="nav-text">2.redis的应用场景</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#3-redis的数据类型"><span class="nav-text">3.redis的数据类型</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#4-redis服务相关的命令"><span class="nav-text">4.redis服务相关的命令</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#5-redis的订阅与发布"><span class="nav-text">5.redis的订阅与发布</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-发送消息"><span class="nav-text">(1)发送消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（2）订阅消息"><span class="nav-text">（2）订阅消息</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（3）模式匹配"><span class="nav-text">（3）模式匹配</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#（4）取消订阅"><span class="nav-text">（4）取消订阅</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#6-redis持久化"><span class="nav-text">6.redis持久化</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#7-redis性能测试"><span class="nav-text">7.redis性能测试</span></a></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">黄国航</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytyqQfqe';
+      var conf = '6a41e203093499026ca336cb276dfdc4';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>

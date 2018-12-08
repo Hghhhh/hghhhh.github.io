@@ -249,6 +249,146 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/08/Mysql过程式数据库对象/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄国航">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄国航的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/08/08/Mysql过程式数据库对象/" itemprop="url">Mysql过程式数据库对象</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-08T09:30:28+08:00">
+                2018-08-08
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/08/08/Mysql过程式数据库对象/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/2018/08/08/Mysql过程式数据库对象/" class="cy_cmt_count" data-xid="2018/08/08/Mysql过程式数据库对象/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <p>#一、存储过程</p>
+<p>在MYSQL中，可以定义一段程序存放在数据库中，这样的程序称为存储过程。它是最重要的数据库对象之一。存储过程实质上就是一段代码，它可以由声明式SQL语句（如CREATE、UPDATE和SELECT等）和过程式SQL语句（如IF-THEN-ELSE)组成。存储过程可以由程序、触发器或者另一个存储过程来调用，从而激活它，实现代码段中的SQL语句。</p>
+<p>使用存储过程的优点有：</p>
+<p>（1 )存储过程在服务器端运行，执行速度快。</p>
+<p>（2）存储过程执行一次后，其执行规划就驻留在高速缓冲存储器，在以后的操作中，只需从高速缓冲存储器中调用已编译好的二进制代码执行，从而提高了系统性能。</p>
+<p>（3）确保数据库安全。使用存储过程可以完成所有数据库操作，并可通过编程方式控制上述操作对数据库信息访问的权限。</p>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/08/Mysql过程式数据库对象/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/06/Mysql索引/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -470,8 +610,7 @@
 
       
         
-          
-            <h1 id="视图的概念"><a href="#视图的概念" class="headerlink" title="视图的概念"></a>视图的概念</h1><p>视图（View）是从一个或多个表（或视图）导出（采用查询方式）的表，但视图是一个虚</p>
+          <h1 id="视图的概念"><a href="#视图的概念" class="headerlink" title="视图的概念"></a>视图的概念</h1><p>视图（View）是从一个或多个表（或视图）导出（采用查询方式）的表，但视图是一个虚</p>
 <p>表，即它所对应的数据不进行实际存储，数据库中只存储视图的定义，对视图的数据进行操</p>
 <p>作时，系统根据视图的定义去操作与视图相关联的基本表。</p>
 <p>视图一经定义，就可以像表一样被查询、修改、删除和更新。</p>
@@ -484,41 +623,13 @@
 <p>##使用数据库视图有几个缺点：</p>
 <p>（1）<em>性能</em>：从数据库视图查询数据可能会很慢，特别是如果视图是基于其他视图创建的。</p>
 <p>（2）<em>表依赖关系</em>：将根据数据库的基础表创建一个视图。每当更改与其相关联的表的结构时，都必须更改视图。</p>
-<h2 id="MySQL视图的限制"><a href="#MySQL视图的限制" class="headerlink" title="MySQL视图的限制"></a>MySQL视图的限制</h2><p>不能在视图上创建索引。当使用合并算法的视图查询数据时，MySQL会使用底层表的索引。对于使用诱惑算法的视图，当您针对视图查询数据时，不会使用索引。</p>
-<p>在<em>MySQL 5.7.7</em>之前版本，是不能在<code>SELECT</code>语句的<code>FROM</code>子句中使用子查询来定义视图的。</p>
-<p>如果删除或重命名视图所基于的表，则MySQL不会发出任何错误。但是，MySQL会使视图无效。 可以使用<code>CHECK TABLE</code>语句来检查视图是否有效。</p>
-<p>一个简单的视图可以更新表中数据。基于具有连接，子查询等的复杂SELECT语句创建的视图无法更新。</p>
-<p>MySQL不像：<a href="http://www.oraok.com/" target="_blank" rel="noopener">Oracle</a>，<a href="http://www.yiibai.com/postgresql/" target="_blank" rel="noopener">PostgreSQL</a>等其他数据库系统那样支持物理视图，MySQL是不支持物理视图的。</p>
-<h1 id="创建视图"><a href="#创建视图" class="headerlink" title="创建视图"></a>创建视图</h1><p>语法格式：</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span></span><br><span class="line">    [<span class="keyword">OR</span> <span class="keyword">REPLACE</span>]</span><br><span class="line">    [ALGORITHM = &#123;UNDEFINED | <span class="keyword">MERGE</span> | TEMPTABLE&#125;]</span><br><span class="line">    [DEFINER = &#123; <span class="keyword">user</span> | <span class="keyword">CURRENT_USER</span> &#125;]</span><br><span class="line">    [<span class="keyword">SQL</span> <span class="keyword">SECURITY</span> &#123; DEFINER | INVOKER &#125;]</span><br><span class="line">    <span class="keyword">VIEW</span> view_name [(column_list)]</span><br><span class="line">    <span class="keyword">AS</span> select_statement</span><br><span class="line">    [<span class="keyword">WITH</span> [<span class="keyword">CASCADED</span> | <span class="keyword">LOCAL</span>] <span class="keyword">CHECK</span> <span class="keyword">OPTION</span>]</span><br></pre></td></tr></table></figure>
-<p><em>select_statement</em>是一个<code>SELECT</code>提供视图定义的语句。 </p>
-<p>WITH CHECK OPTION : 指出在可更新视图上所进行的修改都要符合select_statement所指定的限制条件，这样可以确保数据修改后，仍可通过视图看到修改的数据。当视图是根据另一个视图定义的时，WITHCHECKOPTION给出两个参数：LOCAL和CASCADED。它们决定了检查测试的范围。LOCAL关键字使CHECK OPTION只对定义的视图进行检查，CASCADED则会对所有视图进行检查。如未给定任一关键词，则默认值为CASCADED。</p>
-<p><a href="https://www.yiibai.com/mysql/view-with-check-option.html" target="_blank" rel="noopener">WITH CHECK OPTION子句简介</a></p>
-<p>其它的具体见<a href="https://dev.mysql.com/doc/refman/5.7/en/create-view.html" target="_blank" rel="noopener">创建视图语法</a></p>
-<p>【例1】：创建包含计算机专业各学生的学号、其选修的课程号及成绩的视图</p>
-<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">CREATE</span> <span class="keyword">OR</span> <span class="keyword">REPLACE</span> <span class="keyword">VIEW</span> view_one </span><br><span class="line">	<span class="keyword">AS</span> </span><br><span class="line">	<span class="keyword">SELECT</span> tb_student.<span class="string">`sid`</span>,cid,mark</span><br><span class="line">	<span class="keyword">FROM</span> tb_student, tb_student_course</span><br><span class="line">	<span class="keyword">WHERE</span> tb_student.<span class="string">`sid`</span>=tb_student_course.<span class="string">`sid`</span> <span class="keyword">AND</span> tb_student.<span class="string">`subject`</span>=<span class="string">'计算机'</span></span><br><span class="line">	<span class="keyword">WITH</span> <span class="keyword">CHECK</span> <span class="keyword">OPTION</span></span><br></pre></td></tr></table></figure>
-<h1 id="查询视图"><a href="#查询视图" class="headerlink" title="查询视图"></a>查询视图</h1><p>视图定义后，就可以如同查询基本表那样对视图进行查询</p>
-<h1 id="更新视图"><a href="#更新视图" class="headerlink" title="更新视图"></a>更新视图</h1><h1 id="可更新视图"><a href="#可更新视图" class="headerlink" title="可更新视图"></a>可更新视图</h1><p>在MySQL中，视图不仅是可查询的，而且是可更新的。这意味着您可以使用INSER或UPDATE语句通过可更新视图插入或更新基表的行。另外，您可以使用DELETE语句通过视图删除底层表的行。</p>
-<p>但是，创建可更新视图，定义视图的SELECT语句不能有以下任何元素：</p>
-<ul>
-<li>聚合函数，如：MIN，MAX，SUM，AVG，COUNT等。</li>
-<li>DISTINCT子句</li>
-<li>GROUP BY子句</li>
-<li>HAVING子句</li>
-<li>UNION运算符</li>
-<li>位于选择列表中的子查询</li>
-<li>SELECT语句中引用了不可更新视图</li>
-<li>WHERE子句中的子查询，引用FROM子句中的表</li>
-</ul>
-<p>如果ALGORITHM使用的不是Temptable算法创建视图，则无法更新视图。</p>
-<h2 id="修改视图"><a href="#修改视图" class="headerlink" title="修改视图"></a>修改视图</h2><p>创建视图后，可以使用<code>ALTER VIEW</code>语句修改视图。</p>
-<p><code>ALTER VIEW</code>语句的语法类似于<code>CREATE VIEW</code>语句，除了<code>CREATE</code>关键字被<code>ALTER</code>关键字替换外，其它都一样。</p>
-<p>##删除视图</p>
-<p>创建视图后，可以使用<code>DROP VIEW</code>语句将其删除。下面说明了<code>DROP VIEW</code>语句的语法：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">DROP VIEW [IF EXISTS] [database_name].[view_name]</span><br></pre></td></tr></table></figure>
-<p><code>IF EXISTS</code>是语句的可选子句，它允许您检查视图是否存在。它可以避免删除不存在的视图的错误。</p>
-
-          
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/08/05/Mysql视图/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
         
       
     </div>
@@ -1604,7 +1715,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">19</span>
+                  <span class="site-state-item-count">20</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -1617,7 +1728,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">9</span>
+                  <span class="site-state-item-count">10</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
