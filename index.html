@@ -249,6 +249,154 @@
   
   
   <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/Spring-AOP理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄国航">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄国航的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">
+                
+                <a class="post-title-link" href="/2018/12/16/Spring-AOP理解/" itemprop="url">Spring AOP理解</a></h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T22:29:18+08:00">
+                2018-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/12/16/Spring-AOP理解/#SOHUCS" itemprop="discussionUrl">
+                  <span id="url::http://yoursite.com/2018/12/16/Spring-AOP理解/" class="cy_cmt_count" data-xid="2018/12/16/Spring-AOP理解/" itemprop="commentsCount" ></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        
+          <h2 id="为什么用AOP？"><a href="#为什么用AOP？" class="headerlink" title="为什么用AOP？"></a>为什么用AOP？</h2><p>解决OOP的缺点，不用在特定业务的方法中显式调用与业务无关的代码。使用生成代理类的方式实现横切代码的调用。</p>
+<h2 id="AOP的实现"><a href="#AOP的实现" class="headerlink" title="AOP的实现"></a>AOP的实现</h2><p>aop有两种实现方式，一种是使用AspectJ在编译期静态生成代理类，另一种是使用CGLIB或JDK动态代理在运行期动态生成代理类。Spring AOP的选择方式是，如果要代理的类实现了接口，就使用JDK动态代理，否则使用CGLIB。</p>
+<h3 id="AOP中的抽象概念"><a href="#AOP中的抽象概念" class="headerlink" title="AOP中的抽象概念"></a>AOP中的抽象概念</h3><p>连接点（join point）：可以被拦截的目标方法。</p>
+<p>切点（point cut）:指定的要进行切入的连接点。</p>
+<p>通知（advice）：切点的前后或环绕要执行的动作。</p>
+<p>切面（aspect）：由切点和通知组成，定义通知应用带哪个切点上。</p>
+<p>织入（weaving）：把切面的代码应用到目标方法的过程。</p>
+<h3 id="通知（advice）分为下面5种"><a href="#通知（advice）分为下面5种" class="headerlink" title="通知（advice）分为下面5种"></a>通知（advice）分为下面5种</h3><ul>
+<li>before 目标方法执行前通知，前置通知</li>
+<li>after 后置通知</li>
+<li>after throwing：目标方法抛出异常时执行，异常通知</li>
+<li>after returning：目标方法成功返回值时执行，后置返回通知。（after是不管是否成功返回都是执行）</li>
+<li>around：在目标函数执行中执行，可控制目标函数是否执行，环绕通知</li>
+</ul>
+          <!--noindex-->
+          <div class="post-button text-center">
+            <a class="btn" href="/2018/12/16/Spring-AOP理解/#more" rel="contents">
+              阅读全文 &raquo;
+            </a>
+          </div>
+          <!--/noindex-->
+        
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+
+      
+
+      
+
+      
+      
+        <div class="post-eof"></div>
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+    
+      
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
     <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/09/mybatis学习/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1496,143 +1644,6 @@
 
 
     
-      
-
-  
-
-  
-  
-  
-
-  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
-  
-  
-  
-  <div class="post-block">
-    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/08/27/垃圾收集器与内存分配策略/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="name" content="黄国航">
-      <meta itemprop="description" content="">
-      <meta itemprop="image" content="/images/touxiang.png">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="黄国航的博客">
-    </span>
-
-    
-      <header class="post-header">
-
-        
-        
-          <h1 class="post-title" itemprop="name headline">
-                
-                <a class="post-title-link" href="/2018/08/27/垃圾收集器与内存分配策略/" itemprop="url">JVM的垃圾收集</a></h1>
-        
-
-        <div class="post-meta">
-          <span class="post-time">
-            
-              <span class="post-meta-item-icon">
-                <i class="fa fa-calendar-o"></i>
-              </span>
-              
-                <span class="post-meta-item-text">发表于</span>
-              
-              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-08-27T17:29:25+08:00">
-                2018-08-27
-              </time>
-            
-
-            
-
-            
-          </span>
-
-          
-
-          
-            
-              <span class="post-comments-count">
-              <span class="post-meta-divider">|</span>
-              <span class="post-meta-item-icon">
-                <i class="fa fa-comment-o"></i>
-              </span>
-              
-                <a href="/2018/08/27/垃圾收集器与内存分配策略/#SOHUCS" itemprop="discussionUrl">
-                  <span id="url::http://yoursite.com/2018/08/27/垃圾收集器与内存分配策略/" class="cy_cmt_count" data-xid="2018/08/27/垃圾收集器与内存分配策略/" itemprop="commentsCount" ></span>
-                </a>
-              
-            
-          
-
-          
-          
-
-          
-
-          
-
-          
-
-        </div>
-      </header>
-    
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-      
-
-      
-        
-          <p><em>整理自《深入理解Java虚拟机–JVM高级特性与最佳实践第二版》</em>    </p>
-<p>​    Java内存运行时区域中的程序计数器、虚拟机栈、本地方法栈3个区域随线程而生，随线程而灭；栈帧分配多少内存基本是在类结构确定下来就已知的。因此在这几个区域的内存分配和回收都具备确定性，在这几个区域内就不需要考虑过多内存回收的问题，因为方法结束或线程结束，内存自然就跟着回收了。而Java堆和方法区则不同，一个接口中的多个实现类需要的内存可能不一样，一个方法中的多个分支需要的内存也可能不一样，我们只有在程序处于运行期间才能知道会创建哪些对象，这部分内存的分配和回收都是动态的，垃圾收集器所关注的是这部分内存。</p>
-<h1 id="一、对象已死吗？"><a href="#一、对象已死吗？" class="headerlink" title="一、对象已死吗？"></a>一、对象已死吗？</h1><p>​    在堆里面存放着Java世界中几乎所有的对象实例，垃圾回收前，第一件事情就是确认哪些对象“活着”，哪些对象已“死去”。</p>
-          <!--noindex-->
-          <div class="post-button text-center">
-            <a class="btn" href="/2018/08/27/垃圾收集器与内存分配策略/#more" rel="contents">
-              阅读全文 &raquo;
-            </a>
-          </div>
-          <!--/noindex-->
-        
-      
-    </div>
-    
-    
-    
-
-    
-
-    
-
-    
-
-    <footer class="post-footer">
-      
-
-      
-
-      
-
-      
-      
-        <div class="post-eof"></div>
-      
-    </footer>
-  </div>
-  
-  
-  
-  </article>
-
-
-    
   </section>
 
   
@@ -1687,7 +1698,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">22</span>
+                  <span class="site-state-item-count">23</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>

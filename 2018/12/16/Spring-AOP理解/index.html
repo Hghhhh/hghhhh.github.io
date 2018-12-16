@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+
+
+
+  
+
+
+<html class="theme-next muse use-motion" lang="zh-Hans">
+<head>
+  <meta charset="UTF-8"/>
+<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+<meta name="theme-color" content="#222">
+
+
+
+
+
+
+
+
+
+<meta http-equiv="Cache-Control" content="no-transform" />
+<meta http-equiv="Cache-Control" content="no-siteapp" />
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+  <link href="/lib/fancybox/source/jquery.fancybox.css?v=2.1.5" rel="stylesheet" type="text/css" />
+
+
+
+
+
+
+
+<link href="/lib/font-awesome/css/font-awesome.min.css?v=4.6.2" rel="stylesheet" type="text/css" />
+
+<link href="/css/main.css?v=" rel="stylesheet" type="text/css" />
+
+
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png?v=">
+
+
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png?v=">
+
+
+  <link rel="mask-icon" href="/images/logo.svg?v=" color="#222">
+
+
+
+
+
+  <meta name="keywords" content="Spring," />
+
+
+
+
+
+
+
+
+
+
+<meta name="description" content="为什么用AOP？解决OOP的缺点，不用在特定业务的方法中显式调用与业务无关的代码。使用生成代理类的方式实现横切代码的调用。 AOP的实现aop有两种实现方式，一种是使用AspectJ在编译期静态生成代理类，另一种是使用CGLIB或JDK动态代理在运行期动态生成代理类。Spring AOP的选择方式是，如果要代理的类实现了接口，就使用JDK动态代理，否则使用CGLIB。 AOP中的抽象概念连接点（j">
+<meta name="keywords" content="Spring">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Spring AOP理解">
+<meta property="og:url" content="http://yoursite.com/2018/12/16/Spring-AOP理解/index.html">
+<meta property="og:site_name" content="黄国航的博客">
+<meta property="og:description" content="为什么用AOP？解决OOP的缺点，不用在特定业务的方法中显式调用与业务无关的代码。使用生成代理类的方式实现横切代码的调用。 AOP的实现aop有两种实现方式，一种是使用AspectJ在编译期静态生成代理类，另一种是使用CGLIB或JDK动态代理在运行期动态生成代理类。Spring AOP的选择方式是，如果要代理的类实现了接口，就使用JDK动态代理，否则使用CGLIB。 AOP中的抽象概念连接点（j">
+<meta property="og:locale" content="zh-Hans">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/aspectj.png">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/GCLIB.gif">
+<meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/jdk%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86.png">
+<meta property="og:updated_time" content="2018-12-16T14:31:03.728Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="Spring AOP理解">
+<meta name="twitter:description" content="为什么用AOP？解决OOP的缺点，不用在特定业务的方法中显式调用与业务无关的代码。使用生成代理类的方式实现横切代码的调用。 AOP的实现aop有两种实现方式，一种是使用AspectJ在编译期静态生成代理类，另一种是使用CGLIB或JDK动态代理在运行期动态生成代理类。Spring AOP的选择方式是，如果要代理的类实现了接口，就使用JDK动态代理，否则使用CGLIB。 AOP中的抽象概念连接点（j">
+<meta name="twitter:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/aspectj.png">
+
+
+
+<script type="text/javascript" id="hexo.configurations">
+  var NexT = window.NexT || {};
+  var CONFIG = {
+    root: '/',
+    scheme: 'Muse',
+    version: '',
+    sidebar: {"position":"left","display":"always","offset":12,"b2t":false,"scrollpercent":false,"onmobile":false},
+    fancybox: true,
+    tabs: true,
+    motion: {"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},
+    duoshuo: {
+      userId: '0',
+      author: '博主'
+    },
+    algolia: {
+      applicationID: '',
+      apiKey: '',
+      indexName: '',
+      hits: {"per_page":10},
+      labels: {"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}
+    }
+  };
+</script>
+
+
+
+  <link rel="canonical" href="http://yoursite.com/2018/12/16/Spring-AOP理解/"/>
+
+
+
+
+
+  <title>Spring AOP理解 | 黄国航的博客</title>
+  
+
+
+
+
+
+
+
+
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage" lang="zh-Hans">
+
+  
+  
+    
+  
+
+  <div class="container sidebar-position-left page-post-detail">
+    <div class="headband"></div>
+
+    <header id="header" class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-wrapper">
+  <div class="site-meta ">
+    
+
+    <div class="custom-logo-site-title">
+      <a href="/"  class="brand" rel="start">
+        <span class="logo-line-before"><i></i></span>
+        <span class="site-title">黄国航的博客</span>
+        <span class="logo-line-after"><i></i></span>
+      </a>
+    </div>
+      
+        <p class="site-subtitle"></p>
+      
+  </div>
+
+  <div class="site-nav-toggle">
+    <button>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+      <span class="btn-bar"></span>
+    </button>
+  </div>
+</div>
+
+<nav class="site-nav">
+  
+
+  
+    <ul id="menu" class="menu">
+      
+        
+        <li class="menu-item menu-item-home">
+          <a href="/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-home"></i> <br />
+            
+            首页
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-archives">
+          <a href="/archives/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-archive"></i> <br />
+            
+            归档
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-tags">
+          <a href="/tags/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-tags"></i> <br />
+            
+            标签
+          </a>
+        </li>
+      
+        
+        <li class="menu-item menu-item-about">
+          <a href="/about/" rel="section">
+            
+              <i class="menu-item-icon fa fa-fw fa-user"></i> <br />
+            
+            关于
+          </a>
+        </li>
+      
+
+      
+    </ul>
+  
+
+  
+</nav>
+
+
+
+ </div>
+    </header>
+
+    <main id="main" class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          <div id="content" class="content">
+            
+
+  <div id="posts" class="posts-expand">
+    
+
+  
+
+  
+  
+  
+
+  <article class="post post-type-normal" itemscope itemtype="http://schema.org/Article">
+  
+  
+  
+  <div class="post-block">
+    <link itemprop="mainEntityOfPage" href="http://yoursite.com/2018/12/16/Spring-AOP理解/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="name" content="黄国航">
+      <meta itemprop="description" content="">
+      <meta itemprop="image" content="/images/touxiang.png">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="黄国航的博客">
+    </span>
+
+    
+      <header class="post-header">
+
+        
+        
+          <h1 class="post-title" itemprop="name headline">Spring AOP理解</h1>
+        
+
+        <div class="post-meta">
+          <span class="post-time">
+            
+              <span class="post-meta-item-icon">
+                <i class="fa fa-calendar-o"></i>
+              </span>
+              
+                <span class="post-meta-item-text">发表于</span>
+              
+              <time title="创建于" itemprop="dateCreated datePublished" datetime="2018-12-16T22:29:18+08:00">
+                2018-12-16
+              </time>
+            
+
+            
+
+            
+          </span>
+
+          
+
+          
+            
+              <span class="post-comments-count">
+              <span class="post-meta-divider">|</span>
+              <span class="post-meta-item-icon">
+                <i class="fa fa-comment-o"></i>
+              </span>
+              
+                <a href="/2018/12/16/Spring-AOP理解/#SOHUCS" itemprop="discussionUrl">
+                  <span id="changyan_count_unit" class="post-comments-count hc-comment-count" data-xid="2018/12/16/Spring-AOP理解/" itemprop="commentsCount"></span>
+                </a>
+              
+            
+          
+
+          
+          
+
+          
+
+          
+
+          
+
+        </div>
+      </header>
+    
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+      
+
+      
+        <h2 id="为什么用AOP？"><a href="#为什么用AOP？" class="headerlink" title="为什么用AOP？"></a>为什么用AOP？</h2><p>解决OOP的缺点，不用在特定业务的方法中显式调用与业务无关的代码。使用生成代理类的方式实现横切代码的调用。</p>
+<h2 id="AOP的实现"><a href="#AOP的实现" class="headerlink" title="AOP的实现"></a>AOP的实现</h2><p>aop有两种实现方式，一种是使用AspectJ在编译期静态生成代理类，另一种是使用CGLIB或JDK动态代理在运行期动态生成代理类。Spring AOP的选择方式是，如果要代理的类实现了接口，就使用JDK动态代理，否则使用CGLIB。</p>
+<h3 id="AOP中的抽象概念"><a href="#AOP中的抽象概念" class="headerlink" title="AOP中的抽象概念"></a>AOP中的抽象概念</h3><p>连接点（join point）：可以被拦截的目标方法。</p>
+<p>切点（point cut）:指定的要进行切入的连接点。</p>
+<p>通知（advice）：切点的前后或环绕要执行的动作。</p>
+<p>切面（aspect）：由切点和通知组成，定义通知应用带哪个切点上。</p>
+<p>织入（weaving）：把切面的代码应用到目标方法的过程。</p>
+<h3 id="通知（advice）分为下面5种"><a href="#通知（advice）分为下面5种" class="headerlink" title="通知（advice）分为下面5种"></a>通知（advice）分为下面5种</h3><ul>
+<li>before 目标方法执行前通知，前置通知</li>
+<li>after 后置通知</li>
+<li>after throwing：目标方法抛出异常时执行，异常通知</li>
+<li>after returning：目标方法成功返回值时执行，后置返回通知。（after是不管是否成功返回都是执行）</li>
+<li>around：在目标函数执行中执行，可控制目标函数是否执行，环绕通知</li>
+</ul>
+<a id="more"></a>
+<h2 id="AspectJ"><a href="#AspectJ" class="headerlink" title="AspectJ"></a>AspectJ</h2><p>AspectJ 是一个基于 Java 语言的 AOP 框架，提供了强大的 AOP 功能。AspectJ定义了AOP语法，所以它有一个专门的<a href="https://baike.baidu.com/item/%E7%BC%96%E8%AF%91%E5%99%A8/8853067" target="_blank" rel="noopener">编译器</a>ajc用来生成遵守Java字节编码规范的Class文件。</p>
+<p>使用AspectJ需要安装插件，然后使用ajc编译器代替javac编译器，idea中安装AspectJ插件可以看<a href="https://www.cnblogs.com/junzi2099/p/8275116.html" target="_blank" rel="noopener">这篇文章</a></p>
+<p>原理：aspectJ编译的时候先编译切面类生成字节码文件，再编译连接点类，在编译连接点的时候切面的字节码织入，生成代理类的字节码文件。通过反编译生成的字节码可以看到代码中增加了切面的内容。</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/aspectj.png" alt="aspectJ"></p>
+<h2 id="CGLIB动态代理的基本使用（摘自五月的仓颉）"><a href="#CGLIB动态代理的基本使用（摘自五月的仓颉）" class="headerlink" title="CGLIB动态代理的基本使用（摘自五月的仓颉）"></a>CGLIB动态代理的基本使用（摘自<a href="https://www.cnblogs.com/xrq730/p/6661692.html" target="_blank" rel="noopener">五月的仓颉</a>）</h2><p>Cglib是一个强大的、高性能的<strong>代码生成包</strong>。</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/GCLIB.gif" alt=""></p>
+<p>CGLIB使用了ASM这个直接操作字节码的框架。</p>
+<p>使用CGLIB的步骤：</p>
+<p>1.实现MethodInterceptor，在intercept(Object object, Method method, Object[] objects, MethodProxy proxy)方法中使用proxy.invokeSuper（object，objects）调用切点，在切点前后使用advice。</p>
+<p>2.使用Enhancer创建代理对象，enhancer.setSupperClass(class)设置切点，enhancer.setCallback(Interceptor)设置拦截器（相当于切面），然后使用enhancer.create()创建代理对象。</p>
+<p>3.代理对象调用方法。</p>
+<p><strong>使用Cglib代码对类做代理</strong></p>
+<p>下面演示一下Cglib代码示例—-对类做代理。首先定义一个Dao类，里面有一个select()方法和一个update()方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">public class Dao &#123;</span><br><span class="line">    </span><br><span class="line">    public void update() &#123;</span><br><span class="line">        System.out.println(&quot;PeopleDao.update()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void select() &#123;</span><br><span class="line">        System.out.println(&quot;PeopleDao.select()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>创建一个Dao代理，实现MethodInterceptor接口，目标是在update()方法与select()方法调用前后输出两句话：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class DaoProxy implements MethodInterceptor &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object intercept(Object object, Method method, Object[] objects, MethodProxy proxy) throws Throwable &#123;</span><br><span class="line">        System.out.println(&quot;Before Method Invoke&quot;);</span><br><span class="line">        proxy.invokeSuper(object, objects);</span><br><span class="line">        System.out.println(&quot;After Method Invoke&quot;);</span><br><span class="line">        </span><br><span class="line">        return object;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>intercept方法的参数名并不是原生的参数名，我做了自己的调整，几个参数的含义为：</p>
+<ul>
+<li>Object表示要进行增强的对象</li>
+<li>Method表示拦截的方法</li>
+<li>Object[]数组表示参数列表，基本数据类型需要传入其包装类型，如int–&gt;Integer、long-Long、double–&gt;Double</li>
+<li>MethodProxy表示对方法的代理，invokeSuper方法表示对被代理对象方法的调用</li>
+</ul>
+<p>写一个测试类：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">public class CglibTest &#123;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void testCglib() &#123;</span><br><span class="line">        DaoProxy daoProxy = new DaoProxy();</span><br><span class="line">        </span><br><span class="line">        Enhancer enhancer = new Enhancer();</span><br><span class="line">        enhancer.setSuperclass(Dao.class);</span><br><span class="line">        enhancer.setCallback(daoProxy);</span><br><span class="line">        </span><br><span class="line">        Dao dao = (Dao)enhancer.create();</span><br><span class="line">        dao.update();</span><br><span class="line">        dao.select();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>这是使用Cglib的通用写法，setSuperclass表示设置要代理的类，setCallback表示设置回调即MethodInterceptor的实现类，使用create()方法生成一个代理对象，注意要强转一下，因为返回的是Object。最后看一下运行结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">Before Method Invoke</span><br><span class="line">PeopleDao.update()</span><br><span class="line">After Method Invoke</span><br><span class="line">Before Method Invoke</span><br><span class="line">PeopleDao.select()</span><br><span class="line">After Method Invoke</span><br></pre></td></tr></table></figure>
+<p>符合我们的期望。</p>
+<p><strong>使用Cglib定义不同的拦截策略</strong></p>
+<p>再扩展一点点，比方说在AOP中我们经常碰到的一种复杂场景是：<strong>我们想对类A的B方法使用一种拦截策略、类A的C方法使用另外一种拦截策略</strong>。</p>
+<p>在本例中，即我们想对select()方法与update()方法使用不同的拦截策略，那么我们先定义一个新的Proxy：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">public class DaoAnotherProxy implements MethodInterceptor &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public Object intercept(Object object, Method method, Object[] objects, MethodProxy proxy) throws Throwable &#123;</span><br><span class="line">        </span><br><span class="line">        System.out.println(&quot;StartTime=[&quot; + System.currentTimeMillis() + &quot;]&quot;);</span><br><span class="line">        method.invoke(object, objects);</span><br><span class="line">        System.out.println(&quot;EndTime=[&quot; + System.currentTimeMillis() + &quot;]&quot;);</span><br><span class="line">        return object;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>方法调用前后输出一下开始时间与结束时间。为了实现我们的需求，实现一下CallbackFilter：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">public class DaoFilter implements CallbackFilter &#123;</span><br><span class="line"></span><br><span class="line">    @Override</span><br><span class="line">    public int accept(Method method) &#123;</span><br><span class="line">        if (&quot;select&quot;.equals(method.getName())) &#123;</span><br><span class="line">            return 0;</span><br><span class="line">        &#125;</span><br><span class="line">        return 1;</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>返回的数值表示顺序，结合下面的代码解释，测试代码要修改一下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">public class CglibTest &#123;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void testCglib() &#123;</span><br><span class="line">        DaoProxy daoProxy = new DaoProxy();</span><br><span class="line">        DaoAnotherProxy daoAnotherProxy = new DaoAnotherProxy();</span><br><span class="line">        </span><br><span class="line">        Enhancer enhancer = new Enhancer();</span><br><span class="line">        enhancer.setSuperclass(Dao.class);</span><br><span class="line">        enhancer.setCallbacks(new Callback[]&#123;daoProxy, daoAnotherProxy, NoOp.INSTANCE&#125;);</span><br><span class="line">        enhancer.setCallbackFilter(new DaoFilter());</span><br><span class="line">        </span><br><span class="line">        Dao dao = (Dao)enhancer.create();</span><br><span class="line">        dao.update();</span><br><span class="line">        dao.select();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>意思是CallbackFilter的accept方法返回的数值表示的是顺序，顺序和setCallbacks里面Proxy的顺序是一致的。再解释清楚一点，Callback数组中有三个callback，那么：</p>
+<ul>
+<li>方法名为”select”的方法返回的顺序为0，即使用Callback数组中的0位callback，即DaoProxy</li>
+<li>方法名不为”select”的方法返回的顺序为1，即使用Callback数组中的1位callback，即DaoAnotherProxy</li>
+</ul>
+<p>因此，方法的执行结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">StartTime=[1491198489261]</span><br><span class="line">PeopleDao.update()</span><br><span class="line">EndTime=[1491198489275]</span><br><span class="line">Before Method Invoke</span><br><span class="line">PeopleDao.select()</span><br><span class="line">After Method Invoke</span><br></pre></td></tr></table></figure>
+<p>符合我们的预期，因为update()方法不是方法名为”select”的方法，因此返回1，返回1使用DaoAnotherProxy，即打印时间；select()方法是方法名为”select”的方法，因此返回0，返回0使用DaoProxy，即方法调用前后输出两句话。</p>
+<p>这里要额外提一下，Callback数组中我特意定义了一个NoOp.INSTANCE，这表示一个空Callback，即如果不想对某个方法进行拦截，可以在DaoFilter中返回2，具体效果可以自己尝试一下。</p>
+<p><strong>构造函数不拦截方法</strong></p>
+<p>如果Update()方法与select()方法在构造函数中被调用，那么也是会对这两个方法进行相应的拦截的，现在我想要的是构造函数中调用的方法不会被拦截，那么应该如何做？先改一下Dao代码，加一个构造方法Dao()，调用一下update()方法：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">public class Dao &#123;</span><br><span class="line">    </span><br><span class="line">    public Dao() &#123;</span><br><span class="line">        update();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void update() &#123;</span><br><span class="line">        System.out.println(&quot;PeopleDao.update()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    public void select() &#123;</span><br><span class="line">        System.out.println(&quot;PeopleDao.select()&quot;);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>如果想要在构造函数中调用update()方法时，不拦截的话，Enhancer中有一个setInterceptDuringConstruction(boolean interceptDuringConstruction)方法设置为false即可，默认为true，即构造函数中调用方法也是会拦截的。那么测试方法这么写：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">public class CglibTest &#123;</span><br><span class="line"></span><br><span class="line">    @Test</span><br><span class="line">    public void testCglib() &#123;</span><br><span class="line">        DaoProxy daoProxy = new DaoProxy();</span><br><span class="line">        DaoAnotherProxy daoAnotherProxy = new DaoAnotherProxy();</span><br><span class="line">        </span><br><span class="line">        Enhancer enhancer = new Enhancer();</span><br><span class="line">        enhancer.setSuperclass(Dao.class);</span><br><span class="line">        enhancer.setCallbacks(new Callback[]&#123;daoProxy, daoAnotherProxy, NoOp.INSTANCE&#125;);</span><br><span class="line">        enhancer.setCallbackFilter(new DaoFilter());</span><br><span class="line">        enhancer.setInterceptDuringConstruction(false);</span><br><span class="line">        </span><br><span class="line">        Dao dao = (Dao)enhancer.create();</span><br><span class="line">        dao.update();</span><br><span class="line">        dao.select();</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>运行结果为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">PeopleDao.update()</span><br><span class="line">StartTime=[1491202022297]</span><br><span class="line">PeopleDao.update()</span><br><span class="line">EndTime=[1491202022311]</span><br><span class="line">Before Method Invoke</span><br><span class="line">PeopleDao.select()</span><br><span class="line">After Method Invoke</span><br></pre></td></tr></table></figure>
+<p>看到第一次update()方法的调用，即Dao类构造方法中的调用没有拦截，符合预期。</p>
+<h2 id="JDK动态代理"><a href="#JDK动态代理" class="headerlink" title="JDK动态代理"></a>JDK动态代理</h2><p>jdk动态代理的步骤：</p>
+<p>1.实现InvocationHandler,重写其中的invoke（Object proxy,Method method,Object[] objects）方法（相当于切面），其中proxy是代理对象引用，method是目标方法，objects是目标方法的参数</p>
+<p>2.使用Proxy.newProxyInstance(ClassLoader, new Class[] , InvocationHandler)来生成代理对象。其中classLoader是目标类的类加载器，new Class[]是代理对象实需要实现的接口，InvocationHandler是我们自己实现的那个Handler。</p>
+<p>3.代理对象调用目标方法。</p>
+<p>贴一个简单的代码：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">interface</span> <span class="title">IHello</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Hello</span> <span class="keyword">implements</span> <span class="title">IHello</span></span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">sayHello</span><span class="params">()</span> </span>&#123;</span><br><span class="line">		<span class="comment">// TODO Auto-generated method stub</span></span><br><span class="line">		System.out.println(<span class="string">"hello"</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">MyHandler</span> <span class="keyword">implements</span> <span class="title">InvocationHandler</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="keyword">private</span> Object obj =<span class="keyword">null</span>;</span><br><span class="line">	</span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="title">MyHandler</span><span class="params">(Object o)</span> </span>&#123;</span><br><span class="line">		<span class="keyword">this</span>.obj = o;</span><br><span class="line">	&#125;</span><br><span class="line">	</span><br><span class="line">	</span><br><span class="line">	<span class="meta">@Override</span></span><br><span class="line">	<span class="function"><span class="keyword">public</span> Object <span class="title">invoke</span><span class="params">(Object arg0, Method method, Object[] arg2)</span> <span class="keyword">throws</span> Throwable </span>&#123;</span><br><span class="line">		System.out.println(<span class="string">"before"</span>);</span><br><span class="line">        <span class="comment">//注意：如果在这里传的obj是arg0会引起循环调用，因为arg0的method就是这个参数methods</span></span><br><span class="line">		<span class="comment">//所以必须在实例化handler的时候传入子类的实例对象</span></span><br><span class="line">        Object  o = method.invoke(obj, arg2);</span><br><span class="line">		System.out.println(<span class="string">"after"</span>);</span><br><span class="line">		<span class="keyword">return</span> o;</span><br><span class="line">	&#125;</span><br><span class="line"></span><br><span class="line">    </span><br><span class="line">    </span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Main</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">	<span class="function"><span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title">main</span><span class="params">(String[] args)</span> </span>&#123;</span><br><span class="line">		IHello proxy = (IHello) Proxy.newProxyInstance(IHello.class.getClassLoader(), <span class="keyword">new</span> Class[] &#123;IHello.class&#125;, <span class="keyword">new</span> MyHandler(<span class="keyword">new</span> Hello()));</span><br><span class="line">		proxy.sayHello();</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br><span class="line">运行结果：</span><br><span class="line">before</span><br><span class="line">hello</span><br><span class="line">after</span><br></pre></td></tr></table></figure>
+<p><strong>动态代理机制：</strong><br>当通过代理对象proxy调用方法时：proxy.sayHello();<br>都将会被重定向到InvocationProxyHandler类对象（调用处理器）的invoke（）函数。 </p>
+<p>这里的Hello必须继承接口，使用接口IHello进行动态代理，否则会报错。</p>
+<p>因为jdk动态代理是通过接口来生成代理对象的，如下图：</p>
+<p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/jdk%E5%8A%A8%E6%80%81%E4%BB%A3%E7%90%86.png" alt=""></p>
+<h4 id="为什么一定要使用接口吗？"><a href="#为什么一定要使用接口吗？" class="headerlink" title="为什么一定要使用接口吗？"></a><strong>为什么一定要使用接口吗？</strong></h4><p>看一个反编译出来的代理类：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">public final class $Proxy0 extends Proxy implements IHello &#123;</span><br><span class="line"></span><br><span class="line">    private static final long serialVersionUID = 5351158173626517207L;</span><br><span class="line"></span><br><span class="line">    private static Method m1;</span><br><span class="line">    private static Method m3;</span><br><span class="line">    private static Method m0;</span><br><span class="line">    private static Method m2;</span><br><span class="line"></span><br><span class="line">    public $Proxy0(InvocationHandler paramInvocationHandler) &#123;</span><br><span class="line">        super(paramInvocationHandler);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public final boolean equals(Object paramObject) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            return ((Boolean) this.h.invoke(this, m1, new Object[] &#123; paramObject &#125;)).booleanValue();</span><br><span class="line">        &#125; catch (Error | RuntimeException localError) &#123;</span><br><span class="line">            throw localError;</span><br><span class="line">        &#125; catch (Throwable localThrowable) &#123;</span><br><span class="line">            throw new UndeclaredThrowableException(localThrowable);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public final void sayHello(String paramString1) &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            this.h.invoke(this, m3, new Object[] &#123; paramString1&#125;);</span><br><span class="line">            return;</span><br><span class="line">        &#125; catch (Error | RuntimeException localError) &#123;</span><br><span class="line">            throw localError;</span><br><span class="line">        &#125; catch (Throwable localThrowable) &#123;</span><br><span class="line">            throw new UndeclaredThrowableException(localThrowable);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public final int hashCode() &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            return ((Integer) this.h.invoke(this, m0, null)).intValue();</span><br><span class="line">        &#125; catch (Error | RuntimeException localError) &#123;</span><br><span class="line">            throw localError;</span><br><span class="line">        &#125; catch (Throwable localThrowable) &#123;</span><br><span class="line">            throw new UndeclaredThrowableException(localThrowable);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public final String toString() &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            return (String) this.h.invoke(this, m2, null);</span><br><span class="line">        &#125; catch (Error | RuntimeException localError) &#123;</span><br><span class="line">            throw localError;</span><br><span class="line">        &#125; catch (Throwable localThrowable) &#123;</span><br><span class="line">            throw new UndeclaredThrowableException(localThrowable);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    static &#123;</span><br><span class="line">        try &#123;</span><br><span class="line">            m1 = Class.forName("java.lang.Object").getMethod("equals",</span><br><span class="line">                    new Class[] &#123; Class.forName("java.lang.Object") &#125;);</span><br><span class="line">            m3 = Class.forName("IHello").getMethod("sayHello",</span><br><span class="line">                    new Class[] &#123; Class.forName("java.lang.String"), Class.forName("java.lang.String") &#125;);</span><br><span class="line">            m0 = Class.forName("java.lang.Object").getMethod("hashCode", new Class[0]);</span><br><span class="line">            m2 = Class.forName("java.lang.Object").getMethod("toString", new Class[0]);</span><br><span class="line">        &#125; catch (NoSuchMethodException localNoSuchMethodException) &#123;</span><br><span class="line">            throw new NoSuchMethodError(localNoSuchMethodException.getMessage());</span><br><span class="line">        &#125; catch (ClassNotFoundException localClassNotFoundException) &#123;</span><br><span class="line">            throw new NoClassDefFoundError(localClassNotFoundException.getMessage());</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>看到这个方法，就算破案了。这个就是jdk动态代理和为什么需要接口。因为<br>1.在需要继承proxy类获得有关方法和InvocationHandler构造方法传参的同时,java不能同时继承两个类，我们需要和想要代理的类建立联系，只能实现一个接口</p>
+<p>2.需要反射获得代理类的有关参数，必须要通过某个类，反射获取有关方法，如本次测试用的 :printSomeThing</p>
+<p>3.成功返回的是object类型，要获取原类，只能继承/实现，或者就是那个代理类</p>
+<p>4.对具体实现的方法内部并不关心，这个交给InvocationHandler.invoke那个方法里去处理就好了，我只想根据你给我的接口反射出对我有用的东西。</p>
+<p>5.考虑到设计模式，以及proxy编者编写代码的逻辑使然</p>
+<p>关于CGLIB的原理我还没有弄懂，目前只知道CGLIB的代理类继承了目标类，以后有机会再了解了。</p>
+<blockquote>
+<p>最后我们总结一下JDK动态代理和Cglib动态代理的区别：<br>1.JDK动态代理是实现了被代理对象的接口，Cglib是继承了被代理对象。<br>2.JDK和Cglib都是在运行期生成字节码，JDK是直接写Class字节码，Cglib使用ASM框架写Class字节码，Cglib代理实现更复杂，生成代理类比JDK效率低。<br>3.JDK调用代理方法，是通过反射机制调用，Cglib是通过FastClass机制直接调用方法，Cglib执行效率更高。</p>
+</blockquote>
+
+      
+    </div>
+    
+    
+    
+
+    
+
+    
+
+    
+
+    <footer class="post-footer">
+      
+        <div class="post-tags">
+          
+            <a href="/tags/Spring/" rel="tag"># Spring</a>
+          
+        </div>
+      
+
+      
+      
+      
+
+      
+        <div class="post-nav">
+          <div class="post-nav-next post-nav-item">
+            
+              <a href="/2018/12/09/mybatis学习/" rel="next" title="mybatis学习">
+                <i class="fa fa-chevron-left"></i> mybatis学习
+              </a>
+            
+          </div>
+
+          <span class="post-nav-divider"></span>
+
+          <div class="post-nav-prev post-nav-item">
+            
+          </div>
+        </div>
+      
+
+      
+      
+    </footer>
+  </div>
+  
+  
+  
+  </article>
+
+
+
+    <div class="post-spread">
+      
+    </div>
+  </div>
+
+
+          </div>
+          
+
+
+          
+
+  
+    <div class="comments" id="comments">
+      <div id="SOHUCS"></div>
+    </div>
+
+  
+
+
+
+        </div>
+        
+          
+  
+  <div class="sidebar-toggle">
+    <div class="sidebar-toggle-line-wrap">
+      <span class="sidebar-toggle-line sidebar-toggle-line-first"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-middle"></span>
+      <span class="sidebar-toggle-line sidebar-toggle-line-last"></span>
+    </div>
+  </div>
+
+  <aside id="sidebar" class="sidebar">
+    
+    <div class="sidebar-inner">
+
+      
+
+      
+        <ul class="sidebar-nav motion-element">
+          <li class="sidebar-nav-toc sidebar-nav-active" data-target="post-toc-wrap">
+            文章目录
+          </li>
+          <li class="sidebar-nav-overview" data-target="site-overview-wrap">
+            站点概览
+          </li>
+        </ul>
+      
+
+      <section class="site-overview-wrap sidebar-panel">
+        <div class="site-overview">
+          <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+            
+              <img class="site-author-image" itemprop="image"
+                src="/images/touxiang.png"
+                alt="黄国航" />
+            
+              <p class="site-author-name" itemprop="name">黄国航</p>
+              <p class="site-description motion-element" itemprop="description"></p>
+          </div>
+
+          <nav class="site-state motion-element">
+
+            
+              <div class="site-state-item site-state-posts">
+              
+                <a href="/archives/">
+              
+                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-name">日志</span>
+                </a>
+              </div>
+            
+
+            
+
+            
+              
+              
+              <div class="site-state-item site-state-tags">
+                <a href="/tags/index.html">
+                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-name">标签</span>
+                </a>
+              </div>
+            
+
+          </nav>
+
+          
+
+          
+            <div class="links-of-author motion-element">
+                
+                  <span class="links-of-author-item">
+                    <a href="https://github.com/Hghhhh" target="_blank" title="GitHub">
+                      
+                        <i class="fa fa-fw fa-github"></i>GitHub</a>
+                  </span>
+                
+                  <span class="links-of-author-item">
+                    <a href="mailto:huangguohang123@outlook.com" target="_blank" title="E-Mail">
+                      
+                        <i class="fa fa-fw fa-envelope"></i>E-Mail</a>
+                  </span>
+                
+            </div>
+          
+
+          
+          
+
+          
+          
+
+          
+
+        </div>
+      </section>
+
+      
+      <!--noindex-->
+        <section class="post-toc-wrap motion-element sidebar-panel sidebar-panel-active">
+          <div class="post-toc">
+
+            
+              
+            
+
+            
+              <div class="post-toc-content"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#为什么用AOP？"><span class="nav-text">为什么用AOP？</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AOP的实现"><span class="nav-text">AOP的实现</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#AOP中的抽象概念"><span class="nav-text">AOP中的抽象概念</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#通知（advice）分为下面5种"><span class="nav-text">通知（advice）分为下面5种</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#AspectJ"><span class="nav-text">AspectJ</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#CGLIB动态代理的基本使用（摘自五月的仓颉）"><span class="nav-text">CGLIB动态代理的基本使用（摘自五月的仓颉）</span></a></li><li class="nav-item nav-level-2"><a class="nav-link" href="#JDK动态代理"><span class="nav-text">JDK动态代理</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#为什么一定要使用接口吗？"><span class="nav-text">为什么一定要使用接口吗？</span></a></li></ol></li></ol></li></ol></div>
+            
+
+          </div>
+        </section>
+      <!--/noindex-->
+      
+
+      
+
+    </div>
+  </aside>
+
+
+        
+      </div>
+    </main>
+
+    <footer id="footer" class="footer">
+      <div class="footer-inner">
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+  <span class="with-love">
+    <i class="fa fa-user"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">黄国航</span>
+
+  
+</div>
+
+
+  <div class="powered-by">由 <a class="theme-link" target="_blank" href="https://hexo.io">Hexo</a> 强力驱动</div>
+
+
+
+  <span class="post-meta-divider">|</span>
+
+
+
+  <div class="theme-info">主题 &mdash; <a class="theme-link" target="_blank" href="https://github.com/iissnan/hexo-theme-next">NexT.Muse</a></div>
+
+
+
+
+        
+
+
+
+
+
+
+
+        
+      </div>
+    </footer>
+
+    
+      <div class="back-to-top">
+        <i class="fa fa-arrow-up"></i>
+        
+      </div>
+    
+
+    
+
+  </div>
+
+  
+
+<script type="text/javascript">
+  if (Object.prototype.toString.call(window.Promise) !== '[object Function]') {
+    window.Promise = null;
+  }
+</script>
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+
+
+
+
+
+
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery/index.js?v=2.1.3"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fastclick/lib/fastclick.min.js?v=1.0.6"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/jquery_lazyload/jquery.lazyload.js?v=1.9.7"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/velocity/velocity.ui.min.js?v=1.2.1"></script>
+  
+
+  
+  
+    <script type="text/javascript" src="/lib/fancybox/source/jquery.fancybox.pack.js?v=2.1.5"></script>
+  
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/utils.js?v="></script>
+
+  <script type="text/javascript" src="/js/src/motion.js?v="></script>
+
+
+
+  
+  
+
+  
+  <script type="text/javascript" src="/js/src/scrollspy.js?v="></script>
+<script type="text/javascript" src="/js/src/post-details.js?v="></script>
+
+
+
+  
+
+
+  <script type="text/javascript" src="/js/src/bootstrap.js?v="></script>
+
+
+
+  
+
+
+  
+
+
+
+
+	
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+
+
+
+  
+    <script type="text/javascript">
+    (function(){
+      var appid = 'cytyqQfqe';
+      var conf = '6a41e203093499026ca336cb276dfdc4';
+      var width = window.innerWidth || document.documentElement.clientWidth;
+      if (width < 960) {
+      window.document.write('<script id="changyan_mobile_js" charset="utf-8" type="text/javascript" src="https://changyan.sohu.com/upload/mobile/wap-js/changyan_mobile.js?client_id=' + appid + '&conf=' + conf + '"><\/script>'); } else { var loadJs=function(d,a){var c=document.getElementsByTagName("head")[0]||document.head||document.documentElement;var b=document.createElement("script");b.setAttribute("type","text/javascript");b.setAttribute("charset","UTF-8");b.setAttribute("src",d);if(typeof a==="function"){if(window.attachEvent){b.onreadystatechange=function(){var e=b.readyState;if(e==="loaded"||e==="complete"){b.onreadystatechange=null;a()}}}else{b.onload=a}}c.appendChild(b)};loadJs("https://changyan.sohu.com/upload/changyan.js",function(){
+        window.changyan.api.config({appid:appid,conf:conf})});
+      }
+    })();
+    </script>
+    <script type="text/javascript" src="https://assets.changyan.sohu.com/upload/plugins/plugins.count.js"></script>
+  
+
+
+
+
+
+
+
+
+
+  
+
+
+
+
+
+  
+
+  
+
+  
+
+  
+  
+
+  
+
+  
+
+  
+
+</body>
+</html>
