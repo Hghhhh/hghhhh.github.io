@@ -91,7 +91,7 @@
 <meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/%E6%96%B9%E6%B3%95%E8%AE%A1%E6%95%B0%E5%99%A8.JPG">
 <meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/%E5%9B%9E%E8%BE%B9%E8%AE%A1%E6%95%B0%E5%99%A8.JPG">
 <meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/JIT%E7%BC%96%E8%AF%91%E8%BF%87%E7%A8%8B.JPG">
-<meta property="og:updated_time" content="2018-09-10T16:01:18.048Z">
+<meta property="og:updated_time" content="2019-02-14T17:43:43.648Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="晚期（运行期）优化">
 <meta name="twitter:description" content="整理自《深入理解java虚拟机第二版》 一、概述​    当虚拟机发现某个方法或代码块的运行特别频繁时，就会把这些代码认定为“热点代码”（Hot Spot Code）。运行时，虚拟机会将这些代码编译成本地平台相关的机器码，并进行各种层次的优化，完成这个过程的编译器称为即时编译器（Just In Time Compiler,JIT）。">
@@ -357,8 +357,8 @@
 <p>​    对于后一种情况，尽管编译动作是由循环体触发的，但编译器依然会以整个方法作为编译对象，这种编译方式称为栈上替换（OSR），即方法栈帧还在栈上，方法就被替换掉了。</p>
 <p>###2.3.1那么如何判断一段代码是不是热点代码？</p>
 <ul>
-<li>基于采样的热点探测（SampleBasedHotSpotDetection)：采用这种方法的虚拟机会周期性地检查各个线程的栈顶，如果发现某个（或某些）方法经常出现在栈顶，那这个方法就是“热点方法”。基于采样的热点探测的好处是实现简单、高效，还可以很容易地获取方法调用关系（将调用堆栈展开即可），缺点是很难精确地确认一个方法的热度，容易因为受到线程阻塞或别的外界因素的影响而扰乱热点探测。</li>
-<li>基于计数器的热点探测（CounterBasedHotSpotDetection)：采用这种方法的虚拟机会为每个方法（甚至是代码块）建立计数器，统计方法的执行次数，如果执行次数超过一定的阈值就认为它是“热点方法”。这种统计方法实现起来麻烦一些，需要为每个方法建立并维护计数器，而且不能直接获取到方法的调用关系，但是它的统计结果相对来说更加精确和严谨。</li>
+<li>基于采样的热点探测（SampleBasedHotSpotDetection)：采用这种方法的虚拟机会<strong>周期性地检查各个线程的栈顶，如果发现某个（或某些）方法经常出现在栈顶，那这个方法就是“热点方法”。</strong>基于采样的热点探测的好处是实现简单、高效，还可以很容易地获取方法调用关系（将调用堆栈展开即可），缺点是很难精确地确认一个方法的热度，容易因为受到线程阻塞或别的外界因素的影响而扰乱热点探测。</li>
+<li>基于计数器的热点探测（CounterBasedHotSpotDetection)：<strong>采用这种方法的虚拟机会为每个方法（甚至是代码块）建立计数器，统计方法的执行次数，如果执行次数超过一定的阈值就认为它是“热点方法”。</strong>这种统计方法实现起来麻烦一些，需要为每个方法建立并维护计数器，而且不能直接获取到方法的调用关系，但是它的统计结果相对来说更加精确和严谨。</li>
 </ul>
 <p>​       在HotSpot中使用的是第二种——基于计数器的热点探测技术，因此它为每个方法准备了两类计数器：方法调用计算器和回边计数器。</p>
 <h4 id="2-3-1-1方法调用计数器"><a href="#2-3-1-1方法调用计数器" class="headerlink" title="2.3.1.1方法调用计数器"></a>2.3.1.1方法调用计数器</h4><p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/%E6%96%B9%E6%B3%95%E8%AE%A1%E6%95%B0%E5%99%A8.JPG" alt="方法调用计数器"></p>
@@ -395,7 +395,7 @@
 <p>​    编译器在进行内联时，如果是非虚方法，那么直接进行内联就可以了，这时候的内联是有稳定前提保障的。 如果遇到虚方法，则会向CHA查询此方法在当前程序下是否有多个目标版本可供选择，如果查询结果只有一个版本，那也可以进行内联，不过这种内联就属于激进优化，需要预留一个“逃生门”（Guard条件不成立时的Slow Path），称为<strong>守护内联</strong>（GuardedInlining）。 </p>
 <p>​    如果向CHA查询出来的结果是有多个版本的目标方法可供选择，则编译器还将会进行最后一次努力，使用<strong>内联缓存</strong>（Inline Cache）来完成方法内联，这是一个建立在目标方法正常入口之前的缓存，它的工作原理大致是：在未发生方法调用之前，内联缓存状态为空，当第一次调用发生后，缓存记录下方法接收者的版本信息，并且每次进行方法调用时都比较接收者版本，如果以后进来的每次调用的方法接收者版本都是一样的，那这个内联还可以一直用下去。 如果发生了方法接收者不一致的情况，就说明程序真正使用了虚方法的多态特性，这时才会取消内联，查找虚方法表进行方法分派。 </p>
 <h2 id="3-4逃逸分析"><a href="#3-4逃逸分析" class="headerlink" title="3.4逃逸分析"></a>3.4逃逸分析</h2><p>​    逃逸分析的基本行为就是分析对象动态作用域：当一个对象在方法中被定义后，它可能被外部方法所引用，例如作为调用参数传递到其他方法中，称为方法逃逸。 甚至还有可能被外部线程访问到，譬如赋值给类变量或可以在其他线程中访问的实例变量，称为线程逃逸。 </p>
-<p>​    如果能证明一个对象不会逃逸到方法或线程之外，也就是别的方法或线程无法通过任何途径访问到这个对象，则可能为这个变量进行一些高效的优化，如下所示：</p>
+<p>​    <strong>如果能证明一个对象不会逃逸到方法或线程之外，也就是别的方法或线程无法通过任何途径访问到这个对象，则可能为这个变量进行一些高效的优化，</strong>如下所示：</p>
 <ul>
 <li>栈上分配（Stack Allocation）： 如果确定一个对象不会逃逸出方法之外，那让这个对象在栈上分配内存将会是一个很不错的主意，对象所占用的内存空间就可以随栈帧出栈而销毁。 在一般应用中，不会逃逸的局部对象所占的比例很大，如果能使用栈上分配，那大量的对象就会随着方法的结束而自动销毁了，垃圾收集系统的压力将会小很多。 </li>
 <li>同步消除（SynchronizationElimination）：线程同步本身是一个相对耗时的过程，逃逸分析能够确定一个变量不会逃逸出线程，无法被其他线程访问，那这个变量的读写肯定就不会有竞争，对这个变量实施的同步措施也就可以消除掉。</li>
@@ -529,7 +529,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -542,7 +542,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -611,7 +611,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>

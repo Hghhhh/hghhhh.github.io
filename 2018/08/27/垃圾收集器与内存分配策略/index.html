@@ -92,7 +92,7 @@
 <meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/%E6%8D%95%E8%8E%B7.JPG">
 <meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/%E5%A4%8D%E5%88%B6.JPG">
 <meta property="og:image" content="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/%E6%A0%87%E8%AE%B0%E6%95%B4%E7%90%86.JPG">
-<meta property="og:updated_time" content="2018-08-30T14:58:39.296Z">
+<meta property="og:updated_time" content="2019-02-14T09:08:03.449Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JVM的垃圾收集">
 <meta name="twitter:description" content="整理自《深入理解Java虚拟机–JVM高级特性与最佳实践第二版》     ​    Java内存运行时区域中的程序计数器、虚拟机栈、本地方法栈3个区域随线程而生，随线程而灭；栈帧分配多少内存基本是在类结构确定下来就已知的。因此在这几个区域的内存分配和回收都具备确定性，在这几个区域内就不需要考虑过多内存回收的问题，因为方法结束或线程结束，内存自然就跟着回收了。而Java堆和方法区则不同，一个接口中的">
@@ -342,11 +342,11 @@
 <h1 id="一、对象已死吗？"><a href="#一、对象已死吗？" class="headerlink" title="一、对象已死吗？"></a>一、对象已死吗？</h1><p>​    在堆里面存放着Java世界中几乎所有的对象实例，垃圾回收前，第一件事情就是确认哪些对象“活着”，哪些对象已“死去”。</p>
 <a id="more"></a>
 <p>##1.引用计数法</p>
-<p>​    所谓引用计数法是这样的：给每个对象添加一个引用计数器，每当有一个地方引用它是，计数器就加1；引用失效时，计数器就减1；当计数器为0是，该对象失效。</p>
+<p>​    所谓引用计数法是这样的：<strong>给每个对象添加一个引用计数器，每当有一个地方引用它是，计数器就加1；引用失效时，计数器就减1；当计数器为0是，该对象失效。</strong></p>
 <p>​    但是，主流的Java虚拟机并不是使用引用计数法进行内存管理的，其中主要的原因是它很难解决对象之间相互循环引用的问题。</p>
 <p>​    如下图Java堆中的这块区域对象实例之间存在相互引用，导致这四个对象的程序计数器的值都不为0，而虚拟机栈中已经不存在这四个对象的引用，但是这四个对象所占的内存仍得不到清理。</p>
 <p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/%E5%BC%95%E7%94%A8%E8%AE%A1%E6%95%B0%E6%B3%95.jpg" alt="引用计数法"></p>
-<h2 id="2-可达性分析算法"><a href="#2-可达性分析算法" class="headerlink" title="2.可达性分析算法"></a>2.可达性分析算法</h2><p>​    这个算法的基本思想就是通过一系列的称为“GC Roots“的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链，当一个对象到GC Root没有任何引用链相连时，则证明此对象是不可用的。</p>
+<h2 id="2-可达性分析算法"><a href="#2-可达性分析算法" class="headerlink" title="2.可达性分析算法"></a>2.可达性分析算法</h2><p>​    这个算法的基本思想就是<strong>通过一系列的称为“GC Roots“的对象作为起始点，从这些节点开始向下搜索，搜索所走过的路径称为引用链，当一个对象到GC Root没有任何引用链相连时，则证明此对象是不可用的。</strong></p>
 <p>​    如下图对象D、E、F虽然互相关联，但是它们到GC Roots是不可达的，所以它们将会被判定为可回收对象。</p>
 <p><img src="https://3116004636-1256103796.cos.ap-guangzhou.myqcloud.com/%E6%9C%AA%E5%91%BD%E5%90%8D%E6%96%87%E4%BB%B6.jpg" alt="可达性分析算法"></p>
 <p>​    在Java语言中，可作为GC Roots的对象包括下面几种：</p>
@@ -514,7 +514,7 @@
               
                 <a href="/archives/">
               
-                  <span class="site-state-item-count">23</span>
+                  <span class="site-state-item-count">26</span>
                   <span class="site-state-item-name">日志</span>
                 </a>
               </div>
@@ -527,7 +527,7 @@
               
               <div class="site-state-item site-state-tags">
                 <a href="/tags/index.html">
-                  <span class="site-state-item-count">12</span>
+                  <span class="site-state-item-count">14</span>
                   <span class="site-state-item-name">标签</span>
                 </a>
               </div>
@@ -596,7 +596,7 @@
 
     <footer id="footer" class="footer">
       <div class="footer-inner">
-        <div class="copyright">&copy; <span itemprop="copyrightYear">2018</span>
+        <div class="copyright">&copy; <span itemprop="copyrightYear">2019</span>
   <span class="with-love">
     <i class="fa fa-user"></i>
   </span>
